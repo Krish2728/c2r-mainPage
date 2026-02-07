@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.625rem;
+        /* Tree palette (mentor_module): leaves green #2d5016/#4a7c2a/#6b9c4a, bark/tan #8b6f47/#d4a574, bg #f5f0e8 */
+        --background: 0.96 0.012 85;
+        --foreground: 0.20 0.01 50;
+        --card: 1 0 0;
+        --card-foreground: 0.20 0.01 50;
+        --popover: 1 0 0;
+        --popover-foreground: 0.20 0.01 50;
+        --primary: 0.42 0.14 128;
+        --primary-foreground: 0.985 0 0;
+        --secondary: 0.92 0.04 75;
+        --secondary-foreground: 0.28 0.06 55;
+        --muted: 0.94 0.02 75;
+        --muted-foreground: 0.45 0.03 55;
+        --accent: 0.58 0.09 60;
+        --accent-foreground: 0.98 0.01 85;
+        --destructive: 0.577 0.245 27.325;
+        --destructive-foreground: 0.985 0 0;
+        --border: 0.86 0.03 75;
+        --input: 0.86 0.03 75;
+        --ring: 0.42 0.14 128;
+        --chart-1: 0.48 0.14 128;
+        --chart-2: 0.55 0.09 62;
+        --chart-3: 0.58 0.13 125;
+        --chart-4: 0.72 0.09 55;
+        --chart-5: 0.45 0.12 130;
+        --chart-6: 0.18 0 0;
+        --sidebar: 0.97 0.02 80;
+        --sidebar-foreground: 0.20 0.01 50;
+        --sidebar-primary: 0.42 0.14 128;
+        --sidebar-primary-foreground: 0.985 0 0;
+        --sidebar-accent: 0.92 0.04 75;
+        --sidebar-accent-foreground: 0.28 0.06 55;
+        --sidebar-border: 0.86 0.03 75;
+        --sidebar-ring: 0.42 0.14 128;
+        
+        /* C2R tree theme: green (leaves) + brown/tan (bark) + black */
+        --c2r-primary: 0.35 0.13 130;
+        --c2r-secondary: 0.48 0.14 128;
+        --c2r-accent: 0.58 0.09 60;
+        --c2r-black: 0.18 0 0;
+    }
+
+    .dark {
+        --background: 0.22 0.03 55;
+        --foreground: 0.96 0.01 85;
+        --card: 0.28 0.03 55;
+        --card-foreground: 0.96 0.01 85;
+        --popover: 0.28 0.03 55;
+        --popover-foreground: 0.96 0.01 85;
+        --primary: 0.55 0.14 128;
+        --primary-foreground: 0.98 0 0;
+        --secondary: 0.35 0.05 60;
+        --secondary-foreground: 0.96 0.01 85;
+        --muted: 0.35 0.04 55;
+        --muted-foreground: 0.7 0.03 75;
+        --accent: 0.62 0.10 58;
+        --accent-foreground: 0.98 0.01 85;
+        --destructive: 0.704 0.191 22.216;
+        --destructive-foreground: 0.205 0 0;
+        --border: 0.38 0.04 55;
+        --input: 0.38 0.04 55;
+        --ring: 0.55 0.14 128;
+        --chart-1: 0.55 0.14 128;
+        --chart-2: 0.62 0.10 58;
+        --chart-3: 0.60 0.12 125;
+        --chart-4: 0.72 0.09 55;
+        --chart-5: 0.50 0.13 130;
+        --chart-6: 0.92 0 0;
+        --sidebar: 0.24 0.03 55;
+        --sidebar-foreground: 0.96 0.01 85;
+        --sidebar-primary: 0.55 0.14 128;
+        --sidebar-primary-foreground: 0.98 0 0;
+        --sidebar-accent: 0.35 0.05 60;
+        --sidebar-accent-foreground: 0.96 0.01 85;
+        --sidebar-border: 0.38 0.04 55;
+        --sidebar-ring: 0.55 0.14 128;
+        
+        /* C2R dark: tree green + brown + black */
+        --c2r-primary: 0.50 0.14 128;
+        --c2r-secondary: 0.60 0.13 128;
+        --c2r-accent: 0.62 0.10 58;
+        --c2r-black: 0.28 0 0;
+    }
+
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+/* Storytelling Animation Styles */
+@layer utilities {
+    /* Scroll Reveal Animations */
+    .reveal {
+        opacity: 0;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal-up {
+        transform: translateY(60px);
+    }
+
+    .reveal-down {
+        transform: translateY(-60px);
+    }
+
+    .reveal-left {
+        transform: translateX(-60px);
+    }
+
+    .reveal-right {
+        transform: translateX(60px);
+    }
+
+    .reveal-fade {
+        transform: scale(0.95);
+    }
+
+    .reveal-visible {
+        opacity: 1;
+        transform: translateY(0) translateX(0) scale(1);
+    }
+
+    /* Smooth Scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Text Gradient Animation */
+    @keyframes gradient-shift {
+        0%, 100% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+
+    .animate-gradient {
+        background-size: 200% 200%;
+        animation: gradient-shift 8s ease infinite;
+    }
+
+    /* Fade In Animation */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 1s ease-out;
+    }
+
+    /* Pulse Glow Effect */
+    @keyframes pulse-glow {
+        0%, 100% {
+            box-shadow: 0 0 20px oklch(var(--c2r-accent) / 0.3);
+        }
+        50% {
+            box-shadow: 0 0 40px oklch(var(--c2r-accent) / 0.6);
+        }
+    }
+
+    .animate-pulse-glow {
+        animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    /* Hide scrollbar but keep functionality */
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+}
