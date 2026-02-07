@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { usePaymentSuccess } from '@/hooks/useQueries';
 import { CheckCircle, Loader2, Home } from 'lucide-react';
 
-const API_BASE = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '';
+const API_BASE = ((typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '').trim().replace(/\/$/, '');
 
 export default function DonationSuccessPage() {
   const navigate = useNavigate();

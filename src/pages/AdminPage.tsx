@@ -17,7 +17,7 @@ import type { ResourceVideo } from '@/hooks/useQueries';
 import { getYouTubeVideoId, getYouTubeThumbnailUrlSafe, getYouTubeThumbnailUrl, isValidYouTubeId } from '@/lib/youtube';
 
 const ADMIN_TOKEN_KEY = 'c2r_admin_token';
-const API_BASE = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '';
+const API_BASE = ((typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '').trim().replace(/\/$/, '');
 
 function getAuthHeaders(): HeadersInit {
   const token = localStorage.getItem(ADMIN_TOKEN_KEY);

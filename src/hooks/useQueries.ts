@@ -2,7 +2,7 @@
 // When VITE_API_URL is set, contact/partnership/mentor/donation forms hit the c2r-admin-backend.
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-const API_BASE = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '';
+const API_BASE = ((typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '').trim().replace(/\/$/, '');
 
 export type Program = {
   id: number;
