@@ -2,7 +2,7 @@ import { Outlet, Link, useNavigate } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Menu, Heart, ChevronDown, Users, Target, Briefcase, Award, MapPin, Compass } from 'lucide-react';
+import { Menu, ChevronDown, Users, Target, Briefcase, Award, MapPin, Compass } from 'lucide-react';
 import { SiFacebook, SiX, SiLinkedin, SiInstagram } from 'react-icons/si';
 import { useState } from 'react';
 import { Toaster } from '@/components/ui/sonner';

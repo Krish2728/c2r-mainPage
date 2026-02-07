@@ -29,8 +29,6 @@ export function getYouTubeVideoId(input: string): string {
   return trimmed;
 }
 
-const THUMB_SIZES = ['maxresdefault', 'sddefault', 'hqdefault', 'mqdefault'] as const;
-
 /**
  * URL for a YouTube thumbnail. Prefer higher quality; use quality hint for fallback.
  */

@@ -23,7 +23,7 @@ Frontend repo: [Krish2728/c2r-mainPage](https://github.com/Krish2728/c2r-mainPag
 2. **Build command:** `npm install && npm run build`  
    **Publish directory:** `dist`
 3. **Environment**: Add `VITE_API_URL` = `https://your-backend.onrender.com`.
-4. Deploy. Then set **CORS_ORIGIN** on the backend to this site’s URL.
+4. Deploy. Then set **CORS_ORIGIN** on the backend to this site's URL.
 
 ---
 
@@ -31,4 +31,11 @@ Frontend repo: [Krish2728/c2r-mainPage](https://github.com/Krish2728/c2r-mainPag
 
 1. Deploy **backend** first ([c2r-mainPage-backend](https://github.com/Krish2728/c2r-mainPage-backend)) so you have a backend URL.
 2. Deploy **frontend** (this repo) with `VITE_API_URL` = backend URL.
-3. In the backend’s Environment, set **CORS_ORIGIN** = frontend URL (e.g. `https://c2r-mainpage.onrender.com`).
+3. In the backend's Environment, set **CORS_ORIGIN** = frontend URL (e.g. `https://c2r-mainpage.onrender.com`).
+
+---
+
+## Deploy failed? Troubleshooting
+
+1. **Get the real error** — In Render: open the **Blueprint** or **c2r-mainpage** service → **Events** → click the **failed deploy** → **Build logs**. Scroll to the bottom for the actual error.
+2. **Common fixes:** Fix any TypeScript/build errors (build runs `tsc && vite build`). Ensure `package-lock.json` is committed. Try creating a **Static Site** manually (Option B) with the same build command and publish dir `dist` to see logs.

@@ -3,6 +3,8 @@
 #
 # After deploy: set VITE_API_URL in Environment to your backend URL (e.g. https://c2r-admin-backend.onrender.com).
 # Vite bakes env vars at build time, so redeploy after changing them.
+#
+# If deploy fails: open the failed Deploy in Render Events and check the build logs for the real error.
 
 services:
   - type: web
@@ -11,6 +13,8 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
+      - key: NODE_VERSION
+        value: "20"
       - key: VITE_API_URL
         sync: false
       - key: VITE_MENTOR_PLATFORM_URL
