@@ -1,4 +1,3 @@
-import { Card, CardContent } from '@/components/ui/card';
 import { Handshake } from 'lucide-react';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { ParallaxSection } from '@/components/ParallaxSection';
