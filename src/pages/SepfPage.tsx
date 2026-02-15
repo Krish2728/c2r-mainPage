@@ -1,3 +1,5 @@
+import { Link, useLocation } from '@tanstack/react-router';
+import { useEffect } from 'react';
 import { ChapterHeader } from '@/components/ChapterHeader';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { getImageUrl } from '@/lib/images';
@@ -9,7 +11,20 @@ import { Button } from '@/components/ui/button';
 import { Lightbulb, Target, Users, TrendingUp, Globe, Briefcase, Leaf, Heart, Rocket, MapPin } from 'lucide-react';
 import { ParallaxSection } from '@/components/ParallaxSection';
 
+const SEPF_SECTION_IDS = ['our-mission', 'sdgs', 'focus-areas', 'join-sepf'];
+
 export default function SepfPage() {
+  const location = useLocation();
+  useEffect(() => {
+    const hash = (location.hash ?? window.location.hash ?? '').replace(/^#/, '');
+    if (!SEPF_SECTION_IDS.includes(hash)) return;
+    const timeoutId = setTimeout(() => {
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+    return () => clearTimeout(timeoutId);
+  }, [location.hash, location.pathname]);
+
   const sdgs = [
     {
       number: 4,
@@ -108,7 +123,7 @@ export default function SepfPage() {
       </section>
 
       {/* Overview Section */}
-      <section className="py-20 bg-background">
+      <section id="our-mission" className="py-20 bg-background">
         <div className="container">
           <ChapterHeader
             chapter="Our Mission"
@@ -152,7 +167,7 @@ export default function SepfPage() {
       </section>
 
       {/* UN SDGs Alignment Section */}
-      <section className="py-20 bg-muted/30">
+      <section id="sdgs" className="py-20 bg-muted/30">
         <div className="container">
           <ChapterHeader
             chapter="Global Impact"
@@ -199,7 +214,7 @@ export default function SepfPage() {
       </section>
 
       {/* Core Focus Areas Section */}
-      <section className="py-20 bg-background">
+      <section id="focus-areas" className="py-20 bg-background">
         <div className="container">
           <ChapterHeader
             chapter="Future-Ready Skills"
@@ -428,7 +443,7 @@ export default function SepfPage() {
       </section>
 
       {/* SEPF's Contribution Section */}
-      <section className="py-20 bg-gradient-to-br from-c2r-primary/10 via-background to-c2r-secondary/10">
+      <section id="join-sepf" className="py-20 bg-gradient-to-br from-c2r-primary/10 via-background to-c2r-secondary/10">
         <div className="container">
           <ChapterHeader
             chapter="Our Impact"
@@ -497,8 +512,8 @@ export default function SepfPage() {
                 <Button size="lg" className="text-lg px-8 py-6 bg-c2r-primary hover:bg-c2r-primary/90">
                   Collaborate With Us
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8 py-6">
-                  Download Research Reports
+                <Button size="lg" variant="outline" className="text-lg px-8 py-6" asChild>
+                  <Link to="/resources">Access Resources</Link>
                 </Button>
               </div>
             </div>

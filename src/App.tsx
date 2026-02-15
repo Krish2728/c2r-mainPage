@@ -12,13 +12,19 @@ import ProgramsPage from './pages/ProgramsPage';
 import MentorshipPage from './pages/MentorshipPage';
 import SepfPage from './pages/SepfPage';
 import ResourcesPage from './pages/ResourcesPage';
+import FreeCoursesAuthPage from './pages/FreeCoursesAuthPage';
 import GetInvolvedPage from './pages/GetInvolvedPage';
+import GetInvolvedVolunteerPage from './pages/get-involved/GetInvolvedVolunteerPage';
+import GetInvolvedCorporatePage from './pages/get-involved/GetInvolvedCorporatePage';
+import GetInvolvedHowItWorksPage from './pages/get-involved/GetInvolvedHowItWorksPage';
+import GetInvolvedDonationPage from './pages/get-involved/GetInvolvedDonationPage';
+import GetInvolvedOtherAlliancesPage from './pages/get-involved/GetInvolvedOtherAlliancesPage';
+import GetInvolvedFoundersMessagePage from './pages/get-involved/GetInvolvedFoundersMessagePage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import DonatePage from './pages/DonatePage';
 import DonationSuccessPage from './pages/DonationSuccessPage';
 import DonationCancelPage from './pages/DonationCancelPage';
-import AdminPage from './pages/AdminPage';
 
 const rootRoute = createRootRoute({
   component: Layout,
@@ -96,10 +102,52 @@ const resourcesRoute = createRoute({
   component: ResourcesPage,
 });
 
+const freeCoursesAuthRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/resources/free-courses-auth',
+  component: FreeCoursesAuthPage,
+});
+
 const getInvolvedRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/get-involved',
   component: GetInvolvedPage,
+});
+
+const getInvolvedVolunteerRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/get-involved/volunteer',
+  component: GetInvolvedVolunteerPage,
+});
+
+const getInvolvedCorporateRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/get-involved/corporate-partnerships',
+  component: GetInvolvedCorporatePage,
+});
+
+const getInvolvedHowItWorksRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/get-involved/how-it-works',
+  component: GetInvolvedHowItWorksPage,
+});
+
+const getInvolvedDonationRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/get-involved/donation',
+  component: GetInvolvedDonationPage,
+});
+
+const getInvolvedOtherAlliancesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/get-involved/other-alliances',
+  component: GetInvolvedOtherAlliancesPage,
+});
+
+const getInvolvedFoundersMessageRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/get-involved/founders-message',
+  component: GetInvolvedFoundersMessagePage,
 });
 
 const contactRoute = createRoute({
@@ -132,12 +180,6 @@ const donationCancelRoute = createRoute({
   component: DonationCancelPage,
 });
 
-const adminRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/admin',
-  component: AdminPage,
-});
-
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -151,13 +193,19 @@ const routeTree = rootRoute.addChildren([
   mentorshipRoute,
   sepfRoute,
   resourcesRoute,
+  freeCoursesAuthRoute,
   getInvolvedRoute,
+  getInvolvedVolunteerRoute,
+  getInvolvedCorporateRoute,
+  getInvolvedHowItWorksRoute,
+  getInvolvedDonationRoute,
+  getInvolvedOtherAlliancesRoute,
+  getInvolvedFoundersMessageRoute,
   contactRoute,
   loginRoute,
   donateRoute,
   donationSuccessRoute,
   donationCancelRoute,
-  adminRoute,
 ]);
 
 const router = createRouter({ routeTree });

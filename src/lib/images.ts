@@ -6,7 +6,7 @@ export const images = {
   'hero-banner.dim_1200x600.jpg': 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&h=600&fit=crop&q=80',
   
   // Team and collaboration
-  'team-collaboration.dim_800x500.jpg': 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=500&fit=crop&q=80',
+  'team-collaboration.dim_800x500.jpg': 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=640&h=400&fit=crop&q=80',
   'founder-headshot.dim_300x300.jpg': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&q=80',
   
   // Mentorship and education

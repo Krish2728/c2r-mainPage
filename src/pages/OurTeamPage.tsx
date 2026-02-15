@@ -1,21 +1,132 @@
+import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from '@tanstack/react-router';
-import { Users, Linkedin, Heart, Award, Sparkles } from 'lucide-react';
-import { useTeamMembers } from '@/hooks/useQueries';
+import { Users, Linkedin, Heart, Sparkles } from 'lucide-react';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { ParallaxSection } from '@/components/ParallaxSection';
 import { ChapterHeader } from '@/components/ChapterHeader';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { getImageUrl } from '@/lib/images';
+import { coreTeam, domainAdvisors, type TeamMember } from '@/data/teamMembers';
+
+function TeamMemberCard({
+  member,
+  index,
+  variant,
+  onSelect,
+}: {
+  member: TeamMember;
+  index: number;
+  variant: 'core' | 'advisor';
+  onSelect: () => void;
+}) {
+  const borderClass = variant === 'advisor' ? 'border-l-4 border-l-c2r-accent' : '';
+  return (
+    <ScrollReveal key={member.name} delay={index * 50}>
+      <Card
+        className={`h-full cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${borderClass}`}
+        onClick={onSelect}
+      >
+        <CardContent className="pt-6 pb-5 text-center flex flex-col items-center gap-3">
+          {member.photoUrl ? (
+            <img
+              src={member.photoUrl}
+              alt={member.name}
+              className="h-28 w-28 rounded-full object-cover border-4 border-c2r-secondary/20 shadow-lg"
+            />
+          ) : (
+            <div className="h-28 w-28 rounded-full bg-gradient-to-br from-c2r-secondary to-c2r-accent flex items-center justify-center text-white text-3xl font-bold">
+              {member.name.charAt(0)}
+            </div>
+          )}
+          <h3 className="text-lg font-bold leading-tight">{member.name}</h3>
+          {member.linkedinUrl && (
+            <a
+              href={member.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center justify-center rounded-full p-2 text-c2r-primary hover:bg-c2r-primary/10 hover:text-c2r-accent transition-colors"
+              aria-label={`${member.name} on LinkedIn`}
+            >
+              <Linkedin className="h-6 w-6" />
+            </a>
+          )}
+        </CardContent>
+      </Card>
+    </ScrollReveal>
+  );
+}
+
+function MemberDetailPanel({
+  member,
+  open,
+  onOpenChange,
+  variant,
+}: {
+  member: TeamMember | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  variant: 'core' | 'advisor';
+}) {
+  if (!member) return null;
+  const accentClass = variant === 'advisor' ? 'text-c2r-accent' : 'text-c2r-secondary';
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent
+        side="right"
+        className="w-full sm:max-w-md flex flex-col p-0 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right"
+      >
+        <SheetHeader className="p-6 pb-4 border-b">
+          <div className="flex flex-col items-center text-center gap-4">
+            {member.photoUrl ? (
+              <img
+                src={member.photoUrl}
+                alt={member.name}
+                className="h-32 w-32 rounded-full object-cover border-4 border-c2r-primary/20 shadow-lg"
+              />
+            ) : (
+              <div className="h-32 w-32 rounded-full bg-gradient-to-br from-c2r-primary to-c2r-accent flex items-center justify-center text-white text-4xl font-bold">
+                {member.name.charAt(0)}
+              </div>
+            )}
+            <SheetTitle className="text-2xl">{member.name}</SheetTitle>
+            <p className={`text-sm font-semibold ${accentClass}`}>{member.role}</p>
+            {member.linkedinUrl && (
+              <a
+                href={member.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-c2r-primary hover:text-c2r-accent transition-colors font-medium"
+              >
+                <Linkedin className="h-5 w-5" />
+                Connect on LinkedIn
+              </a>
+            )}
+          </div>
+        </SheetHeader>
+        <ScrollArea className="flex-1 min-h-0">
+          <div className="p-6 pt-4">
+            <p className="text-muted-foreground leading-relaxed">{member.bio}</p>
+          </div>
+        </ScrollArea>
+      </SheetContent>
+    </Sheet>
+  );
+}
 
 export default function OurTeamPage() {
   const navigate = useNavigate();
-  const { data: teamMembers = [] } = useTeamMembers();
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+  const [panelVariant, setPanelVariant] = useState<'core' | 'advisor'>('core');
 
-  // Categorize team members (you can adjust this logic based on your data structure)
-  const leadership = teamMembers.filter(m => m.role.toLowerCase().includes('founder') || m.role.toLowerCase().includes('director'));
-  const coreTeam = teamMembers.filter(m => !m.role.toLowerCase().includes('founder') && !m.role.toLowerCase().includes('director') && !m.role.toLowerCase().includes('advisor'));
-  const advisors = teamMembers.filter(m => m.role.toLowerCase().includes('advisor'));
+  const openPanel = (member: TeamMember, variant: 'core' | 'advisor') => {
+    setSelectedMember(member);
+    setPanelVariant(variant);
+  };
+  const closePanel = () => setSelectedMember(null);
 
   return (
     <div className="flex flex-col overflow-hidden">
@@ -41,7 +152,7 @@ export default function OurTeamPage() {
       </section>
 
       {/* Team Introduction */}
-      <section className="py-24 md:py-32 bg-gradient-to-b from-background to-muted/30">
+      <section className="pt-24 md:pt-32 pb-12 md:pb-16 bg-gradient-to-b from-background to-muted/30">
         <div className="container">
           <ChapterHeader 
             chapter="Our People"
@@ -50,7 +161,7 @@ export default function OurTeamPage() {
           />
 
           <ScrollReveal delay={100}>
-            <div className="max-w-4xl mx-auto mb-16">
+            <div className="max-w-4xl mx-auto mb-12">
               <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-6 text-center">
                 <p className="text-xl">
                   Behind every success story, every transformed life, and every empowered community is a team of 
@@ -66,9 +177,9 @@ export default function OurTeamPage() {
           </ScrollReveal>
 
           <ScrollReveal delay={200}>
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-3xl mx-auto">
               <img 
-                src="/assets/generated/team-collaboration.dim_800x500.jpg" 
+                src={getImageUrl('/assets/generated/team-collaboration.dim_800x500.jpg')} 
                 alt="Team Collaboration" 
                 className="rounded-lg shadow-2xl w-full transform transition-transform duration-700 hover:scale-105" 
               />
@@ -77,62 +188,9 @@ export default function OurTeamPage() {
         </div>
       </section>
 
-      {/* Leadership Team */}
-      {leadership.length > 0 && (
-        <section className="py-24 md:py-32 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-secondary/10 via-transparent to-c2r-accent/10" />
-          <div className="container relative">
-            <ChapterHeader 
-              chapter="Leadership"
-              title="Guiding Our Vision"
-              subtitle="The leaders steering our mission and strategy"
-              icon={<Award className="h-8 w-8" />}
-            />
-
-            <div className="max-w-6xl mx-auto">
-              <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
-                {leadership.map((member, index) => (
-                  <ScrollReveal key={index} delay={index * 100}>
-                    <Card className="h-full transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border-t-4 border-t-c2r-primary">
-                      <CardContent className="pt-8 text-center">
-                        {member.photoUrl ? (
-                          <img 
-                            src={member.photoUrl} 
-                            alt={member.name} 
-                            className="mb-6 h-40 w-40 rounded-full object-cover mx-auto border-4 border-c2r-accent/20 shadow-xl" 
-                          />
-                        ) : (
-                          <div className="mb-6 h-40 w-40 rounded-full bg-gradient-to-br from-c2r-primary to-c2r-accent mx-auto flex items-center justify-center text-white text-4xl font-bold">
-                            {member.name.charAt(0)}
-                          </div>
-                        )}
-                        <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
-                        <p className="text-sm text-c2r-primary font-semibold mb-4">{member.role}</p>
-                        <p className="text-muted-foreground leading-relaxed mb-6">{member.bio}</p>
-                        {member.linkedinUrl && (
-                          <a 
-                            href={member.linkedinUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="inline-flex items-center gap-2 text-c2r-primary hover:text-c2r-accent transition-colors"
-                          >
-                            <Linkedin className="h-5 w-5" />
-                            <span className="text-sm font-medium">Connect on LinkedIn</span>
-                          </a>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </ScrollReveal>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Core Team */}
       {coreTeam.length > 0 && (
-        <section className="py-24 md:py-32 bg-muted/30">
+        <section className="pt-12 md:pt-16 pb-24 md:pb-32 bg-muted/30">
           <div className="container">
             <ChapterHeader 
               chapter="Core Team"
@@ -141,40 +199,16 @@ export default function OurTeamPage() {
               icon={<Users className="h-8 w-8" />}
             />
 
-            <div className="max-w-6xl mx-auto">
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-6">
                 {coreTeam.map((member, index) => (
-                  <ScrollReveal key={index} delay={index * 100}>
-                    <Card className="h-full transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
-                      <CardContent className="pt-8 text-center">
-                        {member.photoUrl ? (
-                          <img 
-                            src={member.photoUrl} 
-                            alt={member.name} 
-                            className="mb-4 h-32 w-32 rounded-full object-cover mx-auto border-4 border-c2r-secondary/20 shadow-lg" 
-                          />
-                        ) : (
-                          <div className="mb-4 h-32 w-32 rounded-full bg-gradient-to-br from-c2r-secondary to-c2r-accent mx-auto flex items-center justify-center text-white text-3xl font-bold">
-                            {member.name.charAt(0)}
-                          </div>
-                        )}
-                        <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                        <p className="text-sm text-c2r-secondary font-semibold mb-3">{member.role}</p>
-                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{member.bio}</p>
-                        {member.linkedinUrl && (
-                          <a 
-                            href={member.linkedinUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="inline-flex items-center gap-2 text-c2r-secondary hover:text-c2r-accent transition-colors text-sm"
-                          >
-                            <Linkedin className="h-4 w-4" />
-                            <span>LinkedIn</span>
-                          </a>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </ScrollReveal>
+                  <TeamMemberCard
+                    key={member.name}
+                    member={member}
+                    index={index}
+                    variant="core"
+                    onSelect={() => openPanel(member, 'core')}
+                  />
                 ))}
               </div>
             </div>
@@ -182,57 +216,40 @@ export default function OurTeamPage() {
         </section>
       )}
 
-      {/* Advisors */}
-      {advisors.length > 0 && (
+      {/* Domain Advisors */}
+      {domainAdvisors.length > 0 && (
         <section className="py-24 md:py-32">
           <div className="container">
             <ChapterHeader 
-              chapter="Advisors"
+              chapter="Domain Advisors"
               title="Guiding Voices"
               subtitle="Experienced mentors shaping our strategy and impact"
               icon={<Sparkles className="h-8 w-8" />}
             />
 
-            <div className="max-w-6xl mx-auto">
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {advisors.map((member, index) => (
-                  <ScrollReveal key={index} delay={index * 100}>
-                    <Card className="h-full transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-l-4 border-l-c2r-accent">
-                      <CardContent className="pt-8 text-center">
-                        {member.photoUrl ? (
-                          <img 
-                            src={member.photoUrl} 
-                            alt={member.name} 
-                            className="mb-4 h-32 w-32 rounded-full object-cover mx-auto border-4 border-c2r-accent/20 shadow-lg" 
-                          />
-                        ) : (
-                          <div className="mb-4 h-32 w-32 rounded-full bg-gradient-to-br from-c2r-accent to-c2r-primary mx-auto flex items-center justify-center text-white text-3xl font-bold">
-                            {member.name.charAt(0)}
-                          </div>
-                        )}
-                        <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                        <p className="text-sm text-c2r-accent font-semibold mb-3">{member.role}</p>
-                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">{member.bio}</p>
-                        {member.linkedinUrl && (
-                          <a 
-                            href={member.linkedinUrl} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="inline-flex items-center gap-2 text-c2r-accent hover:text-c2r-primary transition-colors text-sm"
-                          >
-                            <Linkedin className="h-4 w-4" />
-                            <span>LinkedIn</span>
-                          </a>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </ScrollReveal>
+            <div className="max-w-7xl mx-auto">
+              <div className="grid gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-6">
+                {domainAdvisors.map((member, index) => (
+                  <TeamMemberCard
+                    key={member.name}
+                    member={member}
+                    index={index}
+                    variant="advisor"
+                    onSelect={() => openPanel(member, 'advisor')}
+                  />
                 ))}
               </div>
             </div>
           </div>
         </section>
       )}
+
+      <MemberDetailPanel
+        member={selectedMember}
+        open={!!selectedMember}
+        onOpenChange={(open) => !open && closePanel()}
+        variant={panelVariant}
+      />
 
       {/* Community Contributors Note */}
       <section className="py-24 md:py-32 bg-gradient-to-br from-c2r-primary/5 to-c2r-accent/5">

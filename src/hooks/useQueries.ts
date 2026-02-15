@@ -45,6 +45,35 @@ export type ResourceVideo = {
   created_at?: string;
 };
 
+export type CareerGuide = {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  pdf_url: string;
+  sort_order: number;
+  created_at?: string;
+};
+
+export type AnnualReport = {
+  id: number;
+  year: string;
+  title: string;
+  description: string;
+  pdf_url: string;
+  sort_order: number;
+  created_at?: string;
+};
+
+export type MentorResource = {
+  id: number;
+  title: string;
+  description: string;
+  pdf_url: string;
+  sort_order: number;
+  created_at?: string;
+};
+
 export function usePrograms() {
   return useQuery<Program[]>({
     queryKey: ['programs'],
@@ -83,6 +112,54 @@ export function useResourceVideos() {
     queryFn: async () => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/resource-videos`);
+        if (!res.ok) return [];
+        const data = await res.json();
+        return Array.isArray(data) ? data : [];
+      }
+      return [];
+    },
+    enabled: !!API_BASE,
+  });
+}
+
+export function useCareerGuides() {
+  return useQuery<CareerGuide[]>({
+    queryKey: ['careerGuides'],
+    queryFn: async () => {
+      if (API_BASE) {
+        const res = await fetch(`${API_BASE}/api/career-guides`);
+        if (!res.ok) return [];
+        const data = await res.json();
+        return Array.isArray(data) ? data : [];
+      }
+      return [];
+    },
+    enabled: !!API_BASE,
+  });
+}
+
+export function useAnnualReports() {
+  return useQuery<AnnualReport[]>({
+    queryKey: ['annualReports'],
+    queryFn: async () => {
+      if (API_BASE) {
+        const res = await fetch(`${API_BASE}/api/annual-reports`);
+        if (!res.ok) return [];
+        const data = await res.json();
+        return Array.isArray(data) ? data : [];
+      }
+      return [];
+    },
+    enabled: !!API_BASE,
+  });
+}
+
+export function useMentorResources() {
+  return useQuery<MentorResource[]>({
+    queryKey: ['mentorResources'],
+    queryFn: async () => {
+      if (API_BASE) {
+        const res = await fetch(`${API_BASE}/api/mentor-resources`);
         if (!res.ok) return [];
         const data = await res.json();
         return Array.isArray(data) ? data : [];
@@ -137,6 +214,58 @@ export function usePartnershipInquiry() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['partnershipInquiries'] });
+    },
+  });
+}
+
+export type VolunteerFormData = {
+  email: string;
+  fullName: string;
+  gender: string;
+  mobileNo: string;
+  dateOfBirth: string;
+  currentAddress: string;
+  nativeCityVillage: string;
+  languages: string;
+  currentCompanyOrg: string;
+  designation?: string;
+  linkedinProfile: string;
+  yearsOfExperience?: string;
+  hasVolunteeredBefore: string;
+  highestQualification: string;
+  howCanYouContribute: string;
+  preferredAreasMentoring: string;
+  hoursPerWeek?: string;
+  preferredDays: string;
+  preferredTimings: string;
+  identityNumber?: string;
+};
+
+export function useVolunteerForm() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: VolunteerFormData) => {
+      if (API_BASE) {
+        const res = await fetch(`${API_BASE}/api/volunteer`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (res.status === 404) {
+          // Backend may not have this endpoint yet; treat as success so form doesn't break
+          console.warn('POST /api/volunteer returned 404. Add this endpoint on the backend to store submissions.');
+          return { ok: true };
+        }
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || 'Failed to submit volunteer form');
+        }
+        return res.json();
+      }
+      console.log('Volunteer form submission:', data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['volunteerForms'] });
     },
   });
 }

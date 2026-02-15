@@ -1,30 +1,206 @@
-import { Outlet, Link, useNavigate } from '@tanstack/react-router';
+import { Outlet, Link, useNavigate, useLocation } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Menu, ChevronDown, Users, Target, Briefcase, Award, MapPin, Compass } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Menu, ChevronDown, ChevronRight, Users, Target, Briefcase, Award, MapPin, Compass, BookOpen, UserCircle, LogOut, GraduationCap, TrendingUp, Lightbulb, Globe, Mail, Heart, LayoutGrid, Video, FileText, Calendar, Handshake } from 'lucide-react';
 import { SiFacebook, SiX, SiLinkedin, SiInstagram } from 'react-icons/si';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Toaster } from '@/components/ui/sonner';
 
-const MENTOR_PLATFORM_BASE = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_MENTOR_PLATFORM_URL)
-  ? String(import.meta.env.VITE_MENTOR_PLATFORM_URL).replace(/\/$/, '')
-  : '';
-const MENTOR_AUTH_URL = MENTOR_PLATFORM_BASE ? `${MENTOR_PLATFORM_BASE}/auth` : '';
+const COURSE_ACCESS_KEY = 'c2r_free_course_access';
 
 export function Layout() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
+  const [hasCourseAccess, setHasCourseAccess] = useState(false);
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
+  const [loginDropdownOpen, setLoginDropdownOpen] = useState(false);
+  const [programsDropdownOpen, setProgramsDropdownOpen] = useState(false);
+  const [mentorshipDropdownOpen, setMentorshipDropdownOpen] = useState(false);
+  const [sepfDropdownOpen, setSepfDropdownOpen] = useState(false);
+  const [resourcesDropdownOpen, setResourcesDropdownOpen] = useState(false);
+  const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
+  const [donateDropdownOpen, setDonateDropdownOpen] = useState(false);
+  const [getInvolvedDropdownOpen, setGetInvolvedDropdownOpen] = useState(false);
+  const aboutOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const aboutCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const loginOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const loginCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const programsOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const programsCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mentorshipOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mentorshipCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sepfOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sepfCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resourcesOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resourcesCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const contactOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const contactCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const donateOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const donateCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const getInvolvedOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const getInvolvedCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isFreeCoursesAuthPage = location.pathname === '/resources/free-courses-auth';
 
-  const navLinks = [
-    { label: 'Programs', path: '/programs' },
-    { label: 'Mentorship', path: '/mentorship' },
-    { label: 'SEPF', path: '/sepf' },
-    { label: 'Get Involved', path: '/get-involved' },
-    { label: 'Resources', path: '/resources' },
-    { label: 'Contact Us', path: '/contact' },
-    { label: 'Donate', path: '/donate' },
-    { label: 'Login', path: '/login', external: !!MENTOR_AUTH_URL, href: MENTOR_AUTH_URL },
+  const clearAboutCloseTimeout = () => {
+    if (aboutCloseTimeoutRef.current) {
+      clearTimeout(aboutCloseTimeoutRef.current);
+      aboutCloseTimeoutRef.current = null;
+    }
+  };
+  const clearLoginCloseTimeout = () => {
+    if (loginCloseTimeoutRef.current) {
+      clearTimeout(loginCloseTimeoutRef.current);
+      loginCloseTimeoutRef.current = null;
+    }
+  };
+  const clearAboutOpenTimeout = () => {
+    if (aboutOpenTimeoutRef.current) {
+      clearTimeout(aboutOpenTimeoutRef.current);
+      aboutOpenTimeoutRef.current = null;
+    }
+  };
+  const clearLoginOpenTimeout = () => {
+    if (loginOpenTimeoutRef.current) {
+      clearTimeout(loginOpenTimeoutRef.current);
+      loginOpenTimeoutRef.current = null;
+    }
+  };
+  const HOVER_OPEN_DELAY_MS = 80;
+  const HOVER_CLOSE_DELAY_MS = 200;
+
+  const scheduleAboutClose = () => {
+    clearAboutOpenTimeout();
+    clearAboutCloseTimeout();
+    aboutCloseTimeoutRef.current = setTimeout(() => setAboutDropdownOpen(false), HOVER_CLOSE_DELAY_MS);
+  };
+  const scheduleLoginClose = () => {
+    clearLoginOpenTimeout();
+    clearLoginCloseTimeout();
+    loginCloseTimeoutRef.current = setTimeout(() => setLoginDropdownOpen(false), HOVER_CLOSE_DELAY_MS);
+  };
+
+  const clearProgramsCloseTimeout = () => {
+    if (programsCloseTimeoutRef.current) {
+      clearTimeout(programsCloseTimeoutRef.current);
+      programsCloseTimeoutRef.current = null;
+    }
+  };
+  const clearProgramsOpenTimeout = () => {
+    if (programsOpenTimeoutRef.current) {
+      clearTimeout(programsOpenTimeoutRef.current);
+      programsOpenTimeoutRef.current = null;
+    }
+  };
+  const scheduleProgramsClose = () => {
+    clearProgramsOpenTimeout();
+    clearProgramsCloseTimeout();
+    programsCloseTimeoutRef.current = setTimeout(() => setProgramsDropdownOpen(false), HOVER_CLOSE_DELAY_MS);
+  };
+
+  const makeDropdownHandlers = (
+    setOpen: (v: boolean) => void,
+    openRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>,
+    closeRef: React.MutableRefObject<ReturnType<typeof setTimeout> | null>
+  ) => {
+    const clearClose = () => {
+      if (closeRef.current) {
+        clearTimeout(closeRef.current);
+        closeRef.current = null;
+      }
+    };
+    const clearOpen = () => {
+      if (openRef.current) {
+        clearTimeout(openRef.current);
+        openRef.current = null;
+      }
+    };
+    const scheduleClose = () => {
+      clearOpen();
+      clearClose();
+      closeRef.current = setTimeout(() => setOpen(false), HOVER_CLOSE_DELAY_MS);
+    };
+    const onTriggerEnter = () => {
+      clearClose();
+      clearOpen();
+      openRef.current = setTimeout(() => setOpen(true), HOVER_OPEN_DELAY_MS);
+    };
+    return { clearClose, onTriggerEnter, scheduleClose };
+  };
+
+  const mentorshipHandlers = makeDropdownHandlers(setMentorshipDropdownOpen, mentorshipOpenTimeoutRef, mentorshipCloseTimeoutRef);
+  const sepfHandlers = makeDropdownHandlers(setSepfDropdownOpen, sepfOpenTimeoutRef, sepfCloseTimeoutRef);
+  const resourcesHandlers = makeDropdownHandlers(setResourcesDropdownOpen, resourcesOpenTimeoutRef, resourcesCloseTimeoutRef);
+  const contactHandlers = makeDropdownHandlers(setContactDropdownOpen, contactOpenTimeoutRef, contactCloseTimeoutRef);
+  const donateHandlers = makeDropdownHandlers(setDonateDropdownOpen, donateOpenTimeoutRef, donateCloseTimeoutRef);
+  const getInvolvedHandlers = makeDropdownHandlers(setGetInvolvedDropdownOpen, getInvolvedOpenTimeoutRef, getInvolvedCloseTimeoutRef);
+
+  useEffect(() => {
+    setHasCourseAccess(typeof window !== 'undefined' && localStorage.getItem(COURSE_ACCESS_KEY) === 'true');
+  }, [location.pathname]);
+
+  // Scroll to top when navigating to a new page (skip when hash is set so Login as Mentee/Mentor can scroll to section)
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+  }, [location.pathname, location.hash]);
+
+  if (isFreeCoursesAuthPage) {
+    return (
+      <>
+        <Outlet />
+        <Toaster />
+      </>
+    );
+  }
+
+  const programsDropdownItems = [
+    { label: 'C2R Career Catalyst Mentorship Program', description: 'Career guidance and mentorship', path: '/programs', hash: 'career-catalyst', icon: GraduationCap },
+    { label: 'C2R Skill Development Program', description: 'Industry-relevant training and certifications', path: '/programs', hash: 'skill-development', icon: Briefcase },
+    { label: 'C2R Livelihoods & Entrepreneurship Support', description: 'Entrepreneurship and sustainable ventures', path: '/programs', hash: 'livelihoods', icon: TrendingUp },
+  ];
+
+  const mentorshipDropdownItems = [
+    { label: 'Why Mentorship Matters', description: 'The power of connection', path: '/mentorship', hash: 'why-mentorship', icon: Target },
+    { label: 'Become a Mentee', description: 'Your journey begins here', path: '/mentorship', hash: 'mentee', icon: UserCircle },
+    { label: 'Become a Mentor', description: 'Share your light', path: '/mentorship', hash: 'mentor', icon: Users },
+  ];
+
+  const sepfDropdownItems = [
+    { label: 'Shaping the Future of Work', description: 'Our mission and what we do', path: '/sepf', hash: 'our-mission', icon: Lightbulb },
+    { label: 'UN Sustainable Development Goals', description: 'Global impact alignment', path: '/sepf', hash: 'sdgs', icon: Globe },
+    { label: 'Five Core Skill Clusters', description: 'Future-ready skills', path: '/sepf', hash: 'focus-areas', icon: Briefcase },
+    { label: 'Join Us in Shaping the Future', description: 'Collaborate with SEPF', path: '/sepf', hash: 'join-sepf', icon: Target },
+  ];
+
+  const resourcesDropdownItems = [
+    { label: 'For Students', description: 'Career guides and resources', path: '/resources', hash: 'guides', icon: BookOpen },
+    { label: 'For Mentors', description: 'Training and toolkits', path: '/resources', hash: 'mentors', icon: Users },
+    { label: 'Gallery', description: 'Photos and moments', path: '/resources', hash: 'gallery', icon: LayoutGrid },
+    { label: 'Free Courses', description: 'Educational videos', path: '/resources', hash: 'videos', icon: Video },
+    { label: 'Annual Reports', description: 'Impact and achievements', path: '/resources', hash: 'reports', icon: FileText },
+    { label: 'Events', description: 'Webinars and workshops', path: '/resources', hash: 'events', icon: Calendar },
+    { label: 'Publications', description: 'Research and reports', path: '/resources', hash: 'publications', icon: FileText },
+  ];
+
+  const contactDropdownItems = [
+    { label: 'General Inquiry', description: 'Send us a message', path: '/contact', hash: 'general', icon: Mail },
+    { label: 'CSR / Partnership', description: 'Partner with us', path: '/get-involved/corporate-partnerships', hash: undefined, icon: Briefcase },
+    { label: 'Volunteer', description: 'Join as a volunteer', path: '/contact', hash: 'volunteer', icon: Heart },
+  ];
+
+  const donateDropdownItems = [
+    { label: 'Donate', description: 'Support our mission', path: '/donate', hash: undefined, icon: Heart },
+  ];
+
+  const loginDropdownItems = [
+    { label: 'Accessing Resources', path: '/resources/free-courses-auth', hash: undefined, icon: BookOpen, description: 'Sign up to access free courses' },
+    { label: 'Login as Mentor', path: '/mentorship', hash: 'mentor', icon: Users, description: 'Mentor section' },
+    { label: 'Login as Mentee', path: '/mentorship', hash: 'mentee', icon: UserCircle, description: 'Mentee section' },
   ];
 
   const aboutDropdownItems = [
@@ -36,33 +212,58 @@ export function Layout() {
     { label: 'Journey', path: '/about/journey', icon: MapPin, description: 'Our story and milestones' },
   ];
 
+  const getInvolvedDropdownItems = [
+    { label: 'Volunteer', path: '/get-involved/volunteer', icon: Users, description: 'Become a mentor volunteer' },
+    { label: 'Corporate Partnerships', path: '/get-involved/corporate-partnerships', icon: Briefcase, description: 'Partner for impact' },
+    { label: 'Donation', path: '/get-involved/donation', icon: Heart, description: 'Support our mission' },
+    { label: 'Other Alliances', path: '/get-involved/other-alliances', icon: Handshake, description: 'Universities & NGOs' },
+    { label: "Founder's Message", path: '/get-involved/founders-message', icon: UserCircle, description: 'From the founder\'s desk' },
+  ];
+
   const handleNavigation = (path: string, hash?: string) => {
-    navigate({ to: path as any });
-    if (hash) {
-      setTimeout(() => {
-        const element = document.getElementById(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    }
+    // Pass hash in navigate so the destination page sees it on first render (one-click to subsection)
+    navigate({
+      to: path as any,
+      ...(hash && { hash: hash as any }),
+      hashScrollIntoView: false, // pages handle scroll after tab/section is mounted
+    });
+  };
+
+  const handleCourseLogout = () => {
+    localStorage.removeItem(COURSE_ACCESS_KEY);
+    setHasCourseAccess(false);
+    setIsOpen(false);
   };
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
         <div className="container flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-            <img src="/logo.png" alt="Connect2Roots Logo" className="h-10 w-auto max-w-[180px] object-contain" />
-            <span className="text-xl font-bold text-black">Connect2Roots</span>
+          <Link to="/" className="flex items-center transition-opacity hover:opacity-80 flex-shrink-0 overflow-visible">
+            <img src="/logo.png" alt="Connect2Roots Foundation" className="h-12 w-auto max-w-[220px] object-contain object-left" />
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none focus:text-primary">
+          <nav className="hidden items-center gap-8 min-[1155px]:flex">
+            <DropdownMenu open={aboutDropdownOpen} onOpenChange={setAboutDropdownOpen} modal={false}>
+              <DropdownMenuTrigger
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none focus:text-primary"
+                onMouseEnter={() => {
+                  clearAboutCloseTimeout();
+                  clearAboutOpenTimeout();
+                  aboutOpenTimeoutRef.current = setTimeout(() => setAboutDropdownOpen(true), HOVER_OPEN_DELAY_MS);
+                }}
+                onMouseLeave={scheduleAboutClose}
+              >
                 About Us <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-72 p-2">
+              <DropdownMenuContent
+                align="start"
+                sideOffset={2}
+                className="z-[100] w-72 p-2"
+                onMouseEnter={clearAboutCloseTimeout}
+                onMouseLeave={scheduleAboutClose}
+                onCloseAutoFocus={(e) => e.preventDefault()}
+              >
                 {aboutDropdownItems.map((item) => (
                   <DropdownMenuItem key={item.path} asChild className="cursor-pointer">
                     <Link
@@ -80,85 +281,507 @@ export function Layout() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {navLinks.map((link) =>
-              link.external && link.href ? (
-                <a
-                  key={link.path}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            <DropdownMenu open={programsDropdownOpen} onOpenChange={setProgramsDropdownOpen} modal={false}>
+              <DropdownMenuTrigger
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none focus:text-primary"
+                onMouseEnter={() => {
+                  clearProgramsCloseTimeout();
+                  clearProgramsOpenTimeout();
+                  programsOpenTimeoutRef.current = setTimeout(() => setProgramsDropdownOpen(true), HOVER_OPEN_DELAY_MS);
+                }}
+                onMouseLeave={scheduleProgramsClose}
+              >
+                Programs <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                sideOffset={2}
+                className="z-[100] w-72 p-2"
+                onMouseEnter={clearProgramsCloseTimeout}
+                onMouseLeave={scheduleProgramsClose}
+                onCloseAutoFocus={(e) => e.preventDefault()}
+              >
+                {programsDropdownItems.map((item) => (
+                  <DropdownMenuItem
+                    key={item.hash}
+                    className="flex items-start gap-3 rounded-md p-3 cursor-pointer focus:bg-accent"
+                    onSelect={() => handleNavigation(item.path, item.hash)}
+                  >
+                    <item.icon className="h-5 w-5 text-c2r-accent mt-0.5 shrink-0" />
+                    <div className="flex flex-col gap-0.5">
+                      <span className="font-medium text-sm">{item.label}</span>
+                      <span className="text-xs text-muted-foreground">{item.description}</span>
+                    </div>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu open={mentorshipDropdownOpen} onOpenChange={setMentorshipDropdownOpen} modal={false}>
+              <DropdownMenuTrigger
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none focus:text-primary"
+                onMouseEnter={mentorshipHandlers.onTriggerEnter}
+                onMouseLeave={mentorshipHandlers.scheduleClose}
+              >
+                Mentorship <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" sideOffset={2} className="z-[100] w-72 p-2" onMouseEnter={mentorshipHandlers.clearClose} onMouseLeave={mentorshipHandlers.scheduleClose} onCloseAutoFocus={(e) => e.preventDefault()}>
+                {mentorshipDropdownItems.map((item) => (
+                  <DropdownMenuItem key={item.hash} className="flex items-start gap-3 rounded-md p-3 cursor-pointer focus:bg-accent" onSelect={() => handleNavigation(item.path, item.hash!)}>
+                    <item.icon className="h-5 w-5 text-c2r-accent mt-0.5 shrink-0" />
+                    <div className="flex flex-col gap-0.5">
+                      <span className="font-medium text-sm">{item.label}</span>
+                      <span className="text-xs text-muted-foreground">{item.description}</span>
+                    </div>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu open={sepfDropdownOpen} onOpenChange={setSepfDropdownOpen} modal={false}>
+              <DropdownMenuTrigger
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none focus:text-primary"
+                onMouseEnter={sepfHandlers.onTriggerEnter}
+                onMouseLeave={sepfHandlers.scheduleClose}
+              >
+                SEPF <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" sideOffset={2} className="z-[100] w-72 p-2" onMouseEnter={sepfHandlers.clearClose} onMouseLeave={sepfHandlers.scheduleClose} onCloseAutoFocus={(e) => e.preventDefault()}>
+                {sepfDropdownItems.map((item) => (
+                  <DropdownMenuItem key={item.hash} className="flex items-start gap-3 rounded-md p-3 cursor-pointer focus:bg-accent" onSelect={() => handleNavigation(item.path, item.hash)}>
+                    <item.icon className="h-5 w-5 text-c2r-accent mt-0.5 shrink-0" />
+                    <div className="flex flex-col gap-0.5">
+                      <span className="font-medium text-sm">{item.label}</span>
+                      <span className="text-xs text-muted-foreground">{item.description}</span>
+                    </div>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu open={getInvolvedDropdownOpen} onOpenChange={setGetInvolvedDropdownOpen} modal={false}>
+              <DropdownMenuTrigger
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none focus:text-primary"
+                onMouseEnter={getInvolvedHandlers.onTriggerEnter}
+                onMouseLeave={getInvolvedHandlers.scheduleClose}
+              >
+                Get Involved <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                sideOffset={2}
+                className="z-[100] w-72 p-2"
+                onMouseEnter={getInvolvedHandlers.clearClose}
+                onMouseLeave={getInvolvedHandlers.scheduleClose}
+                onCloseAutoFocus={(e) => e.preventDefault()}
+              >
+                {getInvolvedDropdownItems.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild className="cursor-pointer">
+                    <Link
+                      to={item.path}
+                      className="flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-accent"
+                    >
+                      <item.icon className="h-5 w-5 text-c2r-accent mt-0.5 shrink-0" />
+                      <div className="flex flex-col gap-0.5">
+                        <span className="font-medium text-sm">{item.label}</span>
+                        <span className="text-xs text-muted-foreground">{item.description}</span>
+                      </div>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu open={resourcesDropdownOpen} onOpenChange={setResourcesDropdownOpen} modal={false}>
+              <DropdownMenuTrigger
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none focus:text-primary"
+                onMouseEnter={resourcesHandlers.onTriggerEnter}
+                onMouseLeave={resourcesHandlers.scheduleClose}
+              >
+                Resources <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" sideOffset={2} className="z-[100] w-72 p-2" onMouseEnter={resourcesHandlers.clearClose} onMouseLeave={resourcesHandlers.scheduleClose} onCloseAutoFocus={(e) => e.preventDefault()}>
+                {resourcesDropdownItems.map((item) => (
+                  <DropdownMenuItem key={item.hash} className="flex items-start gap-3 rounded-md p-3 cursor-pointer focus:bg-accent" onSelect={() => handleNavigation(item.path, item.hash)}>
+                    <item.icon className="h-5 w-5 text-c2r-accent mt-0.5 shrink-0" />
+                    <div className="flex flex-col gap-0.5">
+                      <span className="font-medium text-sm">{item.label}</span>
+                      <span className="text-xs text-muted-foreground">{item.description}</span>
+                    </div>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu open={contactDropdownOpen} onOpenChange={setContactDropdownOpen} modal={false}>
+              <DropdownMenuTrigger
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none focus:text-primary"
+                onMouseEnter={contactHandlers.onTriggerEnter}
+                onMouseLeave={contactHandlers.scheduleClose}
+              >
+                Contact Us <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" sideOffset={2} className="z-[100] w-72 p-2" onMouseEnter={contactHandlers.clearClose} onMouseLeave={contactHandlers.scheduleClose} onCloseAutoFocus={(e) => e.preventDefault()}>
+                {contactDropdownItems.map((item) => (
+                  <DropdownMenuItem key={item.label} className="flex items-start gap-3 rounded-md p-3 cursor-pointer focus:bg-accent" onSelect={() => handleNavigation(item.path, item.hash)}>
+                    <item.icon className="h-5 w-5 text-c2r-accent mt-0.5 shrink-0" />
+                    <div className="flex flex-col gap-0.5">
+                      <span className="font-medium text-sm">{item.label}</span>
+                      <span className="text-xs text-muted-foreground">{item.description}</span>
+                    </div>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <DropdownMenu open={donateDropdownOpen} onOpenChange={setDonateDropdownOpen} modal={false}>
+              <DropdownMenuTrigger
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none focus:text-primary"
+                onMouseEnter={donateHandlers.onTriggerEnter}
+                onMouseLeave={donateHandlers.scheduleClose}
+              >
+                Donate <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" sideOffset={2} className="z-[100] w-72 p-2" onMouseEnter={donateHandlers.clearClose} onMouseLeave={donateHandlers.scheduleClose} onCloseAutoFocus={(e) => e.preventDefault()}>
+                {donateDropdownItems.map((item) => (
+                  <DropdownMenuItem key={item.label} className="flex items-start gap-3 rounded-md p-3 cursor-pointer focus:bg-accent" onSelect={() => handleNavigation(item.path, item.hash)}>
+                    <item.icon className="h-5 w-5 text-c2r-accent mt-0.5 shrink-0" />
+                    <div className="flex flex-col gap-0.5">
+                      <span className="font-medium text-sm">{item.label}</span>
+                      <span className="text-xs text-muted-foreground">{item.description}</span>
+                    </div>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {hasCourseAccess ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="rounded-full text-muted-foreground hover:text-primary" aria-label="Profile">
+                    <UserCircle className="h-8 w-8" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 p-2">
+                  <div className="px-3 py-2 text-sm text-muted-foreground">
+                    <p className="font-medium text-foreground">Resources access</p>
+                    <p className="text-xs mt-0.5">You are signed in for free courses</p>
+                  </div>
+                  <DropdownMenuItem asChild>
+                    <Link to="/resources" className="flex items-center gap-2 cursor-pointer">
+                      <BookOpen className="h-4 w-4" />
+                      Go to Resources
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="flex items-center gap-2 cursor-pointer text-destructive focus:text-destructive"
+                    onSelect={handleCourseLogout}
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Log out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <DropdownMenu open={loginDropdownOpen} onOpenChange={setLoginDropdownOpen} modal={false}>
+                <DropdownMenuTrigger
+                  className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:outline-none focus:text-primary"
+                  onMouseEnter={() => {
+                    clearLoginCloseTimeout();
+                    clearLoginOpenTimeout();
+                    loginOpenTimeoutRef.current = setTimeout(() => setLoginDropdownOpen(true), HOVER_OPEN_DELAY_MS);
+                  }}
+                  onMouseLeave={scheduleLoginClose}
                 >
-                  {link.label}
-                </a>
-              ) : (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                  activeProps={{ className: 'text-primary' }}
+                  Login / Sign Up <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  sideOffset={2}
+                  className="z-[100] w-72 p-2"
+                  onMouseEnter={clearLoginCloseTimeout}
+                  onMouseLeave={scheduleLoginClose}
+                  onCloseAutoFocus={(e) => e.preventDefault()}
                 >
-                  {link.label}
-                </Link>
-              )
+                  {loginDropdownItems.map((item) =>
+                    item.hash ? (
+                      <DropdownMenuItem
+                        key={item.label}
+                        className="flex items-start gap-3 rounded-md p-3 cursor-pointer focus:bg-accent"
+                        onSelect={() => handleNavigation(item.path, item.hash)}
+                      >
+                        <item.icon className="h-5 w-5 text-c2r-accent mt-0.5 shrink-0" />
+                        <div className="flex flex-col gap-0.5">
+                          <span className="font-medium text-sm">{item.label}</span>
+                          <span className="text-xs text-muted-foreground">{item.description}</span>
+                        </div>
+                      </DropdownMenuItem>
+                    ) : (
+                      <DropdownMenuItem key={item.label} asChild className="cursor-pointer">
+                        <Link
+                          to={item.path}
+                          className="flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-accent"
+                        >
+                          <item.icon className="h-5 w-5 text-c2r-accent mt-0.5 shrink-0" />
+                          <div className="flex flex-col gap-0.5">
+                            <span className="font-medium text-sm">{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </Link>
+                      </DropdownMenuItem>
+                    )
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </nav>
 
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="lg:hidden">
+          <Sheet open={isOpen} onOpenChange={(open) => { setIsOpen(open); if (!open) setOpenMobileSection(null); }}>
+            <SheetTrigger asChild className="min-[1155px]:hidden">
               <Button variant="ghost" size="icon" aria-label="Open menu">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] overflow-y-auto">
               <nav className="flex flex-col gap-6 pt-8">
-                <div className="flex flex-col gap-3">
-                  <span className="text-base font-semibold text-foreground px-2">About Us</span>
-                  <div className="flex flex-col gap-1">
-                    {aboutDropdownItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className="flex items-start gap-3 rounded-md p-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                        activeProps={{ className: 'bg-accent text-primary' }}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <item.icon className="h-4 w-4 mt-0.5 shrink-0" />
-                        <div className="flex flex-col gap-0.5">
-                          <span>{item.label}</span>
-                          <span className="text-xs text-muted-foreground">{item.description}</span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+                <Collapsible open={openMobileSection === 'about'} onOpenChange={(open) => setOpenMobileSection(open ? 'about' : null)}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground">
+                    About Us
+                    {openMobileSection === 'about' ? <ChevronDown className="h-4 w-4 shrink-0" /> : <ChevronRight className="h-4 w-4 shrink-0" />}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="flex flex-col gap-1 pl-1 pt-1">
+                      {aboutDropdownItems.map((item) => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          className="flex items-start gap-3 rounded-md p-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
+                          activeProps={{ className: 'bg-accent text-primary' }}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <item.icon className="h-4 w-4 mt-0.5 shrink-0" />
+                          <div className="flex flex-col gap-0.5">
+                            <span>{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
 
-                <div className="border-t pt-4">
-                  {navLinks.map((link) =>
-                    link.external && link.href ? (
-                      <a
-                        key={link.path}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block rounded-md px-3 py-2.5 text-base font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link
-                        key={link.path}
-                        to={link.path}
-                        className="block rounded-md px-3 py-2.5 text-base font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                        activeProps={{ className: 'bg-accent text-primary' }}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {link.label}
-                      </Link>
-                    )
-                  )}
-                </div>
+                <Collapsible open={openMobileSection === 'programs'} onOpenChange={(open) => setOpenMobileSection(open ? 'programs' : null)}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                    Programs
+                    {openMobileSection === 'programs' ? <ChevronDown className="h-4 w-4 shrink-0" /> : <ChevronRight className="h-4 w-4 shrink-0" />}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="flex flex-col gap-1 pl-1 pt-1">
+                      {programsDropdownItems.map((item) => (
+                        <button
+                          key={item.hash}
+                          type="button"
+                          className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
+                          onClick={() => { setIsOpen(false); handleNavigation(item.path, item.hash); }}
+                        >
+                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
+                          <div className="flex flex-col gap-0.5">
+                            <span className="font-medium text-foreground">{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                <Collapsible open={openMobileSection === 'mentorship'} onOpenChange={(open) => setOpenMobileSection(open ? 'mentorship' : null)}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                    Mentorship
+                    {openMobileSection === 'mentorship' ? <ChevronDown className="h-4 w-4 shrink-0" /> : <ChevronRight className="h-4 w-4 shrink-0" />}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="flex flex-col gap-1 pl-1 pt-1">
+                      {mentorshipDropdownItems.map((item) => (
+                        <button key={item.hash} type="button" className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary" onClick={() => { setIsOpen(false); handleNavigation(item.path, item.hash!); }}>
+                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
+                          <div className="flex flex-col gap-0.5">
+                            <span className="font-medium text-foreground">{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                <Collapsible open={openMobileSection === 'sepf'} onOpenChange={(open) => setOpenMobileSection(open ? 'sepf' : null)}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                    SEPF
+                    {openMobileSection === 'sepf' ? <ChevronDown className="h-4 w-4 shrink-0" /> : <ChevronRight className="h-4 w-4 shrink-0" />}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="flex flex-col gap-1 pl-1 pt-1">
+                      {sepfDropdownItems.map((item) => (
+                        <button key={item.hash} type="button" className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary" onClick={() => { setIsOpen(false); handleNavigation(item.path, item.hash); }}>
+                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
+                          <div className="flex flex-col gap-0.5">
+                            <span className="font-medium text-foreground">{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                <Collapsible open={openMobileSection === 'getInvolved'} onOpenChange={(open) => setOpenMobileSection(open ? 'getInvolved' : null)}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                    Get Involved
+                    {openMobileSection === 'getInvolved' ? <ChevronDown className="h-4 w-4 shrink-0" /> : <ChevronRight className="h-4 w-4 shrink-0" />}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="flex flex-col gap-1 pl-1 pt-1">
+                      {getInvolvedDropdownItems.map((item) => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          className="flex items-start gap-3 rounded-md p-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
+                          activeProps={{ className: 'bg-accent text-primary' }}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <item.icon className="h-4 w-4 mt-0.5 shrink-0" />
+                          <div className="flex flex-col gap-0.5">
+                            <span>{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                <Collapsible open={openMobileSection === 'resources'} onOpenChange={(open) => setOpenMobileSection(open ? 'resources' : null)}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                    Resources
+                    {openMobileSection === 'resources' ? <ChevronDown className="h-4 w-4 shrink-0" /> : <ChevronRight className="h-4 w-4 shrink-0" />}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="flex flex-col gap-1 pl-1 pt-1">
+                      {resourcesDropdownItems.map((item) => (
+                        <button key={item.hash} type="button" className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary" onClick={() => { setIsOpen(false); handleNavigation(item.path, item.hash); }}>
+                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
+                          <div className="flex flex-col gap-0.5">
+                            <span className="font-medium text-foreground">{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                <Collapsible open={openMobileSection === 'contact'} onOpenChange={(open) => setOpenMobileSection(open ? 'contact' : null)}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                    Contact Us
+                    {openMobileSection === 'contact' ? <ChevronDown className="h-4 w-4 shrink-0" /> : <ChevronRight className="h-4 w-4 shrink-0" />}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="flex flex-col gap-1 pl-1 pt-1">
+                      {contactDropdownItems.map((item) => (
+                        <button key={item.label} type="button" className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary" onClick={() => { setIsOpen(false); handleNavigation(item.path, item.hash); }}>
+                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
+                          <div className="flex flex-col gap-0.5">
+                            <span className="font-medium text-foreground">{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                <Collapsible open={openMobileSection === 'donate'} onOpenChange={(open) => setOpenMobileSection(open ? 'donate' : null)}>
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                    Donate
+                    {openMobileSection === 'donate' ? <ChevronDown className="h-4 w-4 shrink-0" /> : <ChevronRight className="h-4 w-4 shrink-0" />}
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="flex flex-col gap-1 pl-1 pt-1">
+                      {donateDropdownItems.map((item) => (
+                        <button key={item.label} type="button" className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary" onClick={() => { setIsOpen(false); handleNavigation(item.path, item.hash); }}>
+                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
+                          <div className="flex flex-col gap-0.5">
+                            <span className="font-medium text-foreground">{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                {hasCourseAccess ? (
+                  <div className="border-t pt-4 flex flex-col gap-1">
+                    <span className="text-base font-semibold text-foreground px-2">Profile</span>
+                    <div className="px-3 py-2 text-sm text-muted-foreground">
+                      <p className="font-medium text-foreground">Resources access</p>
+                      <p className="text-xs mt-0.5">Signed in for free courses</p>
+                    </div>
+                    <Link
+                      to="/resources"
+                      className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <BookOpen className="h-4 w-4 shrink-0" />
+                      Go to Resources
+                    </Link>
+                    <button
+                      type="button"
+                      className="flex items-center gap-3 rounded-md px-3 py-2.5 text-left text-sm font-medium text-destructive transition-colors hover:bg-destructive/10"
+                      onClick={handleCourseLogout}
+                    >
+                      <LogOut className="h-4 w-4 shrink-0" />
+                      Log out
+                    </button>
+                  </div>
+                ) : (
+                  <div className="border-t pt-4 flex flex-col gap-1">
+                    <span className="text-base font-semibold text-foreground px-2">Login / Sign Up</span>
+                    {loginDropdownItems.map((item) =>
+                      item.hash ? (
+                        <button
+                          key={item.label}
+                          type="button"
+                          className="flex items-start gap-3 rounded-md px-3 py-2.5 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
+                          onClick={() => {
+                            setIsOpen(false);
+                            handleNavigation(item.path, item.hash);
+                          }}
+                        >
+                          <item.icon className="h-4 w-4 mt-0.5 shrink-0" />
+                          <div className="flex flex-col gap-0.5">
+                            <span>{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </button>
+                      ) : (
+                        <Link
+                          key={item.label}
+                          to={item.path}
+                          className="flex items-start gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <item.icon className="h-4 w-4 mt-0.5 shrink-0" />
+                          <div className="flex flex-col gap-0.5">
+                            <span>{item.label}</span>
+                            <span className="text-xs text-muted-foreground">{item.description}</span>
+                          </div>
+                        </Link>
+                      )
+                    )}
+                  </div>
+                )}
               </nav>
             </SheetContent>
           </Sheet>
@@ -213,25 +836,32 @@ export function Layout() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link to="/get-involved" className="text-muted-foreground hover:text-primary transition-colors">
-                    Become a Mentor
+                    Get Involved
                   </Link>
                 </li>
                 <li>
-                  <button 
-                    onClick={() => handleNavigation('/get-involved', 'partnerships')}
-                    className="text-muted-foreground hover:text-primary transition-colors text-left"
-                  >
+                  <Link to="/get-involved/volunteer" className="text-muted-foreground hover:text-primary transition-colors">
+                    Volunteer
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/get-involved/corporate-partnerships" className="text-muted-foreground hover:text-primary transition-colors">
                     Corporate Partnerships
-                  </button>
-                </li>
-                <li>
-                  <Link to="/donate" className="text-muted-foreground hover:text-primary transition-colors">
-                    Donate
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">
-                    Contact Us
+                  <Link to="/get-involved/donation" className="text-muted-foreground hover:text-primary transition-colors">
+                    Donation
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/get-involved/other-alliances" className="text-muted-foreground hover:text-primary transition-colors">
+                    Other Alliances
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/get-involved/founders-message" className="text-muted-foreground hover:text-primary transition-colors">
+                    Founder's Message
                   </Link>
                 </li>
               </ul>
@@ -240,16 +870,16 @@ export function Layout() {
             <div>
               <h3 className="font-semibold mb-4">Connect With Us</h3>
               <div className="flex gap-3 mb-4">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="https://www.facebook.com/share/1DwzSkCk6U/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                   <SiFacebook className="h-5 w-5" />
                 </a>
                 <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                   <SiX className="h-5 w-5" />
                 </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="https://www.linkedin.com/in/connect2roots/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                   <SiLinkedin className="h-5 w-5" />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="https://www.instagram.com/connect2rootsfoundation/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                   <SiInstagram className="h-5 w-5" />
                 </a>
               </div>
@@ -262,7 +892,6 @@ export function Layout() {
           <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
             <p className="flex items-center justify-center gap-1 flex-wrap">
               All Rights Reserved © 2026.
-              <Link to="/admin" className="ml-2 hover:text-primary transition-colors">Admin</Link>
             </p>
           </div>
         </div>

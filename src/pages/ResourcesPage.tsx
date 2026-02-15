@@ -1,16 +1,52 @@
+import { useState, useEffect } from 'react';
+import { useLocation } from '@tanstack/react-router';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { BookOpen, Calendar, FileText, Download, Video, FileDown, ExternalLink, Play } from 'lucide-react';
-import { useGalleryItems, useResourceVideos } from '@/hooks/useQueries';
+import { BookOpen, Calendar, FileText, Download, Video, FileDown, ExternalLink, Play, LogIn, UserPlus } from 'lucide-react';
+import { useGalleryItems, useResourceVideos, useCareerGuides, useAnnualReports, useMentorResources } from '@/hooks/useQueries';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { getImageUrl } from '@/lib/images';
 import { getYouTubeVideoId, getYouTubeThumbnailUrlSafe, getYouTubeThumbnailUrl, isValidYouTubeId } from '@/lib/youtube';
 
+const API_BASE = ((typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '').trim().replace(/\/$/, '');
+const COURSE_ACCESS_KEY = 'c2r_free_course_access';
+
+const RESOURCE_TAB_VALUES = ['guides', 'mentors', 'gallery', 'videos', 'reports', 'events', 'publications'] as const;
+
 export default function ResourcesPage() {
+  const location = useLocation();
+  const [hasCourseAccess, setHasCourseAccess] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>('guides');
+
+  useEffect(() => {
+    setHasCourseAccess(localStorage.getItem(COURSE_ACCESS_KEY) === 'true');
+  }, []);
+
+  useEffect(() => {
+    const hash = (location.hash ?? window.location.hash ?? '').replace(/^#/, '');
+    if (!RESOURCE_TAB_VALUES.includes(hash as any)) return;
+    setActiveTab(hash);
+    // Scroll to tab section after tab content is in the DOM (one-click nav from header)
+    const scrollToHash = () => {
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return true;
+      }
+      return false;
+    };
+    const t1 = setTimeout(() => {
+      if (!scrollToHash()) setTimeout(scrollToHash, 200);
+    }, 300);
+    return () => clearTimeout(t1);
+  }, [location.hash]);
   const { data: galleryItems = [] } = useGalleryItems();
   const { data: apiVideos = [] } = useResourceVideos();
+  const { data: apiCareerGuides = [] } = useCareerGuides();
+  const { data: apiAnnualReports = [] } = useAnnualReports();
+  const { data: apiMentorResources = [] } = useMentorResources();
 
   const defaultGalleryItems = [
     { title: 'Mentorship Workshop 2024', description: 'Annual mentorship training session', imageUrl: getImageUrl('/assets/generated/mentorship-workshop.dim_800x600.jpg'), category: 'workshops' },
@@ -23,20 +59,26 @@ export default function ResourcesPage() {
 
   const displayGallery = galleryItems.length > 0 ? galleryItems : defaultGalleryItems;
 
-  const careerGuides = [
+  const defaultCareerGuides = [
     { title: 'Resume Writing Guide', description: 'Comprehensive guide to creating impactful resumes', category: 'Career Prep' },
     { title: 'Interview Success Tips', description: 'Master the art of interviewing with confidence', category: 'Career Prep' },
     { title: 'Networking Strategies', description: 'Build and leverage your professional network', category: 'Professional Development' },
     { title: 'Career Transition Guide', description: 'Navigate career changes successfully', category: 'Career Planning' },
     { title: 'Personal Branding 101', description: 'Establish your professional identity', category: 'Professional Development' },
   ];
+  const careerGuides = apiCareerGuides.length > 0
+    ? apiCareerGuides.map((g) => ({ title: g.title, description: g.description || '', category: g.category || 'Career Prep', pdf_url: g.pdf_url }))
+    : defaultCareerGuides;
 
-  const mentorResources = [
+  const defaultMentorResources = [
     { title: 'Mentor Training Manual', description: 'Complete guide for effective mentorship' },
     { title: 'Session Planning Toolkit', description: 'Templates and frameworks for mentorship sessions' },
     { title: 'Goal Setting Framework', description: 'Help mentees set and achieve career goals' },
     { title: 'Communication Best Practices', description: 'Build strong mentor-mentee relationships' },
   ];
+  const mentorResources = apiMentorResources.length > 0
+    ? apiMentorResources.map((r) => ({ title: r.title, description: r.description || '', pdf_url: r.pdf_url }))
+    : defaultMentorResources;
 
   const events = [
     { title: 'Monthly Mentorship Webinar', date: 'Every 3rd Thursday', type: 'Webinar' },
@@ -52,11 +94,14 @@ export default function ResourcesPage() {
     { title: 'Youth Employment Trends', description: 'Analysis of youth employment landscape', type: 'Research Paper' },
   ];
 
-  const annualReports = [
+  const defaultAnnualReports = [
     { year: '2024', title: 'Annual Report 2024', description: 'Our impact and achievements in 2024' },
     { year: '2023', title: 'Annual Report 2023', description: 'Growth and milestones from 2023' },
     { year: '2022', title: 'Annual Report 2022', description: 'Foundation year highlights' },
   ];
+  const annualReports = apiAnnualReports.length > 0
+    ? apiAnnualReports.map((r) => ({ year: r.year, title: r.title, description: r.description || '', pdf_url: r.pdf_url }))
+    : defaultAnnualReports;
 
   // Educational videos: from API when available, else fallback (Connect2Roots Academy)
   const CONNECT2ROOTS_ACADEMY_CHANNEL = 'https://www.youtube.com/@connect2rootsacademy';
@@ -97,21 +142,21 @@ export default function ResourcesPage() {
       </section>
 
       {/* Main Content */}
-      <section className="py-16 md:py-24">
+      <section id="resources-content" className="py-16 md:py-24">
         <div className="container">
-          <Tabs defaultValue="gallery" className="w-full">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="w-full mb-8 flex overflow-x-auto scrollbar-hide md:grid md:grid-cols-3 lg:grid-cols-7">
-              <TabsTrigger value="gallery" className="flex-shrink-0">Gallery</TabsTrigger>
-              <TabsTrigger value="guides" className="flex-shrink-0">Career Guides</TabsTrigger>
+              <TabsTrigger value="guides" className="flex-shrink-0">For Students</TabsTrigger>
               <TabsTrigger value="mentors" className="flex-shrink-0">For Mentors</TabsTrigger>
-              <TabsTrigger value="videos" className="flex-shrink-0">Videos</TabsTrigger>
+              <TabsTrigger value="gallery" className="flex-shrink-0">Gallery</TabsTrigger>
+              <TabsTrigger value="videos" className="flex-shrink-0">Free Courses</TabsTrigger>
               <TabsTrigger value="reports" className="flex-shrink-0">Annual Reports</TabsTrigger>
               <TabsTrigger value="events" className="flex-shrink-0">Events</TabsTrigger>
               <TabsTrigger value="publications" className="flex-shrink-0">Publications</TabsTrigger>
             </TabsList>
 
             {/* Gallery Tab */}
-            <TabsContent value="gallery">
+            <TabsContent value="gallery" id="gallery">
               <ScrollReveal>
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold mb-2">Photo Gallery</h2>
@@ -138,11 +183,11 @@ export default function ResourcesPage() {
               </div>
             </TabsContent>
 
-            {/* Career Guides Tab */}
-            <TabsContent value="guides">
+            {/* For Students Tab */}
+            <TabsContent value="guides" id="guides">
               <ScrollReveal>
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold mb-2">Career Guides & Blog</h2>
+                  <h2 className="text-2xl font-bold mb-2">For Students</h2>
                   <p className="text-muted-foreground">
                     Practical resources to help you navigate your career journey
                   </p>
@@ -164,9 +209,16 @@ export default function ResourcesPage() {
                       <CardContent>
                         <div className="flex items-center justify-between">
                           <Badge variant="outline">{guide.category}</Badge>
-                          <Button variant="ghost" size="sm">
-                            Read More
-                          </Button>
+                          {'pdf_url' in guide && guide.pdf_url ? (
+                            <Button variant="ghost" size="sm" asChild>
+                              <a href={String((guide as { pdf_url?: string }).pdf_url)} target="_blank" rel="noopener noreferrer">
+                                <Download className="mr-2 h-4 w-4" />
+                                Download PDF
+                              </a>
+                            </Button>
+                          ) : (
+                            <Button variant="ghost" size="sm">Read More</Button>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
@@ -176,7 +228,7 @@ export default function ResourcesPage() {
             </TabsContent>
 
             {/* For Mentors Tab */}
-            <TabsContent value="mentors">
+            <TabsContent value="mentors" id="mentors">
               <ScrollReveal>
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold mb-2">Resources for Mentors</h2>
@@ -199,10 +251,19 @@ export default function ResourcesPage() {
                         </div>
                       </CardHeader>
                       <CardContent>
-                        <Button variant="outline" size="sm">
-                          <Download className="mr-2 h-4 w-4" />
-                          Download
-                        </Button>
+                        {'pdf_url' in resource && resource.pdf_url ? (
+                          <Button variant="outline" size="sm" asChild>
+                            <a href={String((resource as { pdf_url?: string }).pdf_url)} target="_blank" rel="noopener noreferrer">
+                              <Download className="mr-2 h-4 w-4" />
+                              Download PDF
+                            </a>
+                          </Button>
+                        ) : (
+                          <Button variant="outline" size="sm">
+                            <Download className="mr-2 h-4 w-4" />
+                            Download
+                          </Button>
+                        )}
                       </CardContent>
                     </Card>
                   </ScrollReveal>
@@ -211,12 +272,12 @@ export default function ResourcesPage() {
             </TabsContent>
 
             {/* Videos Tab - Educational content from Connect2Roots Academy */}
-            <TabsContent value="videos">
+            <TabsContent value="videos" id="videos">
               <ScrollReveal>
                 <div className="mb-6">
                   <div className="flex items-center gap-2 mb-2">
                     <Video className="h-7 w-7 text-c2r-primary" />
-                    <h2 className="text-2xl font-bold">Educational Videos</h2>
+                    <h2 className="text-2xl font-bold">Free Courses</h2>
                   </div>
                   <p className="text-muted-foreground">
                     Learn from Connect2Roots Academy — career guidance, mentorship insights, and success stories to support your growth.
@@ -224,19 +285,53 @@ export default function ResourcesPage() {
                 </div>
               </ScrollReveal>
 
+              {API_BASE && !hasCourseAccess ? (
+                <ScrollReveal>
+                  <Card className="mb-8 border-c2r-primary/30 bg-gradient-to-br from-c2r-primary/5 to-c2r-secondary/5 overflow-hidden">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Video className="h-5 w-5 text-c2r-primary" />
+                        Free courses
+                      </CardTitle>
+                      <CardDescription>
+                        Sign up or sign in to get access to our free courses and learning resources.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-3">
+                        <Button variant="outline" className="gap-2" asChild>
+                          <a href="/resources/free-courses-auth?mode=signin">
+                            <LogIn className="h-4 w-4" />
+                            Sign in
+                          </a>
+                        </Button>
+                        <Button className="gap-2" asChild>
+                          <a href="/resources/free-courses-auth?mode=signup">
+                            <UserPlus className="h-4 w-4" />
+                            Sign up
+                          </a>
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </ScrollReveal>
+              ) : null}
+
+              {(!API_BASE || hasCourseAccess) ? (
+                <>
               <div className="mb-6 p-4 rounded-lg bg-muted/50 border border-border">
-                <p className="text-sm text-muted-foreground flex items-center gap-2">
-                  <span>All videos are from</span>
+                <p className="text-sm text-muted-foreground flex flex-wrap items-center gap-2">
+                  <span className="font-medium text-foreground">Find us on</span>
                   <a
                     href={CONNECT2ROOTS_ACADEMY_CHANNEL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-medium text-c2r-primary hover:underline inline-flex items-center gap-1"
                   >
-                    Connect2Roots Academy
+                    Connect2Roots Academy (YouTube)
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
-                  <span>on YouTube.</span>
+                  <span>— all videos are from our channel.</span>
                 </p>
               </div>
 
@@ -325,22 +420,24 @@ export default function ResourcesPage() {
 
               <ScrollReveal delay={100}>
                 <div className="mt-10 p-6 rounded-xl bg-gradient-to-br from-c2r-primary/10 to-c2r-secondary/10 border border-c2r-primary/20 text-center">
-                  <h3 className="text-lg font-semibold mb-2">More on Connect2Roots Academy</h3>
+                  <h3 className="text-lg font-semibold mb-2">Find us on YouTube</h3>
                   <p className="text-muted-foreground mb-4 max-w-xl mx-auto">
-                    Subscribe to our YouTube channel for regular educational content, mentor talks, and community stories.
+                    Subscribe to Connect2Roots Academy for regular educational content, mentor talks, and community stories.
                   </p>
                   <Button asChild>
                     <a href={CONNECT2ROOTS_ACADEMY_CHANNEL} target="_blank" rel="noopener noreferrer">
                       <Video className="mr-2 h-4 w-4" />
-                      Visit YouTube Channel
+                      Find us on YouTube
                     </a>
                   </Button>
                 </div>
               </ScrollReveal>
+                </>
+              ) : null}
             </TabsContent>
 
             {/* Annual Reports Tab */}
-            <TabsContent value="reports">
+            <TabsContent value="reports" id="reports">
               <ScrollReveal>
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold mb-2">Annual Reports</h2>
@@ -364,10 +461,19 @@ export default function ResourcesPage() {
                               <CardDescription>{report.description}</CardDescription>
                             </div>
                           </div>
-                          <Button variant="outline" size="sm">
-                            <FileDown className="mr-2 h-4 w-4" />
-                            Download PDF
-                          </Button>
+                          {'pdf_url' in report && report.pdf_url ? (
+                            <Button variant="outline" size="sm" asChild>
+                              <a href={String((report as { pdf_url?: string }).pdf_url)} target="_blank" rel="noopener noreferrer">
+                                <FileDown className="mr-2 h-4 w-4" />
+                                Download PDF
+                              </a>
+                            </Button>
+                          ) : (
+                            <Button variant="outline" size="sm">
+                              <FileDown className="mr-2 h-4 w-4" />
+                              Download PDF
+                            </Button>
+                          )}
                         </div>
                       </CardHeader>
                     </Card>
@@ -389,7 +495,7 @@ export default function ResourcesPage() {
             </TabsContent>
 
             {/* Events Tab */}
-            <TabsContent value="events">
+            <TabsContent value="events" id="events">
               <ScrollReveal>
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold mb-2">Upcoming Events</h2>
@@ -428,7 +534,7 @@ export default function ResourcesPage() {
             </TabsContent>
 
             {/* Publications Tab */}
-            <TabsContent value="publications">
+            <TabsContent value="publications" id="publications">
               <ScrollReveal>
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold mb-2">Publications & Reports</h2>

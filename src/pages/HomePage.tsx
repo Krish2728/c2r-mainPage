@@ -41,26 +41,10 @@ export default function HomePage() {
                 size="lg" 
                 variant="secondary" 
                 className="text-lg px-8 py-6" 
-                onClick={() => navigate({ to: '/mentorship' })}
-              >
-                Find a Mentor
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="bg-white/10 text-white border-white/30 hover:bg-white/20 text-lg px-8 py-6 backdrop-blur-sm" 
-                onClick={() => navigate({ to: '/mentorship' })}
-              >
-                Become a Mentor
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="bg-white/10 text-white border-white/30 hover:bg-white/20 text-lg px-8 py-6 backdrop-blur-sm" 
                 onClick={() => navigate({ to: '/get-involved' })}
               >
                 Partner With Us
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button 
                 size="lg" 
@@ -446,18 +430,18 @@ export default function HomePage() {
                   size="lg" 
                   variant="secondary" 
                   className="text-lg px-8 py-6" 
-                  onClick={() => navigate({ to: '/mentorship' })}
+                  onClick={() => navigate({ to: '/about/who-we-are' })}
                 >
-                  Get Started
+                  Learn More About Us
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline" 
                   className="bg-white/10 text-white border-white/30 hover:bg-white/20 text-lg px-8 py-6 backdrop-blur-sm" 
-                  onClick={() => navigate({ to: '/about/who-we-are' })}
+                  onClick={() => navigate({ to: '/get-involved' })}
                 >
-                  Learn More About Us
+                  Get Involved
                 </Button>
               </div>
             </div>

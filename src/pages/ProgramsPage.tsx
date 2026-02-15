@@ -1,7 +1,8 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, useLocation } from '@tanstack/react-router';
+import { useEffect } from 'react';
 import { GraduationCap, Briefcase, TrendingUp, CheckCircle2 } from 'lucide-react';
 import { usePrograms } from '@/hooks/useQueries';
 import { ScrollReveal } from '@/components/ScrollReveal';
@@ -9,7 +10,7 @@ import { getImageUrl } from '@/lib/images';
 import { ParallaxSection } from '@/components/ParallaxSection';
 import { ChapterHeader } from '@/components/ChapterHeader';
 
-export default function ProgramsPage() {
+function ProgramsPage() {
   const navigate = useNavigate();
   const { data: programs = [] } = usePrograms();
 
@@ -108,6 +109,19 @@ export default function ProgramsPage() {
     };
   }) : defaultPrograms;
 
+  const PROGRAM_SLUGS = ['career-catalyst', 'skill-development', 'livelihoods'];
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = (location.hash ?? window.location.hash ?? '').replace(/^#/, '');
+    if (!PROGRAM_SLUGS.includes(hash)) return;
+    const timeoutId = setTimeout(() => {
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+    return () => clearTimeout(timeoutId);
+  }, [location.hash, location.pathname]);
+
   return (
     <div className="flex flex-col overflow-hidden">
       {/* Hero with Parallax */}
@@ -138,7 +152,7 @@ export default function ProgramsPage() {
             {displayPrograms.map((program, index) => {
               const Icon = program.icon;
               return (
-                <div key={index}>
+                <div key={index} id={PROGRAM_SLUGS[index] ?? undefined}>
                   <ChapterHeader 
                     chapter={`Chapter ${index + 1}: ${program.chapter}`}
                     title={program.title}
@@ -243,3 +257,5 @@ export default function ProgramsPage() {
     </div>
   );
 }
+
+export default ProgramsPage;
