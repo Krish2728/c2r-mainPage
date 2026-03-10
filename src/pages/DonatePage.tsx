@@ -1,38 +1,51 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollReveal } from '@/components/ScrollReveal';
-import { AnimatedCounter } from '@/components/AnimatedCounter';
-import { useCreateDonation } from '@/hooks/useQueries';
-import { toast } from 'sonner';
-import { Heart, Users, BookOpen, TrendingUp, Shield, Check } from 'lucide-react';
-import { getImageUrl } from '@/lib/images';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { useCreateDonation } from "@/hooks/useQueries";
+import { toast } from "sonner";
+import {
+  Heart,
+  Users,
+  BookOpen,
+  TrendingUp,
+  Shield,
+  Check,
+} from "lucide-react";
+import { getImageUrl } from "@/lib/images";
 
 const donationTiers = [
   {
     amount: 500,
-    title: 'Support One Student Session',
-    description: 'Fund a single mentorship session for a student',
+    title: "Support One Student Session",
+    description: "Fund a single mentorship session for a student",
     icon: Users,
   },
   {
     amount: 1000,
-    title: 'Fund Weekly Mentorship',
-    description: 'Enable a week of guidance and support',
+    title: "Fund Weekly Mentorship",
+    description: "Enable a week of guidance and support",
     icon: BookOpen,
   },
   {
     amount: 2500,
-    title: 'Enable Skills Training',
-    description: 'Provide comprehensive skill development',
+    title: "Enable Skills Training",
+    description: "Provide comprehensive skill development",
     icon: TrendingUp,
   },
   {
     amount: 5000,
-    title: 'Transform a Career Path',
-    description: 'Complete mentorship journey for one student',
+    title: "Transform a Career Path",
+    description: "Complete mentorship journey for one student",
     icon: Heart,
   },
 ];
@@ -40,43 +53,48 @@ const donationTiers = [
 export default function DonatePage() {
   const createDonation = useCreateDonation();
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
-  const [customAmount, setCustomAmount] = useState('');
-  const [donorName, setDonorName] = useState('');
-  const [donorEmail, setDonorEmail] = useState('');
-  const [error, setError] = useState('');
+  const [customAmount, setCustomAmount] = useState("");
+  const [donorName, setDonorName] = useState("");
+  const [donorEmail, setDonorEmail] = useState("");
+  const [error, setError] = useState("");
 
   const handleTierSelect = (amount: number) => {
     setSelectedAmount(amount);
-    setCustomAmount('');
-    setError('');
+    setCustomAmount("");
+    setError("");
+    // Scroll to donation form so user can complete details and proceed
+    const formEl = document.getElementById("donation-form");
+    if (formEl) {
+      formEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   const handleCustomAmountChange = (value: string) => {
     setCustomAmount(value);
     setSelectedAmount(null);
-    setError('');
+    setError("");
   };
 
   const handleDonate = async () => {
     const amount = selectedAmount || parseInt(customAmount);
 
     if (!amount || isNaN(amount)) {
-      setError('Please select or enter a donation amount');
+      setError("Please select or enter a donation amount");
       return;
     }
 
     if (amount < 500) {
-      setError('Minimum donation amount is Rs. 500');
+      setError("Minimum donation amount is Rs. 500");
       return;
     }
 
     if (!donorName.trim()) {
-      setError('Please enter your name');
+      setError("Please enter your name");
       return;
     }
 
-    if (!donorEmail.trim() || !donorEmail.includes('@')) {
-      setError('Please enter a valid email address');
+    if (!donorEmail.trim() || !donorEmail.includes("@")) {
+      setError("Please enter a valid email address");
       return;
     }
 
@@ -88,13 +106,17 @@ export default function DonatePage() {
         donorName,
         donorEmail,
       });
-      
+
       // Redirect to checkout (in production, this would be Stripe checkout URL)
       // For demo, redirect to success page
       window.location.href = result.checkoutUrl;
-    } catch (err: any) {
-      console.error('Donation error:', err);
-      toast.error(err.message || 'Failed to process donation. Please try again.');
+    } catch (err: unknown) {
+      console.error("Donation error:", err);
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : "Failed to process donation. Please try again.",
+      );
     }
   };
 
@@ -104,7 +126,9 @@ export default function DonatePage() {
       <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={getImageUrl('/assets/generated/donation-impact.dim_600x400.jpg')}
+            src={getImageUrl(
+              "/assets/generated/donation-impact.dim_600x400.jpg",
+            )}
             alt="Donation Impact"
             className="w-full h-full object-cover"
           />
@@ -112,13 +136,14 @@ export default function DonatePage() {
         </div>
         <div className="relative z-10 container text-center text-white px-4">
           <ScrollReveal>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="heading-descender-safe text-4xl md:text-6xl font-bold mb-6">
               Your Support Creates Lasting Change
             </h1>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto text-white/90">
-              Every donation helps bridge the gap between talent and opportunity, empowering young minds to build brighter futures.
+              Every donation helps bridge the gap between talent and
+              opportunity, empowering young minds to build brighter futures.
             </p>
           </ScrollReveal>
         </div>
@@ -128,13 +153,14 @@ export default function DonatePage() {
       <section className="py-20 bg-muted/30">
         <div className="container">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            <h2 className="heading-descender-safe text-3xl md:text-4xl font-bold text-center mb-4">
               The Impact of Your Generosity
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              See how your contributions transform lives and create opportunities
+              See how your contributions transform lives and create
+              opportunities
             </p>
           </ScrollReveal>
 
@@ -175,7 +201,9 @@ export default function DonatePage() {
             <ScrollReveal delay={0.2}>
               <div className="relative h-64 rounded-lg overflow-hidden">
                 <img
-                  src={getImageUrl('/assets/generated/volunteer-mentoring.dim_800x500.jpg')}
+                  src={getImageUrl(
+                    "/assets/generated/volunteer-mentoring.dim_800x500.jpg",
+                  )}
                   alt="Volunteer Mentoring"
                   className="w-full h-full object-cover"
                 />
@@ -184,7 +212,9 @@ export default function DonatePage() {
             <ScrollReveal delay={0.3}>
               <div className="relative h-64 rounded-lg overflow-hidden">
                 <img
-                  src={getImageUrl('/assets/generated/skill-development.dim_600x400.jpg')}
+                  src={getImageUrl(
+                    "/assets/generated/skill-development.dim_600x400.jpg",
+                  )}
                   alt="Skill Development"
                   className="w-full h-full object-cover"
                 />
@@ -198,7 +228,7 @@ export default function DonatePage() {
       <section className="py-20">
         <div className="container max-w-6xl">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+            <h2 className="heading-descender-safe text-3xl md:text-4xl font-bold text-center mb-4">
               Choose Your Impact
             </h2>
           </ScrollReveal>
@@ -214,8 +244,8 @@ export default function DonatePage() {
                 <Card
                   className={`cursor-pointer transition-all hover:shadow-lg ${
                     selectedAmount === tier.amount
-                      ? 'ring-2 ring-c2r-accent border-c2r-accent'
-                      : ''
+                      ? "ring-2 ring-c2r-accent border-c2r-accent"
+                      : ""
                   }`}
                   onClick={() => handleTierSelect(tier.amount)}
                 >
@@ -232,16 +262,22 @@ export default function DonatePage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">{tier.description}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {tier.description}
+                    </p>
                   </CardContent>
                 </Card>
               </ScrollReveal>
             ))}
           </div>
+          <p className="text-center text-sm text-muted-foreground mb-8">
+            Click a tier to select it, then complete your details below to
+            proceed to payment.
+          </p>
 
           {/* Donation Form */}
           <ScrollReveal delay={0.4}>
-            <Card className="max-w-2xl mx-auto">
+            <Card id="donation-form" className="max-w-2xl mx-auto scroll-mt-8">
               <CardHeader>
                 <CardTitle>Complete Your Donation</CardTitle>
                 <CardDescription>
@@ -302,7 +338,9 @@ export default function DonatePage() {
                   className="w-full text-lg px-8 py-6"
                   size="lg"
                 >
-                  {createDonation.isPending ? 'Processing...' : 'Proceed to Payment'}
+                  {createDonation.isPending
+                    ? "Processing..."
+                    : "Proceed to Payment"}
                 </Button>
 
                 <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
@@ -319,7 +357,7 @@ export default function DonatePage() {
       <section className="py-20 bg-muted/30">
         <div className="container max-w-4xl">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            <h2 className="heading-descender-safe text-3xl md:text-4xl font-bold text-center mb-12">
               Why Your Donation Matters
             </h2>
           </ScrollReveal>
@@ -333,9 +371,13 @@ export default function DonatePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">Direct Impact on Students</h3>
+                  <h3 className="heading-descender-safe text-xl font-semibold mb-2">
+                    Direct Impact on Students
+                  </h3>
                   <p className="text-muted-foreground">
-                    Your contribution directly funds mentorship sessions, skill development programs, and career guidance for students who lack access to such opportunities.
+                    Your contribution directly funds mentorship sessions, skill
+                    development programs, and career guidance for students who
+                    lack access to such opportunities.
                   </p>
                 </div>
               </div>
@@ -349,9 +391,13 @@ export default function DonatePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">Sustainable Growth</h3>
+                  <h3 className="heading-descender-safe text-xl font-semibold mb-2">
+                    Sustainable Growth
+                  </h3>
                   <p className="text-muted-foreground">
-                    We invest in long-term solutions that create lasting change, building a robust ecosystem of mentors, partners, and resources.
+                    We invest in long-term solutions that create lasting change,
+                    building a robust ecosystem of mentors, partners, and
+                    resources.
                   </p>
                 </div>
               </div>
@@ -365,9 +411,12 @@ export default function DonatePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">Community Transformation</h3>
+                  <h3 className="heading-descender-safe text-xl font-semibold mb-2">
+                    Community Transformation
+                  </h3>
                   <p className="text-muted-foreground">
-                    Every student we help becomes a catalyst for change in their community, creating a ripple effect of positive impact.
+                    Every student we help becomes a catalyst for change in their
+                    community, creating a ripple effect of positive impact.
                   </p>
                 </div>
               </div>

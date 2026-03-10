@@ -1,13 +1,19 @@
-import { useNavigate } from '@tanstack/react-router';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { usePaymentCancel } from '@/hooks/useQueries';
-import { XCircle, Loader2, ArrowLeft } from 'lucide-react';
+import { useNavigate } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { usePaymentCancel } from "@/hooks/useQueries";
+import { XCircle, Loader2, ArrowLeft } from "lucide-react";
 
 export default function DonationCancelPage() {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
-  const sessionId = params.get('sessionId') || '';
+  const sessionId = params.get("sessionId") || "";
 
   const { isLoading } = usePaymentCancel(sessionId);
 
@@ -30,18 +36,17 @@ export default function DonationCancelPage() {
             <XCircle className="h-16 w-16 text-muted-foreground" />
           </div>
           <CardTitle className="text-2xl">Donation Cancelled</CardTitle>
-          <CardDescription>
-            Your donation was not completed
-          </CardDescription>
+          <CardDescription>Your donation was not completed</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <p className="text-center text-muted-foreground">
-            No charges have been made to your account. You can try again whenever you're ready.
+            No charges have been made to your account. You can try again
+            whenever you're ready.
           </p>
 
           <div className="space-y-3">
             <Button
-              onClick={() => navigate({ to: '/donate' })}
+              onClick={() => navigate({ to: "/donate" })}
               className="w-full text-lg px-8 py-6"
               size="lg"
             >
@@ -49,7 +54,7 @@ export default function DonationCancelPage() {
               Return to Donation Page
             </Button>
             <Button
-              onClick={() => navigate({ to: '/' })}
+              onClick={() => navigate({ to: "/" })}
               variant="outline"
               className="w-full text-lg px-8 py-6"
               size="lg"

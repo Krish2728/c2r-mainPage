@@ -12,6 +12,11 @@ services:
     runtime: static
     buildCommand: npm install && npm run build
     staticPublishPath: dist
+    # SPA fallback: serve index.html for all paths so client-side routing works on refresh/direct links
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     envVars:
       - key: NODE_VERSION
         value: "20"

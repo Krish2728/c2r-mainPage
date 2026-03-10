@@ -1,9 +1,15 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useInternetIdentity } from '@/hooks/useInternetIdentity';
-import { useNavigate } from '@tanstack/react-router';
-import { LogIn, LogOut, User } from 'lucide-react';
-import { useState } from 'react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useInternetIdentity } from "@/hooks/useInternetIdentity";
+import { useNavigate } from "@tanstack/react-router";
+import { LogIn, LogOut, User } from "lucide-react";
+import { useState } from "react";
 
 export default function LoginPage() {
   const { login, clear, loginStatus } = useInternetIdentity();
@@ -16,9 +22,12 @@ export default function LoginPage() {
       <section className="bg-gradient-to-br from-c2r-primary to-c2r-secondary py-20 text-white">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="mb-6 text-4xl font-bold md:text-5xl">Login</h1>
+            <h1 className="heading-descender-safe mb-6 text-4xl font-bold md:text-5xl">
+              Login
+            </h1>
             <p className="text-lg text-white/90">
-              Access your Connect2Roots account to manage your profile and connections
+              Access your Connect2Roots account to manage your profile and
+              connections
             </p>
           </div>
         </div>
@@ -31,12 +40,12 @@ export default function LoginPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-2xl">
-                  {isLoggedIn ? 'Account' : 'Sign In'}
+                  {isLoggedIn ? "Account" : "Sign In"}
                 </CardTitle>
                 <CardDescription>
-                  {isLoggedIn 
-                    ? 'You are currently logged in' 
-                    : 'Connect securely using Internet Identity'}
+                  {isLoggedIn
+                    ? "You are currently logged in"
+                    : "Connect securely using Internet Identity"}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -48,21 +57,22 @@ export default function LoginPage() {
                         <span className="font-semibold">Logged In</span>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        You are successfully logged in to Connect2Roots Foundation.
+                        You are successfully logged in to Connect2Roots
+                        Foundation.
                       </p>
                     </div>
 
                     <div className="space-y-3">
-                      <Button 
-                        className="w-full text-lg px-8 py-6" 
+                      <Button
+                        className="w-full text-lg px-8 py-6"
                         variant="outline"
                         size="lg"
-                        onClick={() => navigate({ to: '/' })}
+                        onClick={() => navigate({ to: "/" })}
                       >
                         Go to Dashboard
                       </Button>
-                      <Button 
-                        className="w-full text-lg px-8 py-6" 
+                      <Button
+                        className="w-full text-lg px-8 py-6"
                         variant="destructive"
                         size="lg"
                         onClick={() => {
@@ -79,8 +89,9 @@ export default function LoginPage() {
                   <>
                     <div className="space-y-4 text-sm text-muted-foreground">
                       <p>
-                        Sign in to access your Connect2Roots account and manage your profile, 
-                        mentorship connections, and program participation.
+                        Sign in to access your Connect2Roots account and manage
+                        your profile, mentorship connections, and program
+                        participation.
                       </p>
                       <ul className="space-y-2 pl-4">
                         <li>• Access your mentorship dashboard</li>
@@ -90,17 +101,17 @@ export default function LoginPage() {
                       </ul>
                     </div>
 
-                    <Button 
-                      className="w-full text-lg px-8 py-6" 
+                    <Button
+                      className="w-full text-lg px-8 py-6"
                       size="lg"
                       onClick={async () => {
                         await login();
                         setIsLoggedIn(true);
                       }}
-                      disabled={loginStatus === 'logging-in'}
+                      disabled={loginStatus === "logging-in"}
                     >
-                      {loginStatus === 'logging-in' ? (
-                        'Connecting...'
+                      {loginStatus === "logging-in" ? (
+                        "Connecting..."
                       ) : (
                         <>
                           <LogIn className="mr-2 h-4 w-4" />
@@ -111,9 +122,9 @@ export default function LoginPage() {
 
                     <div className="text-center text-sm text-muted-foreground">
                       <p>
-                        Don't have an account?{' '}
-                        <a 
-                          href="/get-involved" 
+                        Don't have an account?{" "}
+                        <a
+                          href="/get-involved"
                           className="text-c2r-primary hover:underline"
                         >
                           Get involved here
@@ -131,10 +142,20 @@ export default function LoginPage() {
                   New to Connect2Roots?
                 </p>
                 <div className="flex flex-col gap-2">
-                  <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => navigate({ to: '/mentorship' })}>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="text-lg px-8 py-6"
+                    onClick={() => navigate({ to: "/mentorship" })}
+                  >
                     Find a Mentor
                   </Button>
-                  <Button variant="outline" size="lg" className="text-lg px-8 py-6" onClick={() => navigate({ to: '/get-involved' })}>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="text-lg px-8 py-6"
+                    onClick={() => navigate({ to: "/get-involved" })}
+                  >
                     Become a Mentor
                   </Button>
                 </div>

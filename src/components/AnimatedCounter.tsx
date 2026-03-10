@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 interface AnimatedCounterProps {
   end: number;
@@ -8,7 +8,13 @@ interface AnimatedCounterProps {
   decimals?: number;
 }
 
-export function AnimatedCounter({ end, duration = 2000, suffix = '', className = '', decimals = 0 }: AnimatedCounterProps) {
+export function AnimatedCounter({
+  end,
+  duration = 2000,
+  suffix = "",
+  className = "",
+  decimals = 0,
+}: AnimatedCounterProps) {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -22,7 +28,7 @@ export function AnimatedCounter({ end, duration = 2000, suffix = '', className =
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     if (ref.current) {
@@ -43,7 +49,7 @@ export function AnimatedCounter({ end, duration = 2000, suffix = '', className =
     const animate = (currentTime: number) => {
       if (!startTime) startTime = currentTime;
       const progress = Math.min((currentTime - startTime) / duration, 1);
-      
+
       if (decimals > 0) {
         setCount(progress * end);
       } else {
@@ -58,11 +64,13 @@ export function AnimatedCounter({ end, duration = 2000, suffix = '', className =
     requestAnimationFrame(animate);
   }, [isVisible, end, duration, decimals]);
 
-  const displayValue = decimals > 0 ? count.toFixed(decimals) : count.toLocaleString();
+  const displayValue =
+    decimals > 0 ? count.toFixed(decimals) : count.toLocaleString();
 
   return (
     <div ref={ref} className={className}>
-      {displayValue}{suffix}
+      {displayValue}
+      {suffix}
     </div>
   );
 }

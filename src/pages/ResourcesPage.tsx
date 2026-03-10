@@ -1,38 +1,82 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from '@tanstack/react-router';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { BookOpen, Calendar, FileText, Download, Video, FileDown, ExternalLink, Play, LogIn, UserPlus } from 'lucide-react';
-import { useGalleryItems, useResourceVideos, useCareerGuides, useAnnualReports, useMentorResources } from '@/hooks/useQueries';
-import { ScrollReveal } from '@/components/ScrollReveal';
-import { getImageUrl } from '@/lib/images';
-import { getYouTubeVideoId, getYouTubeThumbnailUrlSafe, getYouTubeThumbnailUrl, isValidYouTubeId } from '@/lib/youtube';
+import { useState, useEffect } from "react";
+import { useLocation, Link } from "@tanstack/react-router";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  BookOpen,
+  Calendar,
+  FileText,
+  Download,
+  Video,
+  FileDown,
+  ExternalLink,
+  Play,
+  LogIn,
+  UserPlus,
+} from "lucide-react";
+import {
+  useGalleryItems,
+  useResourceVideos,
+  useCareerGuides,
+  useAnnualReports,
+  useMentorResources,
+} from "@/hooks/useQueries";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import { getImageUrl } from "@/lib/images";
+import {
+  getYouTubeVideoId,
+  getYouTubeThumbnailUrlSafe,
+  getYouTubeThumbnailUrl,
+  isValidYouTubeId,
+} from "@/lib/youtube";
 
-const API_BASE = ((typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '').trim().replace(/\/$/, '');
-const COURSE_ACCESS_KEY = 'c2r_free_course_access';
+const API_BASE = (
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
+  ""
+)
+  .trim()
+  .replace(/\/$/, "");
+const COURSE_ACCESS_KEY = "c2r_free_course_access";
 
-const RESOURCE_TAB_VALUES = ['guides', 'mentors', 'gallery', 'videos', 'reports', 'events', 'publications'] as const;
+const RESOURCE_TAB_VALUES = [
+  "guides",
+  "mentors",
+  "gallery",
+  "videos",
+  "reports",
+  "events",
+  "publications",
+] as const;
 
 export default function ResourcesPage() {
   const location = useLocation();
   const [hasCourseAccess, setHasCourseAccess] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>('guides');
+  const [activeTab, setActiveTab] = useState<string>("guides");
 
   useEffect(() => {
-    setHasCourseAccess(localStorage.getItem(COURSE_ACCESS_KEY) === 'true');
+    setHasCourseAccess(localStorage.getItem(COURSE_ACCESS_KEY) === "true");
   }, []);
 
   useEffect(() => {
-    const hash = (location.hash ?? window.location.hash ?? '').replace(/^#/, '');
-    if (!RESOURCE_TAB_VALUES.includes(hash as any)) return;
+    const hash = (location.hash ?? window.location.hash ?? "").replace(
+      /^#/,
+      "",
+    );
+    if (!(RESOURCE_TAB_VALUES as readonly string[]).includes(hash)) return;
     setActiveTab(hash);
     // Scroll to tab section after tab content is in the DOM (one-click nav from header)
     const scrollToHash = () => {
       const el = document.getElementById(hash);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
         return true;
       }
       return false;
@@ -49,92 +93,262 @@ export default function ResourcesPage() {
   const { data: apiMentorResources = [] } = useMentorResources();
 
   const defaultGalleryItems = [
-    { title: 'Mentorship Workshop 2024', description: 'Annual mentorship training session', imageUrl: getImageUrl('/assets/generated/mentorship-workshop.dim_800x600.jpg'), category: 'workshops' },
-    { title: 'Career Guidance Session', description: 'Students receiving career counseling', imageUrl: getImageUrl('/assets/generated/career-catalyst.dim_600x400.jpg'), category: 'mentoring' },
-    { title: 'Skill Development Training', description: 'Technical skills workshop', imageUrl: getImageUrl('/assets/generated/skill-development.dim_600x400.jpg'), category: 'training' },
-    { title: 'Entrepreneurship Bootcamp', description: 'Startup pitch competition', imageUrl: getImageUrl('/assets/generated/entrepreneurship-support.dim_600x400.jpg'), category: 'events' },
-    { title: 'Team Collaboration', description: 'Our team working together', imageUrl: getImageUrl('/assets/generated/team-collaboration.dim_800x500.jpg'), category: 'team' },
-    { title: 'Corporate Partnership Event', description: 'Partnership signing ceremony', imageUrl: getImageUrl('/assets/generated/corporate-partnership.dim_600x400.jpg'), category: 'events' },
+    {
+      title: "Mentorship Workshop 2024",
+      description: "Annual mentorship training session",
+      imageUrl: getImageUrl(
+        "/assets/generated/mentorship-workshop.dim_800x600.jpg",
+      ),
+      category: "workshops",
+    },
+    {
+      title: "Career Guidance Session",
+      description: "Students receiving career counseling",
+      imageUrl: getImageUrl(
+        "/assets/generated/career-catalyst.dim_600x400.jpg",
+      ),
+      category: "mentoring",
+    },
+    {
+      title: "Skill Development Training",
+      description: "Technical skills workshop",
+      imageUrl: getImageUrl(
+        "/assets/generated/skill-development.dim_600x400.jpg",
+      ),
+      category: "training",
+    },
+    {
+      title: "Entrepreneurship Bootcamp",
+      description: "Startup pitch competition",
+      imageUrl: getImageUrl(
+        "/assets/generated/entrepreneurship-support.dim_600x400.jpg",
+      ),
+      category: "events",
+    },
+    {
+      title: "Team Collaboration",
+      description: "Our team working together",
+      imageUrl: getImageUrl(
+        "/assets/generated/team-collaboration.dim_800x500.jpg",
+      ),
+      category: "team",
+    },
+    {
+      title: "Corporate Partnership Event",
+      description: "Partnership signing ceremony",
+      imageUrl: getImageUrl(
+        "/assets/generated/corporate-partnership.dim_600x400.jpg",
+      ),
+      category: "events",
+    },
   ];
 
-  const displayGallery = galleryItems.length > 0 ? galleryItems : defaultGalleryItems;
+  const displayGallery =
+    galleryItems.length > 0 ? galleryItems : defaultGalleryItems;
 
   const defaultCareerGuides = [
-    { title: 'Resume Writing Guide', description: 'Comprehensive guide to creating impactful resumes', category: 'Career Prep' },
-    { title: 'Interview Success Tips', description: 'Master the art of interviewing with confidence', category: 'Career Prep' },
-    { title: 'Networking Strategies', description: 'Build and leverage your professional network', category: 'Professional Development' },
-    { title: 'Career Transition Guide', description: 'Navigate career changes successfully', category: 'Career Planning' },
-    { title: 'Personal Branding 101', description: 'Establish your professional identity', category: 'Professional Development' },
+    {
+      title: "Resume Writing Guide",
+      description: "Comprehensive guide to creating impactful resumes",
+      category: "Career Prep",
+    },
+    {
+      title: "Interview Success Tips",
+      description: "Master the art of interviewing with confidence",
+      category: "Career Prep",
+    },
+    {
+      title: "Networking Strategies",
+      description: "Build and leverage your professional network",
+      category: "Professional Development",
+    },
+    {
+      title: "Career Transition Guide",
+      description: "Navigate career changes successfully",
+      category: "Career Planning",
+    },
+    {
+      title: "Personal Branding 101",
+      description: "Establish your professional identity",
+      category: "Professional Development",
+    },
   ];
-  const careerGuides = apiCareerGuides.length > 0
-    ? apiCareerGuides.map((g) => ({ title: g.title, description: g.description || '', category: g.category || 'Career Prep', pdf_url: g.pdf_url }))
-    : defaultCareerGuides;
+  const careerGuides =
+    apiCareerGuides.length > 0
+      ? apiCareerGuides.map((g) => ({
+          title: g.title,
+          description: g.description || "",
+          category: g.category || "Career Prep",
+          pdf_url: g.pdf_url,
+        }))
+      : defaultCareerGuides;
 
   const defaultMentorResources = [
-    { title: 'Mentor Training Manual', description: 'Complete guide for effective mentorship' },
-    { title: 'Session Planning Toolkit', description: 'Templates and frameworks for mentorship sessions' },
-    { title: 'Goal Setting Framework', description: 'Help mentees set and achieve career goals' },
-    { title: 'Communication Best Practices', description: 'Build strong mentor-mentee relationships' },
+    {
+      title: "Mentor Training Manual",
+      description: "Complete guide for effective mentorship",
+    },
+    {
+      title: "Session Planning Toolkit",
+      description: "Templates and frameworks for mentorship sessions",
+    },
+    {
+      title: "Goal Setting Framework",
+      description: "Help mentees set and achieve career goals",
+    },
+    {
+      title: "Communication Best Practices",
+      description: "Build strong mentor-mentee relationships",
+    },
   ];
-  const mentorResources = apiMentorResources.length > 0
-    ? apiMentorResources.map((r) => ({ title: r.title, description: r.description || '', pdf_url: r.pdf_url }))
-    : defaultMentorResources;
+  const mentorResources =
+    apiMentorResources.length > 0
+      ? apiMentorResources.map((r) => ({
+          title: r.title,
+          description: r.description || "",
+          pdf_url: r.pdf_url,
+        }))
+      : defaultMentorResources;
 
   const events = [
-    { title: 'Monthly Mentorship Webinar', date: 'Every 3rd Thursday', type: 'Webinar' },
-    { title: 'Career Fair 2025', date: 'March 15, 2025', type: 'Event' },
-    { title: 'Skills Workshop Series', date: 'Ongoing', type: 'Workshop' },
-    { title: 'Entrepreneurship Summit', date: 'June 20-21, 2025', type: 'Conference' },
+    {
+      title: "Monthly Mentorship Webinar",
+      date: "Every 3rd Thursday",
+      type: "Webinar",
+    },
+    { title: "Career Fair 2025", date: "March 15, 2025", type: "Event" },
+    { title: "Skills Workshop Series", date: "Ongoing", type: "Workshop" },
+    {
+      title: "Entrepreneurship Summit",
+      date: "June 20-21, 2025",
+      type: "Conference",
+    },
   ];
 
   const publications = [
-    { title: 'Annual Impact Report 2024', description: 'Our achievements and impact metrics', type: 'Annual Report' },
-    { title: 'Skills Gap Analysis', description: 'Research on employment and skills needs', type: 'Research Paper' },
-    { title: 'Mentorship Best Practices', description: 'Evidence-based mentorship guidelines', type: 'Whitepaper' },
-    { title: 'Youth Employment Trends', description: 'Analysis of youth employment landscape', type: 'Research Paper' },
+    {
+      title: "Annual Impact Report 2024",
+      description: "Our achievements and impact metrics",
+      type: "Annual Report",
+    },
+    {
+      title: "Skills Gap Analysis",
+      description: "Research on employment and skills needs",
+      type: "Research Paper",
+    },
+    {
+      title: "Mentorship Best Practices",
+      description: "Evidence-based mentorship guidelines",
+      type: "Whitepaper",
+    },
+    {
+      title: "Youth Employment Trends",
+      description: "Analysis of youth employment landscape",
+      type: "Research Paper",
+    },
   ];
 
   const defaultAnnualReports = [
-    { year: '2024', title: 'Annual Report 2024', description: 'Our impact and achievements in 2024' },
-    { year: '2023', title: 'Annual Report 2023', description: 'Growth and milestones from 2023' },
-    { year: '2022', title: 'Annual Report 2022', description: 'Foundation year highlights' },
+    {
+      year: "2024",
+      title: "Annual Report 2024",
+      description: "Our impact and achievements in 2024",
+    },
+    {
+      year: "2023",
+      title: "Annual Report 2023",
+      description: "Growth and milestones from 2023",
+    },
+    {
+      year: "2022",
+      title: "Annual Report 2022",
+      description: "Foundation year highlights",
+    },
   ];
-  const annualReports = apiAnnualReports.length > 0
-    ? apiAnnualReports.map((r) => ({ year: r.year, title: r.title, description: r.description || '', pdf_url: r.pdf_url }))
-    : defaultAnnualReports;
+  const annualReports =
+    apiAnnualReports.length > 0
+      ? apiAnnualReports.map((r) => ({
+          year: r.year,
+          title: r.title,
+          description: r.description || "",
+          pdf_url: r.pdf_url,
+        }))
+      : defaultAnnualReports;
 
   // Educational videos: from API when available, else fallback (Connect2Roots Academy)
-  const CONNECT2ROOTS_ACADEMY_CHANNEL = 'https://www.youtube.com/@connect2rootsacademy';
-  const CONNECT2ROOTS_ACADEMY_VIDEOS = 'https://www.youtube.com/@connect2rootsacademy/videos';
+  const CONNECT2ROOTS_ACADEMY_CHANNEL =
+    "https://www.youtube.com/@connect2rootsacademy";
+  const CONNECT2ROOTS_ACADEMY_VIDEOS =
+    "https://www.youtube.com/@connect2rootsacademy/videos";
 
   const defaultEducationalVideos = [
-    { id: 0, title: 'Career Guidance & Mentorship', description: 'Learn how mentorship can shape your career path.', topic: 'Career Development', video_id: '' },
-    { id: 0, title: 'Skills for the Modern Workplace', description: 'Essential skills to thrive in today\'s job market.', topic: 'Professional Skills', video_id: '' },
-    { id: 0, title: 'Entrepreneurship & Starting Up', description: 'Insights on turning ideas into sustainable ventures.', topic: 'Entrepreneurship', video_id: '' },
-    { id: 0, title: 'Personal Branding & Networking', description: 'Build your professional identity effectively.', topic: 'Career Development', video_id: '' },
-    { id: 0, title: 'Interview & Resume Tips', description: 'Practical advice for interviews and applications.', topic: 'Career Prep', video_id: '' },
-    { id: 0, title: 'Stories from Our Community', description: 'Hear from mentees and mentors.', topic: 'Community', video_id: '' },
+    {
+      id: 0,
+      title: "Career Guidance & Mentorship",
+      description: "Learn how mentorship can shape your career path.",
+      topic: "Career Development",
+      video_id: "",
+    },
+    {
+      id: 0,
+      title: "Skills for the Modern Workplace",
+      description: "Essential skills to thrive in today's job market.",
+      topic: "Professional Skills",
+      video_id: "",
+    },
+    {
+      id: 0,
+      title: "Entrepreneurship & Starting Up",
+      description: "Insights on turning ideas into sustainable ventures.",
+      topic: "Entrepreneurship",
+      video_id: "",
+    },
+    {
+      id: 0,
+      title: "Personal Branding & Networking",
+      description: "Build your professional identity effectively.",
+      topic: "Career Development",
+      video_id: "",
+    },
+    {
+      id: 0,
+      title: "Interview & Resume Tips",
+      description: "Practical advice for interviews and applications.",
+      topic: "Career Prep",
+      video_id: "",
+    },
+    {
+      id: 0,
+      title: "Stories from Our Community",
+      description: "Hear from mentees and mentors.",
+      topic: "Community",
+      video_id: "",
+    },
   ];
 
-  const educationalVideos = apiVideos.length > 0
-    ? apiVideos
-    : defaultEducationalVideos;
+  const educationalVideos =
+    apiVideos.length > 0 ? apiVideos : defaultEducationalVideos;
 
   return (
     <div className="flex flex-col">
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${getImageUrl('/assets/generated/mentorship-workshop.dim_800x600.jpg')})` }}
+          style={{
+            backgroundImage: `url(${getImageUrl("/assets/generated/mentorship-workshop.dim_800x600.jpg")})`,
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
         <div className="container relative z-10 py-20">
           <ScrollReveal>
             <div className="mx-auto max-w-3xl text-center text-white">
-              <h1 className="mb-6 text-4xl font-bold md:text-5xl">Resources</h1>
+              <h1 className="heading-descender-safe mb-6 text-4xl font-bold md:text-5xl">
+                Resources
+              </h1>
               <p className="text-lg text-white/90">
-                Access our library of guides, tools, and materials to support your career journey
+                Access our library of guides, tools, and materials to support
+                your career journey
               </p>
             </div>
           </ScrollReveal>
@@ -144,15 +358,33 @@ export default function ResourcesPage() {
       {/* Main Content */}
       <section id="resources-content" className="py-16 md:py-24">
         <div className="container">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="w-full mb-8 flex overflow-x-auto scrollbar-hide md:grid md:grid-cols-3 lg:grid-cols-7">
-              <TabsTrigger value="guides" className="flex-shrink-0">For Students</TabsTrigger>
-              <TabsTrigger value="mentors" className="flex-shrink-0">For Mentors</TabsTrigger>
-              <TabsTrigger value="gallery" className="flex-shrink-0">Gallery</TabsTrigger>
-              <TabsTrigger value="videos" className="flex-shrink-0">Free Courses</TabsTrigger>
-              <TabsTrigger value="reports" className="flex-shrink-0">Annual Reports</TabsTrigger>
-              <TabsTrigger value="events" className="flex-shrink-0">Events</TabsTrigger>
-              <TabsTrigger value="publications" className="flex-shrink-0">Publications</TabsTrigger>
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="w-full"
+          >
+            <TabsList className="w-full mb-8 flex flex-nowrap overflow-x-auto overflow-y-hidden gap-1 scroll-smooth scrollbar-hide pb-2 md:gap-2">
+              <TabsTrigger value="guides" className="flex-shrink-0">
+                For Students
+              </TabsTrigger>
+              <TabsTrigger value="mentors" className="flex-shrink-0">
+                For Mentors
+              </TabsTrigger>
+              <TabsTrigger value="gallery" className="flex-shrink-0">
+                Gallery
+              </TabsTrigger>
+              <TabsTrigger value="videos" className="flex-shrink-0">
+                Free Courses
+              </TabsTrigger>
+              <TabsTrigger value="reports" className="flex-shrink-0">
+                Annual Reports
+              </TabsTrigger>
+              <TabsTrigger value="events" className="flex-shrink-0">
+                Events
+              </TabsTrigger>
+              <TabsTrigger value="publications" className="flex-shrink-0">
+                Publications
+              </TabsTrigger>
             </TabsList>
 
             {/* Gallery Tab */}
@@ -161,7 +393,8 @@ export default function ResourcesPage() {
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold mb-2">Photo Gallery</h2>
                   <p className="text-muted-foreground">
-                    Explore moments from our mentorship sessions, workshops, and community events
+                    Explore moments from our mentorship sessions, workshops, and
+                    community events
                   </p>
                 </div>
               </ScrollReveal>
@@ -169,7 +402,11 @@ export default function ResourcesPage() {
                 {displayGallery.map((item, index) => (
                   <ScrollReveal key={index} delay={index * 50}>
                     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                      <img src={item.imageUrl} alt={item.title} className="w-full h-48 object-cover" />
+                      <img
+                        src={item.imageUrl}
+                        alt={item.title}
+                        className="w-full h-48 object-cover"
+                      />
                       <CardHeader>
                         <CardTitle className="text-lg">{item.title}</CardTitle>
                         <CardDescription>{item.description}</CardDescription>
@@ -200,8 +437,12 @@ export default function ResourcesPage() {
                       <CardHeader>
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <CardTitle className="text-lg mb-2">{guide.title}</CardTitle>
-                            <CardDescription>{guide.description}</CardDescription>
+                            <CardTitle className="text-lg mb-2">
+                              {guide.title}
+                            </CardTitle>
+                            <CardDescription>
+                              {guide.description}
+                            </CardDescription>
                           </div>
                           <BookOpen className="h-8 w-8 text-c2r-primary flex-shrink-0 ml-4" />
                         </div>
@@ -209,15 +450,23 @@ export default function ResourcesPage() {
                       <CardContent>
                         <div className="flex items-center justify-between">
                           <Badge variant="outline">{guide.category}</Badge>
-                          {'pdf_url' in guide && guide.pdf_url ? (
+                          {"pdf_url" in guide && guide.pdf_url ? (
                             <Button variant="ghost" size="sm" asChild>
-                              <a href={String((guide as { pdf_url?: string }).pdf_url)} target="_blank" rel="noopener noreferrer">
+                              <a
+                                href={String(
+                                  (guide as { pdf_url?: string }).pdf_url,
+                                )}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
                                 <Download className="mr-2 h-4 w-4" />
                                 Download PDF
                               </a>
                             </Button>
                           ) : (
-                            <Button variant="ghost" size="sm">Read More</Button>
+                            <Button variant="ghost" size="sm">
+                              Read More
+                            </Button>
                           )}
                         </div>
                       </CardContent>
@@ -231,9 +480,12 @@ export default function ResourcesPage() {
             <TabsContent value="mentors" id="mentors">
               <ScrollReveal>
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold mb-2">Resources for Mentors</h2>
+                  <h2 className="text-2xl font-bold mb-2">
+                    Resources for Mentors
+                  </h2>
                   <p className="text-muted-foreground">
-                    Training materials and toolkits to help you be an effective mentor
+                    Training materials and toolkits to help you be an effective
+                    mentor
                   </p>
                 </div>
               </ScrollReveal>
@@ -244,16 +496,26 @@ export default function ResourcesPage() {
                       <CardHeader>
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <CardTitle className="text-lg mb-2">{resource.title}</CardTitle>
-                            <CardDescription>{resource.description}</CardDescription>
+                            <CardTitle className="text-lg mb-2">
+                              {resource.title}
+                            </CardTitle>
+                            <CardDescription>
+                              {resource.description}
+                            </CardDescription>
                           </div>
                           <FileText className="h-8 w-8 text-c2r-accent flex-shrink-0 ml-4" />
                         </div>
                       </CardHeader>
                       <CardContent>
-                        {'pdf_url' in resource && resource.pdf_url ? (
+                        {"pdf_url" in resource && resource.pdf_url ? (
                           <Button variant="outline" size="sm" asChild>
-                            <a href={String((resource as { pdf_url?: string }).pdf_url)} target="_blank" rel="noopener noreferrer">
+                            <a
+                              href={String(
+                                (resource as { pdf_url?: string }).pdf_url,
+                              )}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               <Download className="mr-2 h-4 w-4" />
                               Download PDF
                             </a>
@@ -280,158 +542,229 @@ export default function ResourcesPage() {
                     <h2 className="text-2xl font-bold">Free Courses</h2>
                   </div>
                   <p className="text-muted-foreground">
-                    Learn from Connect2Roots Academy — career guidance, mentorship insights, and success stories to support your growth.
+                    Learn from Connect2Roots Academy — career guidance,
+                    mentorship insights, and success stories to support your
+                    growth.
                   </p>
                 </div>
               </ScrollReveal>
 
               {API_BASE && !hasCourseAccess ? (
-                <ScrollReveal>
-                  <Card className="mb-8 border-c2r-primary/30 bg-gradient-to-br from-c2r-primary/5 to-c2r-secondary/5 overflow-hidden">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Video className="h-5 w-5 text-c2r-primary" />
-                        Free courses
-                      </CardTitle>
-                      <CardDescription>
-                        Sign up or sign in to get access to our free courses and learning resources.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex flex-wrap gap-3">
-                        <Button variant="outline" className="gap-2" asChild>
-                          <a href="/resources/free-courses-auth?mode=signin">
-                            <LogIn className="h-4 w-4" />
-                            Sign in
-                          </a>
-                        </Button>
-                        <Button className="gap-2" asChild>
-                          <a href="/resources/free-courses-auth?mode=signup">
-                            <UserPlus className="h-4 w-4" />
-                            Sign up
-                          </a>
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </ScrollReveal>
-              ) : null}
-
-              {(!API_BASE || hasCourseAccess) ? (
                 <>
-              <div className="mb-6 p-4 rounded-lg bg-muted/50 border border-border">
-                <p className="text-sm text-muted-foreground flex flex-wrap items-center gap-2">
-                  <span className="font-medium text-foreground">Find us on</span>
-                  <a
-                    href={CONNECT2ROOTS_ACADEMY_CHANNEL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium text-c2r-primary hover:underline inline-flex items-center gap-1"
-                  >
-                    Connect2Roots Academy (YouTube)
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
-                  <span>— all videos are from our channel.</span>
-                </p>
-              </div>
-
-              <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
-                {educationalVideos.map((video, index) => (
-                  <ScrollReveal key={video.id ? `v-${video.id}` : index} delay={index * 50}>
-                    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 group max-w-sm mx-auto w-full">
-                      {video.video_id ? (
-                        <>
-                          <a
-                            href={`https://www.youtube.com/watch?v=${getYouTubeVideoId(video.video_id)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block aspect-video w-full bg-muted overflow-hidden relative"
-                          >
-                            {isValidYouTubeId(getYouTubeVideoId(video.video_id)) ? (
-                              <img
-                                src={getYouTubeThumbnailUrlSafe(video.video_id)}
-                                alt={video.title}
-                                className="w-full h-full min-w-0 min-h-0 object-cover group-hover:scale-105 transition-transform duration-300"
-                                loading="lazy"
-                                referrerPolicy="no-referrer"
-                                onError={(e) => {
-                                  const t = e.currentTarget;
-                                  if (t.dataset.fallback === '1') return;
-                                  t.dataset.fallback = '1';
-                                  t.src = getYouTubeThumbnailUrl(video.video_id, 'hqdefault');
-                                }}
-                              />
-                            ) : (
-                              <div className="w-full h-full bg-gradient-to-br from-c2r-primary/20 to-c2r-secondary/20" />
-                            )}
-                            <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                              <div className="rounded-full bg-c2r-primary/90 p-3 text-white group-hover:scale-110 transition-transform shadow-lg">
-                                <Play className="h-8 w-8 fill-current ml-0.5" />
-                              </div>
-                            </div>
-                          </a>
-                          <CardHeader className="pb-2">
-                            <Badge variant="secondary" className="w-fit mb-1">{video.topic}</Badge>
-                            <CardTitle className="text-lg leading-tight">{video.title}</CardTitle>
-                            <CardDescription>{video.description}</CardDescription>
-                          </CardHeader>
-                          <CardContent className="pt-0">
-                            <Button variant="ghost" size="sm" asChild>
-                              <a href={`https://www.youtube.com/watch?v=${getYouTubeVideoId(video.video_id)}`} target="_blank" rel="noopener noreferrer">
-                                <Play className="mr-2 h-4 w-4" />
-                                Watch on YouTube
-                              </a>
-                            </Button>
-                          </CardContent>
-                        </>
-                      ) : (
-                        <>
-                          <a
-                            href={CONNECT2ROOTS_ACADEMY_VIDEOS}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block"
-                          >
-                            <div className="aspect-video w-full bg-gradient-to-br from-c2r-primary/20 to-c2r-secondary/20 flex items-center justify-center overflow-hidden group-hover:from-c2r-primary/30 group-hover:to-c2r-secondary/30 transition-colors">
-                              <div className="rounded-full bg-c2r-primary/90 p-4 text-white group-hover:scale-110 transition-transform">
-                                <Play className="h-10 w-10 fill-current" />
-                              </div>
-                            </div>
-                          </a>
-                          <CardHeader className="pb-2">
-                            <Badge variant="secondary" className="w-fit mb-1">{video.topic}</Badge>
-                            <CardTitle className="text-lg leading-tight">{video.title}</CardTitle>
-                            <CardDescription>{video.description}</CardDescription>
-                          </CardHeader>
-                          <CardContent className="pt-0">
-                            <Button variant="outline" size="sm" asChild>
-                              <a href={CONNECT2ROOTS_ACADEMY_VIDEOS} target="_blank" rel="noopener noreferrer">
-                                <ExternalLink className="mr-2 h-4 w-4" />
-                                Watch on Connect2Roots Academy
-                              </a>
-                            </Button>
-                          </CardContent>
-                        </>
-                      )}
+                  <ScrollReveal>
+                    <Card className="mb-8 border-c2r-primary/30 bg-gradient-to-br from-c2r-primary/5 to-c2r-secondary/5 overflow-hidden">
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                          <Video className="h-5 w-5 text-c2r-primary" />
+                          Free courses
+                        </CardTitle>
+                        <CardDescription>
+                          Sign up or sign in to get access to our free courses
+                          and learning resources.
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap gap-3">
+                          <Button variant="outline" className="gap-2" asChild>
+                            <Link
+                              to="/resources/free-courses-auth"
+                              hash="signin"
+                            >
+                              <LogIn className="h-4 w-4" />
+                              Sign in
+                            </Link>
+                          </Button>
+                          <Button className="gap-2" asChild>
+                            <Link
+                              to="/resources/free-courses-auth"
+                              hash="signup"
+                            >
+                              <UserPlus className="h-4 w-4" />
+                              Sign up
+                            </Link>
+                          </Button>
+                        </div>
+                      </CardContent>
                     </Card>
                   </ScrollReveal>
-                ))}
-              </div>
+                  <ScrollReveal delay={50}>
+                    <div className="p-6 rounded-xl bg-muted/50 border border-border text-center">
+                      <h3 className="text-lg font-semibold mb-2">Find us on</h3>
+                      <Button variant="outline" size="sm" asChild>
+                        <a
+                          href={CONNECT2ROOTS_ACADEMY_CHANNEL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="gap-2"
+                        >
+                          <Video className="h-4 w-4" />
+                          YouTube – Connect2Roots Academy
+                        </a>
+                      </Button>
+                    </div>
+                  </ScrollReveal>
+                </>
+              ) : null}
 
-              <ScrollReveal delay={100}>
-                <div className="mt-10 p-6 rounded-xl bg-gradient-to-br from-c2r-primary/10 to-c2r-secondary/10 border border-c2r-primary/20 text-center">
-                  <h3 className="text-lg font-semibold mb-2">Find us on YouTube</h3>
-                  <p className="text-muted-foreground mb-4 max-w-xl mx-auto">
-                    Subscribe to Connect2Roots Academy for regular educational content, mentor talks, and community stories.
-                  </p>
-                  <Button asChild>
-                    <a href={CONNECT2ROOTS_ACADEMY_CHANNEL} target="_blank" rel="noopener noreferrer">
-                      <Video className="mr-2 h-4 w-4" />
-                      Find us on YouTube
-                    </a>
-                  </Button>
-                </div>
-              </ScrollReveal>
+              {!API_BASE || hasCourseAccess ? (
+                <>
+                  <div className="mb-6 p-4 rounded-lg bg-muted/50 border border-border">
+                    <p className="text-sm text-muted-foreground flex flex-wrap items-center gap-2">
+                      <span className="font-medium text-foreground">
+                        Find us on
+                      </span>
+                      <a
+                        href={CONNECT2ROOTS_ACADEMY_CHANNEL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-c2r-primary hover:underline inline-flex items-center gap-1"
+                      >
+                        Connect2Roots Academy (YouTube)
+                        <ExternalLink className="h-3.5 w-3.5" />
+                      </a>
+                      <span>— all videos are from our channel.</span>
+                    </p>
+                  </div>
+
+                  <div className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
+                    {educationalVideos.map((video, index) => (
+                      <ScrollReveal
+                        key={video.id ? `v-${video.id}` : index}
+                        delay={index * 50}
+                      >
+                        <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 group max-w-sm mx-auto w-full">
+                          {video.video_id ? (
+                            <>
+                              <a
+                                href={`https://www.youtube.com/watch?v=${getYouTubeVideoId(video.video_id)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block aspect-video w-full bg-muted overflow-hidden relative"
+                              >
+                                {isValidYouTubeId(
+                                  getYouTubeVideoId(video.video_id),
+                                ) ? (
+                                  <img
+                                    src={getYouTubeThumbnailUrlSafe(
+                                      video.video_id,
+                                    )}
+                                    alt={video.title}
+                                    className="w-full h-full min-w-0 min-h-0 object-cover group-hover:scale-105 transition-transform duration-300"
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer"
+                                    onError={(e) => {
+                                      const t = e.currentTarget;
+                                      if (t.dataset.fallback === "1") return;
+                                      t.dataset.fallback = "1";
+                                      t.src = getYouTubeThumbnailUrl(
+                                        video.video_id,
+                                        "hqdefault",
+                                      );
+                                    }}
+                                  />
+                                ) : (
+                                  <div className="w-full h-full bg-gradient-to-br from-c2r-primary/20 to-c2r-secondary/20" />
+                                )}
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                                  <div className="rounded-full bg-c2r-primary/90 p-3 text-white group-hover:scale-110 transition-transform shadow-lg">
+                                    <Play className="h-8 w-8 fill-current ml-0.5" />
+                                  </div>
+                                </div>
+                              </a>
+                              <CardHeader className="pb-2">
+                                <Badge
+                                  variant="secondary"
+                                  className="w-fit mb-1"
+                                >
+                                  {video.topic}
+                                </Badge>
+                                <CardTitle className="text-lg leading-tight">
+                                  {video.title}
+                                </CardTitle>
+                                <CardDescription>
+                                  {video.description}
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="pt-0">
+                                <Button variant="ghost" size="sm" asChild>
+                                  <a
+                                    href={`https://www.youtube.com/watch?v=${getYouTubeVideoId(video.video_id)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <Play className="mr-2 h-4 w-4" />
+                                    Watch on YouTube
+                                  </a>
+                                </Button>
+                              </CardContent>
+                            </>
+                          ) : (
+                            <>
+                              <a
+                                href={CONNECT2ROOTS_ACADEMY_VIDEOS}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block"
+                              >
+                                <div className="aspect-video w-full bg-gradient-to-br from-c2r-primary/20 to-c2r-secondary/20 flex items-center justify-center overflow-hidden group-hover:from-c2r-primary/30 group-hover:to-c2r-secondary/30 transition-colors">
+                                  <div className="rounded-full bg-c2r-primary/90 p-4 text-white group-hover:scale-110 transition-transform">
+                                    <Play className="h-10 w-10 fill-current" />
+                                  </div>
+                                </div>
+                              </a>
+                              <CardHeader className="pb-2">
+                                <Badge
+                                  variant="secondary"
+                                  className="w-fit mb-1"
+                                >
+                                  {video.topic}
+                                </Badge>
+                                <CardTitle className="text-lg leading-tight">
+                                  {video.title}
+                                </CardTitle>
+                                <CardDescription>
+                                  {video.description}
+                                </CardDescription>
+                              </CardHeader>
+                              <CardContent className="pt-0">
+                                <Button variant="outline" size="sm" asChild>
+                                  <a
+                                    href={CONNECT2ROOTS_ACADEMY_VIDEOS}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <ExternalLink className="mr-2 h-4 w-4" />
+                                    Watch on Connect2Roots Academy
+                                  </a>
+                                </Button>
+                              </CardContent>
+                            </>
+                          )}
+                        </Card>
+                      </ScrollReveal>
+                    ))}
+                  </div>
+
+                  <ScrollReveal delay={100}>
+                    <div className="mt-10 p-6 rounded-xl bg-gradient-to-br from-c2r-primary/10 to-c2r-secondary/10 border border-c2r-primary/20 text-center">
+                      <h3 className="text-lg font-semibold mb-2">Find us on</h3>
+                      <p className="text-muted-foreground mb-4 max-w-xl mx-auto">
+                        Subscribe to Connect2Roots Academy for regular
+                        educational content, mentor talks, and community
+                        stories.
+                      </p>
+                      <Button asChild>
+                        <a
+                          href={CONNECT2ROOTS_ACADEMY_CHANNEL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Video className="mr-2 h-4 w-4" />
+                          YouTube
+                        </a>
+                      </Button>
+                    </div>
+                  </ScrollReveal>
                 </>
               ) : null}
             </TabsContent>
@@ -442,7 +775,8 @@ export default function ResourcesPage() {
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold mb-2">Annual Reports</h2>
                   <p className="text-muted-foreground">
-                    Download our yearly contribution reports and impact assessments
+                    Download our yearly contribution reports and impact
+                    assessments
                   </p>
                 </div>
               </ScrollReveal>
@@ -457,13 +791,23 @@ export default function ResourcesPage() {
                               {report.year}
                             </div>
                             <div>
-                              <CardTitle className="text-lg mb-1">{report.title}</CardTitle>
-                              <CardDescription>{report.description}</CardDescription>
+                              <CardTitle className="text-lg mb-1">
+                                {report.title}
+                              </CardTitle>
+                              <CardDescription>
+                                {report.description}
+                              </CardDescription>
                             </div>
                           </div>
-                          {'pdf_url' in report && report.pdf_url ? (
+                          {"pdf_url" in report && report.pdf_url ? (
                             <Button variant="outline" size="sm" asChild>
-                              <a href={String((report as { pdf_url?: string }).pdf_url)} target="_blank" rel="noopener noreferrer">
+                              <a
+                                href={String(
+                                  (report as { pdf_url?: string }).pdf_url,
+                                )}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
                                 <FileDown className="mr-2 h-4 w-4" />
                                 Download PDF
                               </a>
@@ -482,13 +826,16 @@ export default function ResourcesPage() {
               </div>
               <ScrollReveal delay={200}>
                 <div className="mt-12 text-center">
-                  <img 
-                    src={getImageUrl('/assets/generated/annual-report-cover.dim_400x600.jpg')} 
-                    alt="Annual Report Cover" 
-                    className="mx-auto rounded-lg shadow-xl max-w-xs hover:scale-105 transition-transform duration-300" 
+                  <img
+                    src={getImageUrl(
+                      "/assets/generated/annual-report-cover.dim_400x600.jpg",
+                    )}
+                    alt="Annual Report Cover"
+                    className="mx-auto rounded-lg shadow-xl max-w-xs hover:scale-105 transition-transform duration-300"
                   />
                   <p className="mt-6 text-muted-foreground">
-                    Our annual reports showcase the impact we've made together with our community
+                    Our annual reports showcase the impact we've made together
+                    with our community
                   </p>
                 </div>
               </ScrollReveal>
@@ -511,7 +858,9 @@ export default function ResourcesPage() {
                       <CardHeader>
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <CardTitle className="text-lg mb-2">{event.title}</CardTitle>
+                            <CardTitle className="text-lg mb-2">
+                              {event.title}
+                            </CardTitle>
                             <CardDescription className="flex items-center gap-2">
                               <Calendar className="h-4 w-4" />
                               {event.date}
@@ -537,7 +886,9 @@ export default function ResourcesPage() {
             <TabsContent value="publications" id="publications">
               <ScrollReveal>
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold mb-2">Publications & Reports</h2>
+                  <h2 className="text-2xl font-bold mb-2">
+                    Publications & Reports
+                  </h2>
                   <p className="text-muted-foreground">
                     Research papers, whitepapers, and policy documents
                   </p>
@@ -550,7 +901,9 @@ export default function ResourcesPage() {
                       <CardHeader>
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <CardTitle className="text-lg mb-2">{pub.title}</CardTitle>
+                            <CardTitle className="text-lg mb-2">
+                              {pub.title}
+                            </CardTitle>
                             <CardDescription>{pub.description}</CardDescription>
                           </div>
                           <FileText className="h-8 w-8 text-c2r-primary flex-shrink-0 ml-4" />

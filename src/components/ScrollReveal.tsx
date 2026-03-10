@@ -1,13 +1,18 @@
-import { useEffect, useRef, ReactNode } from 'react';
+import { useEffect, useRef, ReactNode } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
   delay?: number;
-  direction?: 'up' | 'down' | 'left' | 'right' | 'fade';
+  direction?: "up" | "down" | "left" | "right" | "fade";
   className?: string;
 }
 
-export function ScrollReveal({ children, delay = 0, direction = 'up', className = '' }: ScrollRevealProps) {
+export function ScrollReveal({
+  children,
+  delay = 0,
+  direction = "up",
+  className = "",
+}: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -16,12 +21,12 @@ export function ScrollReveal({ children, delay = 0, direction = 'up', className 
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setTimeout(() => {
-              entry.target.classList.add('reveal-visible');
+              entry.target.classList.add("reveal-visible");
             }, delay);
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     );
 
     if (ref.current) {
@@ -36,11 +41,11 @@ export function ScrollReveal({ children, delay = 0, direction = 'up', className 
   }, [delay]);
 
   const directionClass = {
-    up: 'reveal-up',
-    down: 'reveal-down',
-    left: 'reveal-left',
-    right: 'reveal-right',
-    fade: 'reveal-fade',
+    up: "reveal-up",
+    down: "reveal-down",
+    left: "reveal-left",
+    right: "reveal-right",
+    fade: "reveal-fade",
   }[direction];
 
   return (

@@ -1,30 +1,35 @@
-import { RouterProvider, createRouter, createRoute, createRootRoute } from '@tanstack/react-router';
-import { Layout } from './components/Layout';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import WhoWeArePage from './pages/WhoWeArePage';
-import VisionMissionPage from './pages/VisionMissionPage';
-import OurTeamPage from './pages/OurTeamPage';
-import WorkingModelPage from './pages/WorkingModelPage';
-import OurValuesPage from './pages/OurValuesPage';
-import JourneyPage from './pages/JourneyPage';
-import ProgramsPage from './pages/ProgramsPage';
-import MentorshipPage from './pages/MentorshipPage';
-import SepfPage from './pages/SepfPage';
-import ResourcesPage from './pages/ResourcesPage';
-import FreeCoursesAuthPage from './pages/FreeCoursesAuthPage';
-import GetInvolvedPage from './pages/GetInvolvedPage';
-import GetInvolvedVolunteerPage from './pages/get-involved/GetInvolvedVolunteerPage';
-import GetInvolvedCorporatePage from './pages/get-involved/GetInvolvedCorporatePage';
-import GetInvolvedHowItWorksPage from './pages/get-involved/GetInvolvedHowItWorksPage';
-import GetInvolvedDonationPage from './pages/get-involved/GetInvolvedDonationPage';
-import GetInvolvedOtherAlliancesPage from './pages/get-involved/GetInvolvedOtherAlliancesPage';
-import GetInvolvedFoundersMessagePage from './pages/get-involved/GetInvolvedFoundersMessagePage';
-import ContactPage from './pages/ContactPage';
-import LoginPage from './pages/LoginPage';
-import DonatePage from './pages/DonatePage';
-import DonationSuccessPage from './pages/DonationSuccessPage';
-import DonationCancelPage from './pages/DonationCancelPage';
+import {
+  RouterProvider,
+  createRouter,
+  createRoute,
+  createRootRoute,
+} from "@tanstack/react-router";
+import { Layout } from "./components/Layout";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import WhoWeArePage from "./pages/WhoWeArePage";
+import VisionMissionPage from "./pages/VisionMissionPage";
+import OurTeamPage from "./pages/OurTeamPage";
+import WorkingModelPage from "./pages/WorkingModelPage";
+import OurValuesPage from "./pages/OurValuesPage";
+import JourneyPage from "./pages/JourneyPage";
+import ProgramsPage from "./pages/ProgramsPage";
+import MentorshipPage from "./pages/MentorshipPage";
+import SepfPage from "./pages/SepfPage";
+import ResourcesPage from "./pages/ResourcesPage";
+import FreeCoursesAuthPage from "./pages/FreeCoursesAuthPage";
+import GetInvolvedPage from "./pages/GetInvolvedPage";
+import GetInvolvedVolunteerPage from "./pages/get-involved/GetInvolvedVolunteerPage";
+import GetInvolvedCorporatePage from "./pages/get-involved/GetInvolvedCorporatePage";
+import GetInvolvedHowItWorksPage from "./pages/get-involved/GetInvolvedHowItWorksPage";
+import GetInvolvedDonationPage from "./pages/get-involved/GetInvolvedDonationPage";
+import GetInvolvedOtherAlliancesPage from "./pages/get-involved/GetInvolvedOtherAlliancesPage";
+import GetInvolvedFoundersMessagePage from "./pages/get-involved/GetInvolvedFoundersMessagePage";
+import ContactPage from "./pages/ContactPage";
+import LoginPage from "./pages/LoginPage";
+import DonatePage from "./pages/DonatePage";
+import DonationSuccessPage from "./pages/DonationSuccessPage";
+import DonationCancelPage from "./pages/DonationCancelPage";
 
 const rootRoute = createRootRoute({
   component: Layout,
@@ -32,151 +37,151 @@ const rootRoute = createRootRoute({
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/',
+  path: "/",
   component: HomePage,
 });
 
 const aboutRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/about',
+  path: "/about",
   component: AboutPage,
 });
 
 const whoWeAreRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/about/who-we-are',
+  path: "/about/who-we-are",
   component: WhoWeArePage,
 });
 
 const visionMissionRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/about/vision-mission',
+  path: "/about/vision-mission",
   component: VisionMissionPage,
 });
 
 const ourTeamRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/about/our-team',
+  path: "/about/our-team",
   component: OurTeamPage,
 });
 
 const workingModelRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/about/working-model',
+  path: "/about/working-model",
   component: WorkingModelPage,
 });
 
 const ourValuesRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/about/our-values',
+  path: "/about/our-values",
   component: OurValuesPage,
 });
 
 const journeyRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/about/journey',
+  path: "/about/journey",
   component: JourneyPage,
 });
 
 const programsRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/programs',
+  path: "/programs",
   component: ProgramsPage,
 });
 
 const mentorshipRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/mentorship',
+  path: "/mentorship",
   component: MentorshipPage,
 });
 
 const sepfRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/sepf',
+  path: "/sepf",
   component: SepfPage,
 });
 
 const resourcesRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/resources',
+  path: "/resources",
   component: ResourcesPage,
 });
 
 const freeCoursesAuthRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/resources/free-courses-auth',
+  path: "/resources/free-courses-auth",
   component: FreeCoursesAuthPage,
 });
 
 const getInvolvedRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/get-involved',
+  path: "/get-involved",
   component: GetInvolvedPage,
 });
 
 const getInvolvedVolunteerRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/get-involved/volunteer',
+  path: "/get-involved/volunteer",
   component: GetInvolvedVolunteerPage,
 });
 
 const getInvolvedCorporateRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/get-involved/corporate-partnerships',
+  path: "/get-involved/corporate-partnerships",
   component: GetInvolvedCorporatePage,
 });
 
 const getInvolvedHowItWorksRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/get-involved/how-it-works',
+  path: "/get-involved/how-it-works",
   component: GetInvolvedHowItWorksPage,
 });
 
 const getInvolvedDonationRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/get-involved/donation',
+  path: "/get-involved/donation",
   component: GetInvolvedDonationPage,
 });
 
 const getInvolvedOtherAlliancesRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/get-involved/other-alliances',
+  path: "/get-involved/other-alliances",
   component: GetInvolvedOtherAlliancesPage,
 });
 
 const getInvolvedFoundersMessageRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/get-involved/founders-message',
+  path: "/get-involved/founders-message",
   component: GetInvolvedFoundersMessagePage,
 });
 
 const contactRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/contact',
+  path: "/contact",
   component: ContactPage,
 });
 
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/login',
+  path: "/login",
   component: LoginPage,
 });
 
 const donateRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/donate',
+  path: "/donate",
   component: DonatePage,
 });
 
 const donationSuccessRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/donation-success',
+  path: "/donation-success",
   component: DonationSuccessPage,
 });
 
 const donationCancelRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/donation-cancel',
+  path: "/donation-cancel",
   component: DonationCancelPage,
 });
 
@@ -210,7 +215,7 @@ const routeTree = rootRoute.addChildren([
 
 const router = createRouter({ routeTree });
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }

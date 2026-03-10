@@ -1,4 +1,4 @@
-import { useEffect, useRef, ReactNode } from 'react';
+import { useEffect, useRef, ReactNode } from "react";
 
 interface ParallaxSectionProps {
   children: ReactNode;
@@ -6,7 +6,11 @@ interface ParallaxSectionProps {
   className?: string;
 }
 
-export function ParallaxSection({ children, speed = 0.5, className = '' }: ParallaxSectionProps) {
+export function ParallaxSection({
+  children,
+  speed = 0.5,
+  className = "",
+}: ParallaxSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -19,8 +23,8 @@ export function ParallaxSection({ children, speed = 0.5, className = '' }: Paral
       ref.current.style.transform = `translateY(${offset}px)`;
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [speed]);
 
   return (

@@ -1,8 +1,13 @@
 // Simplified version - returns empty data for standalone React app
 // When VITE_API_URL is set, contact/partnership/mentor/donation forms hit the c2r-admin-backend.
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-const API_BASE = ((typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '').trim().replace(/\/$/, '');
+const API_BASE = (
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
+  ""
+)
+  .trim()
+  .replace(/\/$/, "");
 
 export type Program = {
   id: number;
@@ -76,7 +81,7 @@ export type MentorResource = {
 
 export function usePrograms() {
   return useQuery<Program[]>({
-    queryKey: ['programs'],
+    queryKey: ["programs"],
     queryFn: async () => [],
     enabled: false,
   });
@@ -84,7 +89,7 @@ export function usePrograms() {
 
 export function useTeamMembers() {
   return useQuery<TeamMember[]>({
-    queryKey: ['teamMembers'],
+    queryKey: ["teamMembers"],
     queryFn: async () => [],
     enabled: false,
   });
@@ -92,7 +97,7 @@ export function useTeamMembers() {
 
 export function useTestimonials() {
   return useQuery<Testimonial[]>({
-    queryKey: ['testimonials'],
+    queryKey: ["testimonials"],
     queryFn: async () => [],
     enabled: false,
   });
@@ -100,7 +105,7 @@ export function useTestimonials() {
 
 export function useGalleryItems() {
   return useQuery<GalleryItem[]>({
-    queryKey: ['galleryItems'],
+    queryKey: ["galleryItems"],
     queryFn: async () => [],
     enabled: false,
   });
@@ -108,7 +113,7 @@ export function useGalleryItems() {
 
 export function useResourceVideos() {
   return useQuery<ResourceVideo[]>({
-    queryKey: ['resourceVideos'],
+    queryKey: ["resourceVideos"],
     queryFn: async () => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/resource-videos`);
@@ -124,7 +129,7 @@ export function useResourceVideos() {
 
 export function useCareerGuides() {
   return useQuery<CareerGuide[]>({
-    queryKey: ['careerGuides'],
+    queryKey: ["careerGuides"],
     queryFn: async () => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/career-guides`);
@@ -140,7 +145,7 @@ export function useCareerGuides() {
 
 export function useAnnualReports() {
   return useQuery<AnnualReport[]>({
-    queryKey: ['annualReports'],
+    queryKey: ["annualReports"],
     queryFn: async () => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/annual-reports`);
@@ -156,7 +161,7 @@ export function useAnnualReports() {
 
 export function useMentorResources() {
   return useQuery<MentorResource[]>({
-    queryKey: ['mentorResources'],
+    queryKey: ["mentorResources"],
     queryFn: async () => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/mentor-resources`);
@@ -173,23 +178,27 @@ export function useMentorResources() {
 export function useContactForm() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: { name: string; email: string; message: string }) => {
+    mutationFn: async (data: {
+      name: string;
+      email: string;
+      message: string;
+    }) => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/contact`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
-          throw new Error(err.message || 'Failed to send message');
+          throw new Error(err.message || "Failed to send message");
         }
         return res.json();
       }
-      console.log('Contact form submission:', data);
+      console.log("Contact form submission:", data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['contactForms'] });
+      queryClient.invalidateQueries({ queryKey: ["contactForms"] });
     },
   });
 }
@@ -197,23 +206,28 @@ export function useContactForm() {
 export function usePartnershipInquiry() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: { companyName: string; contactPerson: string; email: string; message: string }) => {
+    mutationFn: async (data: {
+      companyName: string;
+      contactPerson: string;
+      email: string;
+      message: string;
+    }) => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/partnership`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
-          throw new Error(err.message || 'Failed to send inquiry');
+          throw new Error(err.message || "Failed to send inquiry");
         }
         return res.json();
       }
-      console.log('Partnership inquiry:', data);
+      console.log("Partnership inquiry:", data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['partnershipInquiries'] });
+      queryClient.invalidateQueries({ queryKey: ["partnershipInquiries"] });
     },
   });
 }
@@ -247,25 +261,27 @@ export function useVolunteerForm() {
     mutationFn: async (data: VolunteerFormData) => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/volunteer`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
         if (res.status === 404) {
           // Backend may not have this endpoint yet; treat as success so form doesn't break
-          console.warn('POST /api/volunteer returned 404. Add this endpoint on the backend to store submissions.');
+          console.warn(
+            "POST /api/volunteer returned 404. Add this endpoint on the backend to store submissions.",
+          );
           return { ok: true };
         }
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
-          throw new Error(err.message || 'Failed to submit volunteer form');
+          throw new Error(err.message || "Failed to submit volunteer form");
         }
         return res.json();
       }
-      console.log('Volunteer form submission:', data);
+      console.log("Volunteer form submission:", data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['volunteerForms'] });
+      queryClient.invalidateQueries({ queryKey: ["volunteerForms"] });
     },
   });
 }
@@ -273,23 +289,29 @@ export function useVolunteerForm() {
 export function useMentorApplication() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: { name: string; email: string; profession: string; experience: string; motivation: string }) => {
+    mutationFn: async (data: {
+      name: string;
+      email: string;
+      profession: string;
+      experience: string;
+      motivation: string;
+    }) => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/mentor-application`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
-          throw new Error(err.message || 'Failed to submit application');
+          throw new Error(err.message || "Failed to submit application");
         }
         return res.json();
       }
-      console.log('Mentor application:', data);
+      console.log("Mentor application:", data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['mentorApplications'] });
+      queryClient.invalidateQueries({ queryKey: ["mentorApplications"] });
     },
   });
 }
@@ -314,12 +336,16 @@ export type PaymentCancelResponse = {
 };
 
 export function useCreateDonation() {
-  return useMutation<CreatePaymentResponse, Error, { amount: bigint; donorName: string; donorEmail: string }>({
+  return useMutation<
+    CreatePaymentResponse,
+    Error,
+    { amount: bigint; donorName: string; donorEmail: string }
+  >({
     mutationFn: async (data) => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/donations`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             amount: Number(data.amount),
             donorName: data.donorName,
@@ -328,7 +354,7 @@ export function useCreateDonation() {
         });
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
-          throw new Error(err.message || 'Failed to create donation');
+          throw new Error(err.message || "Failed to create donation");
         }
         const json = await res.json();
         return { checkoutUrl: json.checkoutUrl };
@@ -340,19 +366,27 @@ export function useCreateDonation() {
   });
 }
 
-export function usePaymentSuccess(sessionId: string, accountId: string, caffeineCustomerId: string) {
+export function usePaymentSuccess(
+  sessionId: string,
+  accountId: string,
+  caffeineCustomerId: string,
+) {
   return useQuery<PaymentSuccessResponse>({
-    queryKey: ['paymentSuccess', sessionId],
+    queryKey: ["paymentSuccess", sessionId],
     queryFn: async () => {
-      console.log('Payment success:', { sessionId, accountId, caffeineCustomerId });
+      console.log("Payment success:", {
+        sessionId,
+        accountId,
+        caffeineCustomerId,
+      });
       // In a real app, you would verify the payment with your backend
       return {
         payment: {
           amount: BigInt(50000), // Example: 500.00 in paise
-          status: 'succeeded',
+          status: "succeeded",
           paymentMethod: {
-            brand: 'visa',
-            last4: '4242',
+            brand: "visa",
+            last4: "4242",
           },
         },
       };
@@ -364,12 +398,12 @@ export function usePaymentSuccess(sessionId: string, accountId: string, caffeine
 
 export function usePaymentCancel(sessionId: string) {
   return useQuery<PaymentCancelResponse>({
-    queryKey: ['paymentCancel', sessionId],
+    queryKey: ["paymentCancel", sessionId],
     queryFn: async () => {
-      console.log('Payment cancelled:', sessionId);
+      console.log("Payment cancelled:", sessionId);
       // In a real app, you would handle the cancellation with your backend
       return {
-        message: 'Payment cancelled successfully',
+        message: "Payment cancelled successfully",
       };
     },
     enabled: !!sessionId,

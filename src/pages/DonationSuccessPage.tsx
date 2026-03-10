@@ -1,27 +1,42 @@
-import { useEffect } from 'react';
-import { useNavigate } from '@tanstack/react-router';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { usePaymentSuccess } from '@/hooks/useQueries';
-import { CheckCircle, Loader2, Home } from 'lucide-react';
+import { useEffect } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { usePaymentSuccess } from "@/hooks/useQueries";
+import { CheckCircle, Loader2, Home } from "lucide-react";
 
-const API_BASE = ((typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || '').trim().replace(/\/$/, '');
+const API_BASE = (
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
+  ""
+)
+  .trim()
+  .replace(/\/$/, "");
 
 export default function DonationSuccessPage() {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
-  const donationId = params.get('donationId') || '';
-  const sessionId = params.get('sessionId') || '';
-  const accountId = params.get('accountId') || '';
-  const caffeineCustomerId = params.get('caffeineCustomerId') || '';
+  const donationId = params.get("donationId") || "";
+  const sessionId = params.get("sessionId") || "";
+  const accountId = params.get("accountId") || "";
+  const caffeineCustomerId = params.get("caffeineCustomerId") || "";
 
   const hasBackendDonation = !!donationId && !!API_BASE;
-  const { data, isLoading, error } = usePaymentSuccess(sessionId, accountId, caffeineCustomerId);
+  const { data, isLoading, error } = usePaymentSuccess(
+    sessionId,
+    accountId,
+    caffeineCustomerId,
+  );
 
   useEffect(() => {
     if (hasBackendDonation) return;
     if (!sessionId || !accountId || !caffeineCustomerId) {
-      navigate({ to: '/donate' });
+      navigate({ to: "/donate" });
     }
   }, [hasBackendDonation, sessionId, accountId, caffeineCustomerId, navigate]);
 
@@ -33,7 +48,9 @@ export default function DonationSuccessPage() {
             <div className="mx-auto mb-4">
               <CheckCircle className="h-16 w-16 text-green-500" />
             </div>
-            <CardTitle className="text-3xl">Thank You for Your Donation!</CardTitle>
+            <CardTitle className="text-3xl">
+              Thank You for Your Donation!
+            </CardTitle>
             <CardDescription className="text-lg">
               Your generosity makes a real difference
             </CardDescription>
@@ -41,14 +58,16 @@ export default function DonationSuccessPage() {
           <CardContent className="space-y-6">
             <div className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Your donation will help empower students with mentorship, skills training, and career guidance.
+                Your donation will help empower students with mentorship, skills
+                training, and career guidance.
               </p>
               <p className="text-sm text-muted-foreground">
-                Together, we&apos;re bridging the gap between talent and opportunity.
+                Together, we&apos;re bridging the gap between talent and
+                opportunity.
               </p>
             </div>
             <Button
-              onClick={() => navigate({ to: '/' })}
+              onClick={() => navigate({ to: "/" })}
               className="w-full text-lg px-8 py-6"
               size="lg"
             >
@@ -66,7 +85,9 @@ export default function DonationSuccessPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-12 w-12 animate-spin text-c2r-accent mx-auto mb-4" />
-          <p className="text-lg text-muted-foreground">Processing your donation...</p>
+          <p className="text-lg text-muted-foreground">
+            Processing your donation...
+          </p>
         </div>
       </div>
     );
@@ -78,13 +99,19 @@ export default function DonationSuccessPage() {
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle className="text-destructive">Payment Error</CardTitle>
-            <CardDescription>There was an issue processing your donation</CardDescription>
+            <CardDescription>
+              There was an issue processing your donation
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">
               Please contact us if you believe this is an error.
             </p>
-            <Button onClick={() => navigate({ to: '/donate' })} className="w-full text-lg px-8 py-6" size="lg">
+            <Button
+              onClick={() => navigate({ to: "/donate" })}
+              className="w-full text-lg px-8 py-6"
+              size="lg"
+            >
               Try Again
             </Button>
           </CardContent>
@@ -100,7 +127,9 @@ export default function DonationSuccessPage() {
           <div className="mx-auto mb-4">
             <CheckCircle className="h-16 w-16 text-green-500" />
           </div>
-          <CardTitle className="text-3xl">Thank You for Your Donation!</CardTitle>
+          <CardTitle className="text-3xl">
+            Thank You for Your Donation!
+          </CardTitle>
           <CardDescription className="text-lg">
             Your generosity makes a real difference
           </CardDescription>
@@ -117,7 +146,8 @@ export default function DonationSuccessPage() {
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Payment Method:</span>
                 <span className="font-semibold">
-                  {data.payment.paymentMethod.brand.toUpperCase()} •••• {data.payment.paymentMethod.last4}
+                  {data.payment.paymentMethod.brand.toUpperCase()} ••••{" "}
+                  {data.payment.paymentMethod.last4}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -131,8 +161,9 @@ export default function DonationSuccessPage() {
 
           <div className="text-center space-y-4">
             <p className="text-muted-foreground">
-              Your donation will help empower students with mentorship, skills training, and career guidance. 
-              A receipt has been sent to your email.
+              Your donation will help empower students with mentorship, skills
+              training, and career guidance. A receipt has been sent to your
+              email.
             </p>
             <p className="text-sm text-muted-foreground">
               Together, we're bridging the gap between talent and opportunity.
@@ -140,7 +171,7 @@ export default function DonationSuccessPage() {
           </div>
 
           <Button
-            onClick={() => navigate({ to: '/' })}
+            onClick={() => navigate({ to: "/" })}
             className="w-full text-lg px-8 py-6"
             size="lg"
           >
