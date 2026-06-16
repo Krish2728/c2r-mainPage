@@ -12,13 +12,37 @@ import {
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ParallaxSection } from "@/components/ParallaxSection";
 import { ChapterHeader } from "@/components/ChapterHeader";
+import { RoleCategories } from "@/components/RoleCategories";
+import { YouthUnemploymentStats } from "@/components/YouthUnemploymentStats";
+import { MentorClosingCTA } from "@/components/MentorClosingCTA";
+import { mentorRoleCategories } from "@/data/mentorRoles";
 import { getImageUrl } from "@/lib/images";
 
-const benefits = [
-  { icon: Clock, title: "Flexible time commitment" },
-  { icon: BookOpen, title: "Training & ongoing support" },
-  { icon: Sparkles, title: "AI tools to enhance mentoring effectiveness" },
-  { icon: Award, title: "Opportunity to give back meaningfully" },
+const mentorBenefits = [
+  {
+    icon: Clock,
+    title: "Flexible time commitment",
+    description:
+      "Mentor on your schedule — even a few hours a month creates lasting impact.",
+  },
+  {
+    icon: BookOpen,
+    title: "Training & ongoing support",
+    description:
+      "Onboarding, resources, and team support so you never mentor alone.",
+  },
+  {
+    icon: Sparkles,
+    title: "AI tools to enhance mentoring",
+    description:
+      "Smart tools that help you prepare, track progress, and follow up with students.",
+  },
+  {
+    icon: Award,
+    title: "Meaningful impact",
+    description:
+      "Turn your career journey into guidance that changes a student's trajectory.",
+  },
 ];
 
 export default function GetInvolvedVolunteerPage() {
@@ -40,10 +64,10 @@ export default function GetInvolvedVolunteerPage() {
           <ScrollReveal direction="fade">
             <div className="mx-auto max-w-3xl text-center text-white">
               <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
-                Become a Mentor Volunteer
+                Become a Mentor
               </h1>
-              <p className="text-2xl text-white/95 font-medium">
-                “A few hours a week can change a student’s future.”
+              <p className="text-xl text-white/90 leading-relaxed">
+                A few hours a week can change a student&apos;s future.
               </p>
             </div>
           </ScrollReveal>
@@ -53,44 +77,66 @@ export default function GetInvolvedVolunteerPage() {
       <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/30">
         <div className="container">
           <ChapterHeader
-            chapter="Volunteer"
+            chapter="Mentor"
             title="Why Mentor with Connect2Roots"
-            subtitle=""
+            subtitle="Your experience can become someone else's turning point."
             icon={<Users className="h-8 w-8" />}
           />
 
-          <div className="max-w-4xl mx-auto space-y-10">
+          <div className="max-w-4xl mx-auto">
             <ScrollReveal delay={100}>
               <div className="grid gap-6 sm:grid-cols-2">
-                {benefits.map((item, index) => (
+                {mentorBenefits.map((item, index) => (
                   <Card
                     key={index}
-                    className="border-l-4 border-l-c2r-accent flex"
+                    className="border-l-4 border-l-c2r-accent h-full"
                   >
-                    <CardContent className="flex-1 flex items-center justify-center gap-4 py-6">
-                      <item.icon className="h-10 w-10 text-c2r-primary shrink-0" />
-                      <p className="font-medium m-0">{item.title}</p>
+                    <CardContent className="pt-6 pb-6 space-y-3">
+                      <item.icon className="h-9 w-9 text-c2r-primary" />
+                      <h3 className="font-semibold text-foreground">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed m-0">
+                        {item.description}
+                      </p>
                     </CardContent>
                   </Card>
                 ))}
               </div>
             </ScrollReveal>
-
-            <ScrollReveal delay={200}>
-              <div className="text-center">
-                <Button
-                  size="lg"
-                  className="text-lg px-8 py-6"
-                  onClick={() => navigate({ to: "/contact" })}
-                >
-                  Apply as a Mentor
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
-            </ScrollReveal>
           </div>
         </div>
       </section>
+
+      <section className="py-12 md:py-16">
+        <div className="container">
+          <ChapterHeader
+            chapter="How You Mentor"
+            title="Ways you can mentor with us"
+            subtitle="Structured, flexible, and designed around real student needs."
+            icon={<Users className="h-8 w-8" />}
+          />
+
+          <RoleCategories categories={mentorRoleCategories} />
+
+          <ScrollReveal delay={200}>
+            <div className="text-center mt-12">
+              <Button
+                size="lg"
+                className="text-lg px-8 py-6"
+                onClick={() => navigate({ to: "/contact" })}
+              >
+                Apply as a Mentor
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <YouthUnemploymentStats />
+
+      <MentorClosingCTA />
     </div>
   );
 }

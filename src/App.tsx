@@ -25,6 +25,7 @@ import GetInvolvedHowItWorksPage from "./pages/get-involved/GetInvolvedHowItWork
 import GetInvolvedDonationPage from "./pages/get-involved/GetInvolvedDonationPage";
 import GetInvolvedOtherAlliancesPage from "./pages/get-involved/GetInvolvedOtherAlliancesPage";
 import GetInvolvedFoundersMessagePage from "./pages/get-involved/GetInvolvedFoundersMessagePage";
+import GetInvolvedOtherVolunteeringPage from "./pages/get-involved/GetInvolvedOtherVolunteeringPage";
 import ContactPage from "./pages/ContactPage";
 import LoginPage from "./pages/LoginPage";
 import DonatePage from "./pages/DonatePage";
@@ -149,6 +150,12 @@ const getInvolvedOtherAlliancesRoute = createRoute({
   component: GetInvolvedOtherAlliancesPage,
 });
 
+const getInvolvedOtherVolunteeringRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/get-involved/other-volunteering-roles",
+  component: GetInvolvedOtherVolunteeringPage,
+});
+
 const getInvolvedFoundersMessageRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/get-involved/founders-message",
@@ -205,6 +212,7 @@ const routeTree = rootRoute.addChildren([
   getInvolvedHowItWorksRoute,
   getInvolvedDonationRoute,
   getInvolvedOtherAlliancesRoute,
+  getInvolvedOtherVolunteeringRoute,
   getInvolvedFoundersMessageRoute,
   contactRoute,
   loginRoute,

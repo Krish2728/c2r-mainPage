@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import {
   GraduationCap,
   Users,
+  HandHelping,
   Briefcase,
   Heart,
   type LucideIcon,
@@ -28,11 +29,19 @@ const audiences: AudienceCard[] = [
   },
   {
     icon: Users,
+    title: "For mentors",
+    description:
+      "Guide students with mentorship, career direction, and real-world insight.",
+    cta: "Become a mentor",
+    to: "/get-involved/volunteer",
+  },
+  {
+    icon: HandHelping,
     title: "For volunteers",
     description:
       "Passionate individuals ready to volunteer their time and skills to help our students thrive.",
     cta: "Join as volunteer",
-    to: "/get-involved/volunteer",
+    to: "/get-involved/other-volunteering-roles",
   },
   {
     icon: Briefcase,

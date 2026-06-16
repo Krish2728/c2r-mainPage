@@ -1,7 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
-import { Users, Briefcase, Handshake, ArrowRight } from "lucide-react";
+import {
+  Users,
+  HandHelping,
+  Briefcase,
+  Handshake,
+  ArrowRight,
+} from "lucide-react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { getImageUrl } from "@/lib/images";
 import { ParallaxSection } from "@/components/ParallaxSection";
@@ -9,12 +15,20 @@ import { ChapterHeader } from "@/components/ChapterHeader";
 
 const sections = [
   {
-    id: "volunteer",
-    title: "Volunteer",
-    description: "Become a Mentor Volunteer",
+    id: "mentor",
+    title: "Mentor",
+    description: "Become a mentor",
     icon: Users,
     path: "/get-involved/volunteer",
     className: "border-t-4 border-t-c2r-primary",
+  },
+  {
+    id: "volunteer",
+    title: "Volunteer (Other Volunteering Roles)",
+    description: "Workshops, design, outreach & more",
+    icon: HandHelping,
+    path: "/get-involved/other-volunteering-roles",
+    className: "border-t-4 border-t-c2r-secondary",
   },
   {
     id: "corporate",
@@ -54,8 +68,8 @@ export default function GetInvolvedPage() {
                 Get Involved
               </h1>
               <p className="text-xl text-white/90 leading-relaxed">
-                Volunteer, partner, or collaborate—choose how you want to make
-                an impact.
+                Mentor, volunteer, partner, or collaborate—choose how you want
+                to make an impact.
               </p>
             </div>
           </ScrollReveal>
@@ -67,10 +81,10 @@ export default function GetInvolvedPage() {
           <ChapterHeader
             chapter="Ways to Engage"
             title="Get Involved"
-            subtitle="Volunteer · Corporate Partnerships · Other Alliances"
+            subtitle="Mentor · Volunteer · Corporate Partnerships · Other Alliances"
           />
 
-          <div className="max-w-5xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="max-w-6xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {sections.map((item, index) => (
               <ScrollReveal key={item.id} delay={index * 100}>
                 <Link
@@ -82,7 +96,9 @@ export default function GetInvolvedPage() {
                   >
                     <CardContent className="pt-8 pb-8 text-center flex flex-col items-center gap-4">
                       <item.icon className="h-12 w-12 text-c2r-primary" />
-                      <h3 className="text-xl font-bold">{item.title}</h3>
+                      <h3 className="text-lg font-bold leading-snug">
+                        {item.title}
+                      </h3>
                       <p className="text-sm text-muted-foreground">
                         {item.description}
                       </p>

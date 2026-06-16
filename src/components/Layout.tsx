@@ -36,6 +36,7 @@ import {
   FileText,
   Calendar,
   Handshake,
+  HandHelping,
 } from "lucide-react";
 import {
   SiFacebook,
@@ -500,10 +501,16 @@ export function Layout() {
 
   const getInvolvedDropdownItems = [
     {
-      label: "Volunteer",
+      label: "Mentor",
       path: "/get-involved/volunteer",
       icon: Users,
-      description: "Become a mentor volunteer",
+      description: "Become a mentor",
+    },
+    {
+      label: "Volunteer (Other Volunteering Roles)",
+      path: "/get-involved/other-volunteering-roles",
+      icon: HandHelping,
+      description: "Workshops, design, outreach & more",
     },
     {
       label: "Corporate Partnerships",
@@ -1520,7 +1527,15 @@ export function Layout() {
                     to="/get-involved/volunteer"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    Volunteer
+                    Mentor
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/get-involved/other-volunteering-roles"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    Volunteer (Other Roles)
                   </Link>
                 </li>
                 <li>
