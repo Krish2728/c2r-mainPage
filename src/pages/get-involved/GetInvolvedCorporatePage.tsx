@@ -241,14 +241,14 @@ export default function GetInvolvedCorporatePage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/corporate-handshake.dim_600x400.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <div className="mx-auto max-w-3xl text-center text-white">
             <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl animate-hero-line">
               Corporate Partnerships
             </h1>
-            <p className="text-xl text-white/90 leading-relaxed animate-hero-line animate-hero-line-delay">
+            <p className="c2r-hero-subtitle animate-hero-line animate-hero-line-delay">
               Build your future-ready workforce—with purpose.
             </p>
           </div>
@@ -270,7 +270,7 @@ export default function GetInvolvedCorporatePage() {
                     <div
                       className={`absolute -top-3 -left-3 w-14 h-14 rounded-full ${card.iconBg} shadow-lg`}
                     />
-                    <h3 className="relative text-lg font-bold text-foreground mb-3">
+                    <h3 className="relative c2r-card-title font-bold mb-3">
                       {card.title}
                     </h3>
                     <p className="relative text-sm text-muted-foreground leading-relaxed">
@@ -299,9 +299,7 @@ export default function GetInvolvedCorporatePage() {
                     className={`mt-0.5 w-3 h-3 rounded-full shrink-0 ${card.iconBg}`}
                   />
                   <div>
-                    <h3 className="font-semibold text-foreground mb-0.5">
-                      {card.title}
-                    </h3>
+                    <h3 className="c2r-card-title mb-0.5">{card.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {card.description}
                     </p>
@@ -322,7 +320,7 @@ export default function GetInvolvedCorporatePage() {
           />
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="c2r-prose">
                 Connect2Roots works closely with employers to identify talent
                 needs, co-design training pathways, and prepare underprivileged
                 youth for meaningful entry-level roles. Our mentor-first
@@ -391,9 +389,7 @@ export default function GetInvolvedCorporatePage() {
                     className={`w-1 shrink-0 self-stretch min-h-[3rem] rounded-full ${card.iconBg} opacity-80`}
                   />
                   <div>
-                    <h3 className="font-semibold text-foreground mb-1">
-                      {card.title}
-                    </h3>
+                    <h3 className="c2r-card-title mb-1">{card.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {card.description}
                     </p>
@@ -416,7 +412,7 @@ export default function GetInvolvedCorporatePage() {
             {impactCards.map((card, i) => (
               <ScrollReveal key={i} delay={60 + i * 50} direction="up">
                 <div className="text-center p-6 rounded-xl bg-muted/50 border border-border/50">
-                  <p className="text-lg font-bold text-c2r-primary mb-1">
+                  <p className="c2r-card-title text-c2r-primary mb-1">
                     {card.title}
                   </p>
                   <p className="text-xs text-muted-foreground leading-relaxed">
@@ -445,13 +441,11 @@ export default function GetInvolvedCorporatePage() {
                       className={`w-3 h-3 rounded-full border-2 border-background shrink-0 ${card.iconBg}`}
                     />
                     {i < whatWeDoCards.length - 1 && (
-                      <div className="w-px flex-1 min-h-[2rem] mt-1 bg-gradient-to-b from-c2r-primary/50 to-c2r-accent/30" />
+                      <div className="w-px flex-1 min-h-[2rem] mt-1 bg-gradient-to-b from-c2r-primary/50 to-c2r-secondary/40" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0 pt-0.5">
-                    <h3 className="font-semibold text-foreground mb-1">
-                      {card.title}
-                    </h3>
+                    <h3 className="c2r-card-title mb-1">{card.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {card.description}
                     </p>
@@ -492,7 +486,7 @@ export default function GetInvolvedCorporatePage() {
               <ScrollReveal key={i} delay={i * 100} direction="left">
                 <Card className="challenge-card border-l-4 border-l-c2r-accent/80">
                   <CardContent className="pt-6">
-                    <h3 className="text-xl font-bold mb-2">🔹 {ch.title}</h3>
+                    <h3 className="c2r-card-title mb-2">🔹 {ch.title}</h3>
                     <p className="text-muted-foreground mb-2">{ch.problem}</p>
                     <p className="text-muted-foreground mb-1">
                       <strong>Our solution:</strong>
@@ -515,7 +509,7 @@ export default function GetInvolvedCorporatePage() {
           />
           <ScrollReveal direction="up" delay={60}>
             <div className="max-w-3xl mx-auto space-y-4 text-muted-foreground">
-              <p>
+              <p className="c2r-prose">
                 Unlike models that begin with training alone, Connect2Roots
                 begins with the individual. We believe sustainable employment
                 requires:

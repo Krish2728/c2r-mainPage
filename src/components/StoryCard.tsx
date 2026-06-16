@@ -40,9 +40,7 @@ export function StoryCard({
           <Card className="border-l-4 border-l-c2r-accent bg-gradient-to-br from-background to-muted/30">
             <CardContent className="pt-6">
               <h3 className="mb-4 text-2xl font-bold">{title}</h3>
-              <p className="mb-6 text-lg text-muted-foreground leading-relaxed">
-                {description}
-              </p>
+              <p className="mb-6 c2r-prose">{description}</p>
               {quote && (
                 <blockquote className="border-l-4 border-c2r-primary pl-4 italic text-muted-foreground">
                   <p className="mb-2">"{quote}"</p>

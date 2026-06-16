@@ -29,7 +29,7 @@ export default function GetInvolvedDonationPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/donation-impact.dim_600x400.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal direction="fade">
@@ -37,7 +37,7 @@ export default function GetInvolvedDonationPage() {
               <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
                 Donation
               </h1>
-              <p className="text-xl text-white/90 leading-relaxed">
+              <p className="c2r-hero-subtitle">
                 Every contribution directly supports mentoring, skilling, and
                 job readiness — with transparent impact tracking.
               </p>
@@ -55,7 +55,7 @@ export default function GetInvolvedDonationPage() {
           />
           <div className="max-w-3xl mx-auto">
             <ScrollReveal>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="c2r-prose">
                 Your contribution ensures that career mentoring and skill
                 pathway guidance remain free for youth who need it most.
               </p>
@@ -76,7 +76,7 @@ export default function GetInvolvedDonationPage() {
               <ScrollReveal key={i} delay={i * 100}>
                 <Card className="border-t-4 border-t-c2r-accent">
                   <CardContent className="pt-8 text-center">
-                    <h3 className="text-xl font-bold mb-2">{pkg.name}</h3>
+                    <h3 className="c2r-card-title mb-2">{pkg.name}</h3>
                     <p className="text-3xl font-bold text-c2r-primary">
                       {pkg.amount}
                     </p>

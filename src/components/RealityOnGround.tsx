@@ -32,25 +32,23 @@ const gaps = [
 ];
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.55, ease: "easeOut" as const },
+    transition: { delay: i * 0.1, duration: 0.45, ease: "easeOut" as const },
   }),
 };
 
-const accentBright = "text-[oklch(0.82_0.11_68)]";
-const accentSource = "text-[oklch(0.75_0.09_68)]";
-const accentIcon =
-  "border-[oklch(0.82_0.11_68/0.55)] bg-[oklch(0.82_0.11_68/0.12)] text-[oklch(0.82_0.11_68)] group-hover:bg-[oklch(0.82_0.11_68)] group-hover:text-c2r-primary";
+const gold = "oklch(0.88_0.1_68)";
+const goldMuted = "oklch(0.82_0.08_68)";
 
 export function RealityOnGround() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28">
-      <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary via-c2r-primary to-c2r-secondary" />
-      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-c2r-accent/15 blur-3xl" />
-      <div className="absolute -bottom-32 left-1/4 h-80 w-80 rounded-full bg-white/5 blur-3xl" />
+    <section className="relative overflow-hidden py-16 md:py-24">
+      <div className="absolute inset-0 c2r-gradient-section" />
+      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+      <div className="absolute -bottom-32 left-1/4 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
 
       <div className="container relative z-10">
         <motion.div
@@ -61,21 +59,22 @@ export function RealityOnGround() {
           transition={{ duration: 0.6 }}
         >
           <p
-            className={`mb-4 text-sm font-semibold uppercase tracking-[0.2em] ${accentBright}`}
+            className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] md:text-sm"
+            style={{ color: gold }}
           >
             The Reality on the Ground
           </p>
-          <h2 className="heading-descender-safe mb-6 font-serif text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
+          <h2 className="c2r-heading-dark-lg mb-5">
             Four gaps standing between India&apos;s youth and their{" "}
-            <span className={accentBright}>future</span>
+            <span style={{ color: gold }}>future</span>
           </h2>
-          <p className="mx-auto max-w-3xl text-lg text-white/85 md:text-xl">
+          <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/95 md:text-lg">
             Not lack of talent. Not lack of ambition. Lack of access — to
             guidance, skills, opportunity, and the right connections.
           </p>
         </motion.div>
 
-        <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2 lg:gap-8">
+        <div className="mx-auto mt-10 grid max-w-6xl gap-4 md:grid-cols-2 md:gap-5">
           {gaps.map((gap, index) => (
             <motion.article
               key={gap.title}
@@ -84,29 +83,38 @@ export function RealityOnGround() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
-              whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="group rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-shadow duration-300 hover:border-[oklch(0.82_0.11_68/0.45)] hover:bg-white/10 hover:shadow-xl hover:shadow-black/20 md:p-8"
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="group rounded-xl border border-white/30 bg-white/20 p-5 shadow-lg shadow-black/10 backdrop-blur-md transition-all duration-300 hover:border-white/45 hover:bg-white/25 md:p-6"
             >
-              <div className="mb-5 flex items-start gap-4">
+              <div className="mb-4 flex items-start gap-3">
                 <div
-                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-colors ${accentIcon}`}
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/40 bg-white/25 transition-colors group-hover:border-white/60 group-hover:bg-white/35"
+                  style={{ color: gold }}
                 >
                   <ArrowRight className="h-4 w-4" />
                 </div>
                 <h3
-                  className={`pt-1 text-sm font-bold uppercase tracking-wide md:text-base ${accentBright}`}
+                  className="pt-0.5 text-sm font-bold uppercase leading-snug tracking-wide md:text-base"
+                  style={{ color: gold }}
                 >
                   {gap.title}
                 </h3>
               </div>
-              <p className="text-base leading-relaxed text-white/90 md:text-lg">
+
+              <p className="text-sm leading-relaxed text-white md:text-base">
                 {gap.description}
               </p>
-              <div className="my-5 h-px bg-white/15" />
-              <p
-                className={`text-xs italic leading-relaxed md:text-sm ${accentSource}`}
-              >
-                Source: {gap.source}
+
+              <div className="my-4 h-px bg-white/35" />
+
+              <p className="text-xs leading-relaxed text-white/80 md:text-sm">
+                <span
+                  className="font-medium not-italic"
+                  style={{ color: goldMuted }}
+                >
+                  Source:
+                </span>{" "}
+                {gap.source}
               </p>
             </motion.article>
           ))}

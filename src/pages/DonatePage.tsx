@@ -141,7 +141,7 @@ export default function DonatePage() {
             </h1>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
-            <p className="text-xl md:text-2xl max-w-3xl mx-auto text-white/90">
+            <p className="c2r-hero-subtitle max-w-3xl mx-auto">
               Every donation helps bridge the gap between talent and
               opportunity, empowering young minds to build brighter futures.
             </p>
@@ -158,7 +158,7 @@ export default function DonatePage() {
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
-            <p className="text-lg text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+            <p className="c2r-prose text-center mb-12 max-w-2xl mx-auto">
               See how your contributions transform lives and create
               opportunities
             </p>
@@ -233,7 +233,7 @@ export default function DonatePage() {
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
-            <p className="text-lg text-muted-foreground text-center mb-12">
+            <p className="c2r-prose text-center mb-12">
               Select a donation tier or enter a custom amount
             </p>
           </ScrollReveal>
@@ -257,7 +257,7 @@ export default function DonatePage() {
                       )}
                     </div>
                     <CardTitle className="text-2xl">₹{tier.amount}</CardTitle>
-                    <CardDescription className="font-semibold text-foreground">
+                    <CardDescription className="c2r-card-title">
                       {tier.title}
                     </CardDescription>
                   </CardHeader>

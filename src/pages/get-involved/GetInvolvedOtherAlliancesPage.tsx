@@ -41,7 +41,7 @@ export default function GetInvolvedOtherAlliancesPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/team-collaboration.dim_800x500.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal direction="fade">
@@ -49,7 +49,7 @@ export default function GetInvolvedOtherAlliancesPage() {
               <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
                 Other Alliances
               </h1>
-              <p className="text-xl text-white/90 leading-relaxed">
+              <p className="c2r-hero-subtitle">
                 University, NGO, and institutional partnerships.
               </p>
             </div>
@@ -67,10 +67,10 @@ export default function GetInvolvedOtherAlliancesPage() {
           <div className="max-w-4xl mx-auto space-y-8">
             <ScrollReveal>
               <div className="rounded-2xl border border-border bg-gradient-to-br from-muted/40 to-background p-6 md:p-8 shadow-sm">
-                <p className="text-lg md:text-xl font-medium text-foreground leading-relaxed tracking-tight">
+                <p className="text-base font-medium text-foreground leading-relaxed">
                   Universities onboard cohorts of students.
                 </p>
-                <p className="mt-4 text-lg md:text-xl font-medium text-foreground leading-relaxed tracking-tight">
+                <p className="mt-4 text-base font-medium text-foreground leading-relaxed">
                   Internship cum volunteering with Connect2Roots{" "}
                   <span className="text-c2r-primary font-semibold">
                     (For Professional Courses)
@@ -112,7 +112,7 @@ export default function GetInvolvedOtherAlliancesPage() {
           />
           <div className="max-w-3xl mx-auto">
             <ScrollReveal>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="c2r-prose">
                 Integrate C2R mentoring modules into existing programs for
                 training & sourcing of students.
               </p>

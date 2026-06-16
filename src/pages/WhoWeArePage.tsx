@@ -21,7 +21,7 @@ export default function WhoWeArePage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/team-collaboration.dim_800x500.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-accent/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal direction="fade">
@@ -29,7 +29,7 @@ export default function WhoWeArePage() {
               <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
                 Who We Are
               </h1>
-              <p className="text-xl text-white/90 leading-relaxed">
+              <p className="c2r-hero-subtitle">
                 A movement dedicated to empowering communities through
                 mentorship, skills, and opportunity
               </p>
@@ -49,8 +49,8 @@ export default function WhoWeArePage() {
 
           <ScrollReveal delay={100}>
             <div className="max-w-4xl mx-auto">
-              <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-6">
-                <p className="text-xl">
+              <div className="space-y-6">
+                <p className="c2r-prose-emphasis">
                   Connect2Roots Foundation is a social impact organization that
                   bridges the gap between aspiration and achievement. We believe
                   that{" "}
@@ -60,7 +60,7 @@ export default function WhoWeArePage() {
                   .
                 </p>
 
-                <p>
+                <p className="c2r-prose">
                   Founded on the principle that every individual deserves access
                   to quality mentorship and career guidance, we've built a
                   platform that connects aspiring professionals from underserved
@@ -68,7 +68,7 @@ export default function WhoWeArePage() {
                   meaningful careers.
                 </p>
 
-                <p>
+                <p className="c2r-prose">
                   Our work goes beyond traditional career counseling. We provide
                   comprehensive support through mentorship programs, skill
                   development initiatives, and entrepreneurship
@@ -95,7 +95,7 @@ export default function WhoWeArePage() {
 
       {/* Founding Story */}
       <section className="py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-c2r-secondary/10 via-transparent to-c2r-accent/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/8 via-transparent to-c2r-secondary/8" />
         <div className="container relative">
           <ChapterHeader
             chapter="Our Beginning"
@@ -116,8 +116,8 @@ export default function WhoWeArePage() {
                       className="h-48 w-48 rounded-full object-cover border-4 border-c2r-accent/20 shadow-xl flex-shrink-0"
                     />
                     <div className="flex-1 space-y-6">
-                      <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed">
-                        <p>
+                      <div className="space-y-6">
+                        <p className="c2r-prose">
                           In 2017, our founder witnessed a troubling pattern:
                           brilliant young minds from underserved communities
                           were struggling not because they lacked talent or
@@ -125,7 +125,7 @@ export default function WhoWeArePage() {
                           guidance at the right time.
                         </p>
 
-                        <p>
+                        <p className="c2r-prose">
                           A conversation with a talented student who was about
                           to give up on her dreams became the catalyst. She had
                           the grades, the drive, and the potential—but no one to
@@ -138,7 +138,7 @@ export default function WhoWeArePage() {
                           </span>
                         </p>
 
-                        <p>
+                        <p className="c2r-prose">
                           From that simple question, Connect2Roots was born.
                           What started as informal mentoring sessions with a
                           handful of students has grown into a comprehensive
@@ -146,7 +146,7 @@ export default function WhoWeArePage() {
                           multiple communities.
                         </p>
 
-                        <p>
+                        <p className="c2r-prose">
                           Today, we're not just an organization—we're a
                           movement. A movement that believes in the power of
                           human connection, the transformative impact of
@@ -177,7 +177,7 @@ export default function WhoWeArePage() {
               <Card className="h-full border-t-4 border-t-c2r-primary transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="pt-8 text-center">
                   <Heart className="mx-auto mb-4 h-12 w-12 text-c2r-primary" />
-                  <h3 className="text-xl font-bold mb-3">Human-Centered</h3>
+                  <h3 className="c2r-card-title mb-3">Human-Centered</h3>
                   <p className="text-muted-foreground">
                     We put people first, understanding that every journey is
                     unique and deserves personalized attention.
@@ -190,7 +190,7 @@ export default function WhoWeArePage() {
               <Card className="h-full border-t-4 border-t-c2r-secondary transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="pt-8 text-center">
                   <Sparkles className="mx-auto mb-4 h-12 w-12 text-c2r-secondary" />
-                  <h3 className="text-xl font-bold mb-3">Technology-Enabled</h3>
+                  <h3 className="c2r-card-title mb-3">Technology-Enabled</h3>
                   <p className="text-muted-foreground">
                     AI-powered matching ensures students connect with mentors
                     who truly understand their aspirations.
@@ -203,7 +203,7 @@ export default function WhoWeArePage() {
               <Card className="h-full border-t-4 border-t-c2r-accent transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="pt-8 text-center">
                   <Users className="mx-auto mb-4 h-12 w-12 text-c2r-accent" />
-                  <h3 className="text-xl font-bold mb-3">Community-Driven</h3>
+                  <h3 className="c2r-card-title mb-3">Community-Driven</h3>
                   <p className="text-muted-foreground">
                     Built on the power of giving back—professionals helping the
                     next generation succeed.
@@ -216,7 +216,7 @@ export default function WhoWeArePage() {
               <Card className="h-full border-t-4 border-t-c2r-primary transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="pt-8 text-center">
                   <Target className="mx-auto mb-4 h-12 w-12 text-c2r-primary" />
-                  <h3 className="text-xl font-bold mb-3">Impact-Focused</h3>
+                  <h3 className="c2r-card-title mb-3">Impact-Focused</h3>
                   <p className="text-muted-foreground">
                     Every program, every initiative is designed with measurable
                     outcomes and lasting transformation in mind.
@@ -231,14 +231,14 @@ export default function WhoWeArePage() {
       {/* CTA Section */}
       <section className="relative py-20 overflow-hidden">
         <ParallaxSection speed={0.4} className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary to-c2r-accent" />
+          <div className="absolute inset-0 c2r-gradient-section" />
         </ParallaxSection>
         <div className="container relative z-10 text-center text-white">
           <ScrollReveal direction="fade">
             <h2 className="heading-descender-safe text-4xl font-bold mb-4">
               Learn More About Our Work
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="c2r-hero-subtitle mb-8 max-w-2xl mx-auto">
               Explore our vision, meet our team, and discover how we're making a
               difference
             </p>

@@ -138,7 +138,7 @@ export default function SepfPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/policy-research.dim_600x400.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-accent/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal direction="fade">
@@ -151,10 +151,10 @@ export default function SepfPage() {
               <h1 className="heading-descender-safe text-4xl md:text-6xl font-bold mb-6">
                 C2R SEPF
               </h1>
-              <p className="text-2xl md:text-3xl font-semibold mb-4">
+              <p className="c2r-hero-subtitle font-semibold mb-4">
                 Skills & Entrepreneurship Policy Forum
               </p>
-              <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+              <p className="c2r-hero-subtitle">
                 The foresight, research, and policy arm of Connect2Roots —
                 bridging aspirations with opportunities through evidence-based
                 insights and collaborative action.
@@ -180,21 +180,21 @@ export default function SepfPage() {
                 <h3 className="heading-descender-safe text-3xl font-bold mb-6">
                   What We Do
                 </h3>
-                <div className="space-y-4 text-lg text-muted-foreground">
-                  <p>
+                <div className="space-y-4 c2r-prose">
+                  <p className="c2r-prose">
                     SEPF conducts deep research into the evolving landscape of
                     skills, entrepreneurship, and employment. We identify
                     future-ready career pathways and translate complex labor
                     market trends into actionable guidance for youth, educators,
                     and policymakers.
                   </p>
-                  <p>
+                  <p className="c2r-prose">
                     Through partnerships with industry, academia, and
                     government, we advocate for inclusive policies that ensure
                     no talented individual is left behind due to lack of
                     information or opportunity.
                   </p>
-                  <p>
+                  <p className="c2r-prose">
                     Our work informs Connect2Roots' mentorship curriculum,
                     ensuring every conversation between mentor and mentee is
                     grounded in real-world relevance and forward-looking
@@ -358,19 +358,19 @@ export default function SepfPage() {
                     <CardTitle className="text-2xl">Global Shifts</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4 text-muted-foreground">
-                    <p>
+                    <p className="c2r-prose">
                       <strong className="text-foreground">
                         Automation & AI:
                       </strong>{" "}
                       Routine jobs are disappearing while demand for creative,
                       analytical, and interpersonal skills is surging.
                     </p>
-                    <p>
+                    <p className="c2r-prose">
                       <strong className="text-foreground">Gig Economy:</strong>{" "}
                       Traditional employment models are giving way to flexible,
                       project-based work requiring entrepreneurial mindsets.
                     </p>
-                    <p>
+                    <p className="c2r-prose">
                       <strong className="text-foreground">
                         Green Transition:
                       </strong>{" "}
@@ -390,21 +390,21 @@ export default function SepfPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4 text-muted-foreground">
-                    <p>
+                    <p className="c2r-prose">
                       <strong className="text-foreground">
                         Information Gap:
                       </strong>{" "}
                       Limited access to career guidance and awareness of
                       emerging opportunities beyond traditional paths.
                     </p>
-                    <p>
+                    <p className="c2r-prose">
                       <strong className="text-foreground">
                         Network Deficit:
                       </strong>{" "}
                       Lack of professional connections and mentors who can open
                       doors and provide insider knowledge.
                     </p>
-                    <p>
+                    <p className="c2r-prose">
                       <strong className="text-foreground">
                         Skill Mismatch:
                       </strong>{" "}
@@ -483,7 +483,7 @@ export default function SepfPage() {
                         className="text-5xl font-bold text-c2r-primary"
                       />
                     </div>
-                    <p className="text-lg font-semibold mb-2">Career Clarity</p>
+                    <p className="c2r-prose-emphasis mb-2">Career Clarity</p>
                     <p className="text-muted-foreground">
                       of mentored youth report clearer career goals
                     </p>
@@ -498,9 +498,7 @@ export default function SepfPage() {
                         className="text-5xl font-bold text-c2r-secondary"
                       />
                     </div>
-                    <p className="text-lg font-semibold mb-2">
-                      Higher Earnings
-                    </p>
+                    <p className="c2r-prose-emphasis mb-2">Higher Earnings</p>
                     <p className="text-muted-foreground">
                       average income increase with mentorship
                     </p>
@@ -514,7 +512,7 @@ export default function SepfPage() {
                         className="text-5xl font-bold text-c2r-accent"
                       />
                     </div>
-                    <p className="text-lg font-semibold mb-2">Job Placement</p>
+                    <p className="c2r-prose-emphasis mb-2">Job Placement</p>
                     <p className="text-muted-foreground">
                       success rate within 6 months of program completion
                     </p>
@@ -647,7 +645,7 @@ export default function SepfPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg text-muted-foreground">
+                  <p className="c2r-prose">
                     We engage with government bodies, educational institutions,
                     and industry leaders to advocate for policies that expand
                     access to quality career guidance and skill development. Our
@@ -668,7 +666,7 @@ export default function SepfPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg text-muted-foreground">
+                  <p className="c2r-prose">
                     Our research team conducts longitudinal studies tracking
                     career outcomes, analyzes labor market trends, and publishes
                     white papers on emerging skill demands. We translate complex
@@ -689,7 +687,7 @@ export default function SepfPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg text-muted-foreground">
+                  <p className="c2r-prose">
                     SEPF convenes industry leaders, academic institutions, and
                     civil society organizations to co-create solutions for youth
                     employability. Through multi-stakeholder forums, we
@@ -707,7 +705,7 @@ export default function SepfPage() {
               <h3 className="heading-descender-safe text-3xl font-bold mb-6">
                 Join Us in Shaping the Future
               </h3>
-              <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+              <p className="c2r-prose mb-8 max-w-3xl mx-auto">
                 Whether you're a researcher, policymaker, industry leader, or
                 passionate advocate for youth empowerment, there's a place for
                 you in the SEPF community.

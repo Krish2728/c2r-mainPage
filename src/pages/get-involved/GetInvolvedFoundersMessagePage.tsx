@@ -24,7 +24,7 @@ export default function GetInvolvedFoundersMessagePage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/founder-headshot.dim_300x300.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal direction="fade">
@@ -32,7 +32,7 @@ export default function GetInvolvedFoundersMessagePage() {
               <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
                 Founder’s Message
               </h1>
-              <p className="text-xl text-white/90">From the Founder’s Desk</p>
+              <p className="c2r-hero-subtitle">From the Founder’s Desk</p>
             </div>
           </ScrollReveal>
         </div>

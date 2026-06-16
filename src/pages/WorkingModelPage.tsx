@@ -83,7 +83,7 @@ export default function WorkingModelPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/future-of-work.dim_800x500.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-accent/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal direction="fade">
@@ -91,7 +91,7 @@ export default function WorkingModelPage() {
               <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
                 Our Working Model
               </h1>
-              <p className="text-xl text-white/90 leading-relaxed">
+              <p className="c2r-hero-subtitle">
                 A proven framework for transforming aspirations into
                 achievements
               </p>
@@ -111,8 +111,8 @@ export default function WorkingModelPage() {
 
           <ScrollReveal delay={100}>
             <div className="max-w-4xl mx-auto">
-              <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-6">
-                <p className="text-xl">
+              <div className="space-y-6">
+                <p className="c2r-prose-emphasis">
                   India stands at a critical juncture. With one of the world's
                   youngest populations and a rapidly evolving economy, the
                   nation has unprecedented potential. Yet, millions of talented
@@ -123,7 +123,7 @@ export default function WorkingModelPage() {
                   .
                 </p>
 
-                <p>
+                <p className="c2r-prose">
                   Traditional education systems often fail to provide the
                   practical skills, industry connections, and career guidance
                   needed to navigate today's job market. This gap is
@@ -131,7 +131,7 @@ export default function WorkingModelPage() {
                   mentorship and professional networks is limited.
                 </p>
 
-                <p>
+                <p className="c2r-prose">
                   The result? A paradox where employers struggle to find
                   qualified candidates while millions of educated youth remain
                   unemployed or underemployed. This isn't just an economic
@@ -139,9 +139,7 @@ export default function WorkingModelPage() {
                 </p>
 
                 <div className="bg-c2r-accent/10 border-l-4 border-l-c2r-accent p-6 rounded-r-lg">
-                  <p className="text-lg font-semibold text-foreground mb-2">
-                    The Challenge:
-                  </p>
+                  <p className="c2r-card-title mb-2">The Challenge:</p>
                   <p className="text-base">
                     How do we bridge this gap and ensure that every talented
                     individual, regardless of background, has the guidance and
@@ -156,7 +154,7 @@ export default function WorkingModelPage() {
 
       {/* Connect2Roots Thesis */}
       <section className="py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-c2r-secondary/10 via-transparent to-c2r-accent/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/8 via-transparent to-c2r-secondary/8" />
         <div className="container relative">
           <ChapterHeader
             chapter="Our Thesis"
@@ -168,13 +166,13 @@ export default function WorkingModelPage() {
             <div className="max-w-4xl mx-auto mb-12">
               <Card className="border-t-4 border-t-c2r-primary">
                 <CardContent className="pt-8">
-                  <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-6">
-                    <p className="text-xl font-semibold text-foreground">
+                  <div className="space-y-6">
+                    <p className="c2r-prose-emphasis">
                       We believe that meaningful career guidance is the missing
                       link between education and employment.
                     </p>
 
-                    <p>
+                    <p className="c2r-prose">
                       Our thesis is simple but powerful: when aspiring
                       professionals have access to experienced mentors who
                       understand their journey, combined with practical skill
@@ -182,7 +180,7 @@ export default function WorkingModelPage() {
                       just find jobs—they build careers.
                     </p>
 
-                    <p>
+                    <p className="c2r-prose">
                       This isn't about replacing formal education. It's about
                       complementing it with the human element that makes all the
                       difference: personalized guidance, industry insights, and
@@ -200,7 +198,7 @@ export default function WorkingModelPage() {
               <Card className="h-full border-l-4 border-l-c2r-primary transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="pt-8">
                   <CheckCircle2 className="mb-4 h-10 w-10 text-c2r-primary" />
-                  <h3 className="text-xl font-bold mb-3">Human-Centered</h3>
+                  <h3 className="c2r-card-title mb-3">Human-Centered</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Technology enables us, but human connection transforms
                     lives. Every student gets personalized attention from
@@ -214,7 +212,7 @@ export default function WorkingModelPage() {
               <Card className="h-full border-l-4 border-l-c2r-secondary transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="pt-8">
                   <CheckCircle2 className="mb-4 h-10 w-10 text-c2r-secondary" />
-                  <h3 className="text-xl font-bold mb-3">Holistic Support</h3>
+                  <h3 className="c2r-card-title mb-3">Holistic Support</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     We address the full journey—from career clarity to skill
                     building to opportunity access—not just isolated pieces.
@@ -227,7 +225,7 @@ export default function WorkingModelPage() {
               <Card className="h-full border-l-4 border-l-c2r-accent transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="pt-8">
                   <CheckCircle2 className="mb-4 h-10 w-10 text-c2r-accent" />
-                  <h3 className="text-xl font-bold mb-3">Community-Driven</h3>
+                  <h3 className="c2r-card-title mb-3">Community-Driven</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Built on the principle of giving back—successful
                     professionals helping the next generation succeed.
@@ -235,6 +233,63 @@ export default function WorkingModelPage() {
                 </CardContent>
               </Card>
             </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-24 md:py-32 bg-gradient-to-b from-background to-muted/30">
+        <div className="container">
+          <ChapterHeader
+            chapter="Our Method"
+            title="How It Works"
+            subtitle="Our platform connects students with mentors and provides a structured pathway to career success through four simple steps."
+          />
+
+          <div className="max-w-6xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                step: "1",
+                title: "Students Register",
+                description:
+                  "Students create profiles with their career aspirations, educational background, and areas of interest.",
+                icon: Users,
+              },
+              {
+                step: "2",
+                title: "Platform Matches Mentors",
+                description:
+                  "Our AI-powered platform analyzes student profiles and matches them with the most suitable mentors based on industry, experience, and goals.",
+                icon: Sparkles,
+              },
+              {
+                step: "3",
+                title: "C2R Mentorship Curriculum",
+                description:
+                  "Students and mentors follow our structured curriculum covering career planning, skill development, and professional growth.",
+                icon: Target,
+              },
+              {
+                step: "4",
+                title: "Skills & Livelihood Programs",
+                description:
+                  "Students gain access to skill development workshops and livelihood support programs to enhance their employability.",
+                icon: TrendingUp,
+              },
+            ].map((item, index) => (
+              <ScrollReveal key={index} delay={index * 100}>
+                <Card className="h-full border border-border/60 shadow-sm hover:border-c2r-primary/30 hover:shadow-lg transition-all duration-300">
+                  <CardContent className="pt-6 text-center">
+                    <div className="mb-4 mx-auto flex h-14 w-14 items-center justify-center rounded-full c2r-gradient-accent text-white text-xl font-bold shadow-md">
+                      {item.step}
+                    </div>
+                    <item.icon className="h-9 w-9 mx-auto mb-4 text-c2r-primary" />
+                    <h3 className="c2r-card-title mb-3">{item.title}</h3>
+                    <p className="c2r-prose-sm">{item.description}</p>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
@@ -290,12 +345,10 @@ export default function WorkingModelPage() {
 
           <ScrollReveal delay={200}>
             <div className="mt-12 max-w-4xl mx-auto">
-              <div className="flex items-start gap-4 p-6 bg-gradient-to-r from-c2r-primary/10 to-c2r-accent/10 rounded-lg border-l-4 border-l-c2r-accent">
+              <div className="flex items-start gap-4 p-6 bg-gradient-to-r from-c2r-primary/10 to-c2r-secondary/10 rounded-lg border-l-4 border-l-c2r-accent">
                 <Sparkles className="h-6 w-6 text-c2r-accent flex-shrink-0 mt-1" />
                 <div>
-                  <p className="text-lg font-semibold text-foreground mb-2">
-                    The Mentor Advantage
-                  </p>
+                  <p className="c2r-card-title mb-2">The Mentor Advantage</p>
                   <p className="text-muted-foreground leading-relaxed">
                     Unlike traditional career counseling, our mentor-first
                     approach ensures students receive guidance from
@@ -322,7 +375,7 @@ export default function WorkingModelPage() {
 
           <ScrollReveal delay={100}>
             <div className="max-w-4xl mx-auto mb-8">
-              <p className="text-xl text-muted-foreground text-center leading-relaxed">
+              <p className="c2r-prose text-center">
                 Success in today's economy requires more than just one element.
                 Our TRIANGLE Framework integrates three essential components
                 that work together to create lasting impact.
@@ -339,7 +392,7 @@ export default function WorkingModelPage() {
               <ScrollReveal key={index} delay={index * 100}>
                 <Card className="h-full border-t-4 border-t-c2r-primary transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                   <CardContent className="pt-8 text-center">
-                    <div className="mb-6 h-16 w-16 rounded-full bg-gradient-to-br from-c2r-primary to-c2r-accent mx-auto flex items-center justify-center text-white">
+                    <div className="mb-6 h-16 w-16 rounded-full c2r-gradient-accent mx-auto flex items-center justify-center text-white">
                       {pillar.icon}
                     </div>
                     <h3 className="text-2xl font-bold mb-4">{pillar.pillar}</h3>
@@ -362,14 +415,14 @@ export default function WorkingModelPage() {
 
           <ScrollReveal delay={300}>
             <div className="mt-16 max-w-4xl mx-auto pb-24">
-              <Card className="bg-gradient-to-br from-c2r-accent/10 to-c2r-primary/10 border-none">
+              <Card className="bg-gradient-to-br from-c2r-primary/10 to-c2r-secondary/10 border-none">
                 <CardContent className="pt-8 pb-8">
                   <div className="text-center space-y-4">
                     <TrendingUp className="mx-auto h-12 w-12 text-c2r-accent" />
                     <h3 className="text-2xl font-bold">
                       Why the Triangle Works
                     </h3>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
+                    <p className="c2r-prose">
                       Each pillar reinforces the others. Mentorship provides
                       direction, skills provide capability, and opportunities
                       provide application. Together, they create a complete
@@ -386,7 +439,7 @@ export default function WorkingModelPage() {
       </section>
 
       {/* Our Contributions */}
-      <section className="py-24 md:py-32 bg-gradient-to-br from-c2r-primary/5 to-c2r-accent/5">
+      <section className="py-24 md:py-32 bg-gradient-to-br from-c2r-primary/5 to-c2r-secondary/5">
         <div className="container">
           <ChapterHeader
             chapter="Our Impact"
@@ -398,7 +451,7 @@ export default function WorkingModelPage() {
             <ScrollReveal delay={100}>
               <Card className="h-full border-l-4 border-l-c2r-primary">
                 <CardContent className="pt-8">
-                  <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <h3 className="c2r-card-title mb-4 flex items-center gap-2">
                     <ArrowRight className="h-5 w-5 text-c2r-primary" />
                     For Students
                   </h3>
@@ -434,7 +487,7 @@ export default function WorkingModelPage() {
             <ScrollReveal delay={200}>
               <Card className="h-full border-l-4 border-l-c2r-accent">
                 <CardContent className="pt-8">
-                  <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <h3 className="c2r-card-title mb-4 flex items-center gap-2">
                     <ArrowRight className="h-5 w-5 text-c2r-accent" />
                     For Communities
                   </h3>
@@ -466,14 +519,14 @@ export default function WorkingModelPage() {
       {/* CTA Section */}
       <section className="relative py-20 overflow-hidden">
         <ParallaxSection speed={0.4} className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary to-c2r-accent" />
+          <div className="absolute inset-0 c2r-gradient-section" />
         </ParallaxSection>
         <div className="container relative z-10 text-center text-white">
           <ScrollReveal direction="fade">
             <h2 className="heading-descender-safe text-4xl font-bold mb-4">
               See Our Model in Action
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="c2r-hero-subtitle mb-8 max-w-2xl mx-auto">
               Explore our programs and discover how we're transforming lives
               through mentorship
             </p>

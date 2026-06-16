@@ -10,18 +10,16 @@ export type TeamMember = {
   photoClass?: string;
 };
 
+export type TeamCategory = {
+  title: string;
+  members: TeamMember[];
+};
+
 export const coreTeam: TeamMember[] = [
-  {
-    name: "Rajeev Ranjan",
-    role: "Core Team",
-    bio: "Rajeev Ranjan is a senior business and alliances leader with deep experience driving strategic partnerships and enterprise sales across global banking, fintech, and technology ecosystems. Having worked across India, Europe, Africa, and emerging markets, he is known for building trust-led relationships, navigating complex markets, and scaling high-impact solutions. His journey reflects strategic foresight, execution strength, and a strong global perspective.",
-    linkedinUrl: "https://www.linkedin.com/in/rajeevranjan26/",
-    photoUrl: `${TEAM_PHOTOS}/Rajeev Ranjan.jpeg`,
-  },
   {
     name: "Amit Singh",
     role: "Core Team",
-    bio: "Amit Singh anchors our mobile connectivity and IoT capabilities across the Indian subcontinent, bringing deep technical leadership across SIM, eSIM, M2M, and enterprise-grade connectivity solutions. With a rare blend of engineering depth and customer-centric execution, he drives end-to-end delivery that turns complex telecom ecosystems into scalable, reliable outcomes.",
+    bio: "Amit Singh is a leader in mobile connectivity and IoT capabilities across the Indian subcontinent, bringing deep technical leadership across SIM, eSIM, M2M, and enterprise-grade connectivity solutions. With a rare blend of engineering depth and customer-centric execution, he drives end-to-end delivery that turns complex telecom ecosystems into scalable, reliable outcomes.",
     linkedinUrl: "https://www.linkedin.com/in/amitmvit/",
   },
   {
@@ -122,41 +120,92 @@ export const coreTeam: TeamMember[] = [
   },
 ];
 
-export const domainAdvisors: TeamMember[] = [
+export const advisoryCategories: TeamCategory[] = [
   {
-    name: "Vinay Krishna",
-    role: "CEO & Founder – LedgerFi IT Solutions, Pingala Software · Domain Advisor – IT & Cyber Security",
-    bio: "Vinay Krishna is a technologist, entrepreneur, and thought leader with two decades of experience building and scaling high-impact software organizations. Known for blending agility, servant leadership, and deep technical mastery, he brings a strong focus on digital transformation, agentic AI, and value-driven innovation, along with a legacy of global speaking, research, and community leadership.",
-    linkedinUrl: "https://www.linkedin.com/in/vinaykrishna/",
-    photoUrl: `${TEAM_PHOTOS}/Vinay Krishna.jpeg`,
+    title: "Banking, Economics & Financial Services",
+    members: [
+      {
+        name: "Shishu Ranjan",
+        role: "Director – Model Risk Management, Barclays India",
+        bio: "Shishu Ranjan is an economics and risk management professional with deep expertise in financial modeling, regulatory frameworks, and capital adequacy. With leadership roles across Barclays, HSBC, and PwC, he brings a strong blend of analytical rigor, governance insight, and hands-on experience in managing complex risk ecosystems within global banking institutions.",
+        linkedinUrl: "https://www.linkedin.com/in/shishu-ranjan-69184123/",
+        photoUrl: `${TEAM_PHOTOS}/Shishu Ranjan.jpg`,
+      },
+      {
+        name: "Rajeev Ranjan",
+        role: "Head of Alliances & Sales – Fintech",
+        bio: "Rajeev Ranjan is a senior business and alliances leader with deep experience driving strategic partnerships and enterprise sales across global banking, fintech, and technology ecosystems. Having worked across India, Europe, Africa, and emerging markets, he is known for building trust-led relationships, navigating complex markets, and scaling high-impact solutions. His journey reflects strategic foresight, execution strength, and a strong global perspective.",
+        linkedinUrl: "https://www.linkedin.com/in/rajeevranjan26/",
+        photoUrl: `${TEAM_PHOTOS}/Rajeev Ranjan.jpeg`,
+      },
+    ],
   },
+  {
+    title: "Artificial Intelligence, GCC, Analytics & Cybersecurity",
+    members: [
+      {
+        name: "Vinay Krishna",
+        role: "CEO & Founder – LedgerFi IT Solutions, Pingala Software",
+        bio: "Vinay Krishna is a technologist, entrepreneur, and thought leader with two decades of experience building and scaling high-impact software organizations. Known for blending agility, servant leadership, and deep technical mastery, he brings a strong focus on digital transformation, agentic AI, and value-driven innovation, along with a legacy of global speaking, research, and community leadership.",
+        linkedinUrl: "https://www.linkedin.com/in/vinaykrishna/",
+        photoUrl: `${TEAM_PHOTOS}/Vinay Krishna.jpeg`,
+      },
+      {
+        name: "Nitesh Ambuj",
+        role: "Head of Chapter Node – AI & Intelligent Automation, Ericsson",
+        bio: "Nitesh Ambuj is a global transformation leader with over two decades of experience shaping innovation-led ecosystems across technology and Global Capability Centers. With deep expertise in AI, intelligent automation, and GCC enablement, he blends strategic vision with hands-on leadership—driving measurable value, mentoring future-ready talent, and building platforms where innovation scales with purpose.",
+        linkedinUrl: "https://www.linkedin.com/in/niteshambuj/",
+        photoUrl: `${TEAM_PHOTOS}/Nitesh Ambuj.jpeg`,
+      },
+      {
+        name: "Naveen Andey",
+        role: "CEO & Founder – Datameadows",
+        bio: "Naveen Andey is the Founder of Datameadows and leads Analytics with a strong passion for turning data into meaningful business stories. With 15 years of experience in business intelligence and end-to-end analytics projects, he helps organizations derive actionable insights, shape marketing and product strategies, and solve complex business problems across retail, technology, and media sectors. Known for quick turnaround, stakeholder-focused delivery, and hands-on expertise with large datasets and analytics tools, he brings a sharp blend of analytical depth, strategic thinking, and execution excellence.",
+        linkedinUrl: "https://www.linkedin.com/in/naveenandey/",
+      },
+    ],
+  },
+  {
+    title: "Engineering & Advanced Research",
+    members: [
+      {
+        name: "Shashank Sinha",
+        role: "Associate Director – RGBSI",
+        bio: "Shashank Sinha is an engineering leader with deep expertise in advanced simulation and applied research. Graduated from IIT Kanpur and PhD from UCLA, USA, he has a strong foundation in CFD and FEA, his journey spans academic research in the US to leading high-impact engineering teams in industry—bringing rigor, innovation, and problem-solving excellence to complex engineering challenges.",
+        linkedinUrl: "https://www.linkedin.com/in/shsinha1/",
+        photoUrl: `${TEAM_PHOTOS}/Shashank Sinha.jpg`,
+      },
+      {
+        name: "Rakesh Kumar",
+        role: "Professor – RV College of Engineering",
+        bio: "Rakesh Kumar is BTech in Mechanical Engineering from IIT Dhanbad and M.Tech in Thermal Engineering from IIT Kharagpur with PhD from IISc Bangalore, and is currently working as a professor at RV College of Engineering. He is an academic and industry practitioner who bridges deep technical research with real-world engineering impact. With experience spanning advanced research at IISc Bangalore, teaching at leading engineering institutions, and hands-on work in motor and generator design at global firms, he brings a rare blend of analytical rigor, applied innovation, and knowledge leadership.",
+        linkedinUrl: "https://www.linkedin.com/in/rakesh-kumar-191a0432/",
+        photoUrl: `${TEAM_PHOTOS}/Rakesh Kumar.jpeg`,
+      },
+    ],
+  },
+  {
+    title: "Agriculture & Sustainable Development",
+    members: [
+      {
+        name: "Binay Kumar",
+        role: "Domain Advisor – Agriculture & Sustainable Development",
+        bio: 'Binay Kumar, popularly known as "Man In The Bus" (2015), is a TEDx speaker, a progressive farmer and a software engineer who started his career as a Tech Lead in a multinational software company. After working in the IT sector for more than a decade he realized that it is a never-ending rat race and decided to associate full time with Art of Living to teach progressive farming techniques. Kumar, a trainer in permaculture and other advanced non-invasive farming practices, is teaching fellow Bangaloreans how to grow their own food within their spaces and the urgent need for it. He has been a keynote speaker at multiple public platforms like TEDx, ISTD NATCONF, AICTE, Hyderabad University, IIT-BHU etc. He has also been interviewed by DD Kisan (2016), MH One TV (2018), Sham TV (2018), ABP News (2018) on permaculture. Green TV telecast his videos regularly. At Connect2Roots, he advises on sustainable development initiatives for the Rural Sector.',
+        linkedinUrl: "https://www.linkedin.com/in/binay-kumar-singh-8b33809b/",
+      },
+    ],
+  },
+];
+
+/** Advisors not listed in categorized panels — kept as-is */
+export const additionalAdvisors: TeamMember[] = [
   {
     name: "Manish Pathak",
     role: "Domain Advisor – Banking & Financial Sector",
     bio: "Manish Pathak is a seasoned banking and financial services leader with deep expertise in global engineering, fees & commissions platforms, and large-scale financial systems. With a strong track record across Goldman Sachs and JPMorgan Chase, he brings sharp business–technology alignment, risk-aware execution, and a global perspective to complex financial ecosystems.",
     linkedinUrl: "https://www.linkedin.com/in/manish-pathak-4888243/",
     photoUrl: `${TEAM_PHOTOS}/Manish Pathak.jpg`,
-    photoClass: "scale-75",
-  },
-  {
-    name: "Naveen Andey",
-    role: "CEO & Founder – Datameadows · Domain Advisor – Analytics",
-    bio: "Naveen Andey is the Founder of Datameadows and leads Analytics with a strong passion for turning data into meaningful business stories. With 15 years of experience in business intelligence and end-to-end analytics projects, he helps organizations derive actionable insights, shape marketing and product strategies, and solve complex business problems across retail, technology, and media sectors. Known for quick turnaround, stakeholder-focused delivery, and hands-on expertise with large datasets and analytics tools, he brings a sharp blend of analytical depth, strategic thinking, and execution excellence.",
-    linkedinUrl: "https://www.linkedin.com/in/naveenandey/",
-  },
-  {
-    name: "Shishu Ranjan",
-    role: "Director – Model Risk Management, Barclays India · Domain Advisor – Economics & Financial Sector",
-    bio: "Shishu Ranjan is an economics and risk management professional with deep expertise in financial modeling, regulatory frameworks, and capital adequacy. With leadership roles across Barclays, HSBC, and PwC, he brings a strong blend of analytical rigor, governance insight, and hands-on experience in managing complex risk ecosystems within global banking institutions.",
-    linkedinUrl: "https://www.linkedin.com/in/shishu-ranjan-69184123/",
-    photoUrl: `${TEAM_PHOTOS}/Shishu Ranjan.jpg`,
-  },
-  {
-    name: "Nitesh Ambuj",
-    role: "Head of Chapter Node – AI & Intelligent Automation, Ericsson · Domain Advisor – Artificial Intelligence & Global Captives Centre",
-    bio: "Nitesh Ambuj is a global transformation leader with over two decades of experience shaping innovation-led ecosystems across technology and Global Capability Centers. With deep expertise in AI, intelligent automation, and GCC enablement, he blends strategic vision with hands-on leadership—driving measurable value, mentoring future-ready talent, and building platforms where innovation scales with purpose.",
-    linkedinUrl: "https://www.linkedin.com/in/niteshambuj/",
-    photoUrl: `${TEAM_PHOTOS}/Nitesh Ambuj.jpeg`,
+    photoClass: "object-[center_32%] scale-110",
   },
   {
     name: "Indrajit Sinha",
@@ -165,18 +214,10 @@ export const domainAdvisors: TeamMember[] = [
     linkedinUrl: "https://www.linkedin.com/in/indrajit-kumar-9880a91b/",
     photoUrl: `${TEAM_PHOTOS}/Indrajit Kumar.jpeg`,
   },
-  {
-    name: "Shashank Sinha",
-    role: "Associate Director – RGBSI · Domain Advisor – Engineering",
-    bio: "Shashank Sinha is an engineering leader with deep expertise in advanced simulation and applied research. Graduated from IIT Kanpur and PhD from UCLA, USA, he has a strong foundation in CFD and FEA, his journey spans academic research in the US to leading high-impact engineering teams in industry—bringing rigor, innovation, and problem-solving excellence to complex engineering challenges.",
-    linkedinUrl: "https://www.linkedin.com/in/shsinha1/",
-    photoUrl: `${TEAM_PHOTOS}/Shashank Sinha.jpg`,
-  },
-  {
-    name: "Rakesh Kumar",
-    role: "Professor – RV College of Engineering · Domain Advisor – Academia",
-    bio: "Rakesh Kumar is BTech in Mechanical Engineering from IIT Dhanbad and M.Tech in Thermal Engineering from IIT Kharagpur with PhD from IISc Bangalore, and is currently working as a professor at RV College of Engineering. He is an academic and industry practitioner who bridges deep technical research with real-world engineering impact. With experience spanning advanced research at IISc Bangalore, teaching at leading engineering institutions, and hands-on work in motor and generator design at global firms, he brings a rare blend of analytical rigor, applied innovation, and knowledge leadership.",
-    linkedinUrl: "https://www.linkedin.com/in/rakesh-kumar-191a0432/",
-    photoUrl: `${TEAM_PHOTOS}/Rakesh Kumar.jpeg`,
-  },
+];
+
+/** @deprecated Use advisoryCategories + additionalAdvisors */
+export const domainAdvisors: TeamMember[] = [
+  ...advisoryCategories.flatMap((c) => c.members),
+  ...additionalAdvisors,
 ];

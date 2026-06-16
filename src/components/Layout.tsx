@@ -507,7 +507,7 @@ export function Layout() {
       description: "Become a mentor",
     },
     {
-      label: "Volunteer (Other Volunteering Roles)",
+      label: "Volunteer",
       path: "/get-involved/other-volunteering-roles",
       icon: HandHelping,
       description: "Workshops, design, outreach & more",
@@ -525,10 +525,10 @@ export function Layout() {
       description: "Universities & NGOs",
     },
     {
-      label: "Founder's Message",
-      path: "/get-involved/founders-message",
+      label: "Lifetime Membership",
+      path: "/get-involved/lifetime-membership",
       icon: UserCircle,
-      description: "From the founder's desk",
+      description: "Join our professional community",
     },
   ];
 
@@ -1060,7 +1060,7 @@ export function Layout() {
                     setOpenMobileSection(open ? "about" : null)
                   }
                 >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground">
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground">
                     About Us
                     {openMobileSection === "about" ? (
                       <ChevronDown className="h-4 w-4 shrink-0" />
@@ -1097,7 +1097,7 @@ export function Layout() {
                     setOpenMobileSection(open ? "programs" : null)
                   }
                 >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
                     Programs
                     {openMobileSection === "programs" ? (
                       <ChevronDown className="h-4 w-4 shrink-0" />
@@ -1138,7 +1138,7 @@ export function Layout() {
                     setOpenMobileSection(open ? "mentorship" : null)
                   }
                 >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
                     Mentorship
                     {openMobileSection === "mentorship" ? (
                       <ChevronDown className="h-4 w-4 shrink-0" />
@@ -1179,7 +1179,7 @@ export function Layout() {
                     setOpenMobileSection(open ? "sepf" : null)
                   }
                 >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
                     SEPF
                     {openMobileSection === "sepf" ? (
                       <ChevronDown className="h-4 w-4 shrink-0" />
@@ -1220,7 +1220,7 @@ export function Layout() {
                     setOpenMobileSection(open ? "getInvolved" : null)
                   }
                 >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
                     Get Involved
                     {openMobileSection === "getInvolved" ? (
                       <ChevronDown className="h-4 w-4 shrink-0" />
@@ -1257,7 +1257,7 @@ export function Layout() {
                     setOpenMobileSection(open ? "resources" : null)
                   }
                 >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
                     Resources
                     {openMobileSection === "resources" ? (
                       <ChevronDown className="h-4 w-4 shrink-0" />
@@ -1298,7 +1298,7 @@ export function Layout() {
                     setOpenMobileSection(open ? "contact" : null)
                   }
                 >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
                     Contact Us
                     {openMobileSection === "contact" ? (
                       <ChevronDown className="h-4 w-4 shrink-0" />
@@ -1339,7 +1339,7 @@ export function Layout() {
                     setOpenMobileSection(open ? "donate" : null)
                   }
                 >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-foreground hover:bg-accent hover:text-accent-foreground border-t pt-4">
+                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
                     Donate
                     {openMobileSection === "donate" ? (
                       <ChevronDown className="h-4 w-4 shrink-0" />
@@ -1376,7 +1376,7 @@ export function Layout() {
 
                 {hasCourseAccess ? (
                   <div className="border-t pt-4 flex flex-col gap-1">
-                    <span className="text-base font-semibold text-foreground px-2">
+                    <span className="text-base c2r-card-title px-2">
                       Profile
                     </span>
                     <div className="px-3 py-2 text-sm text-muted-foreground">
@@ -1406,7 +1406,7 @@ export function Layout() {
                   </div>
                 ) : (
                   <div className="border-t pt-4 flex flex-col gap-1">
-                    <span className="text-base font-semibold text-foreground px-2">
+                    <span className="text-base c2r-card-title px-2">
                       Login / Sign Up
                     </span>
                     {loginDropdownItems.map((item) =>
@@ -1535,7 +1535,7 @@ export function Layout() {
                     to="/get-involved/other-volunteering-roles"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    Volunteer (Other Roles)
+                    Volunteer
                   </Link>
                 </li>
                 <li>
@@ -1556,10 +1556,10 @@ export function Layout() {
                 </li>
                 <li>
                   <Link
-                    to="/get-involved/founders-message"
+                    to="/get-involved/lifetime-membership"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    Founder's Message
+                    Lifetime Membership
                   </Link>
                 </li>
               </ul>

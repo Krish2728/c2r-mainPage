@@ -50,49 +50,51 @@ export default function GetInvolvedOtherVolunteeringPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/team-collaboration.dim_800x500.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
-          <ScrollReveal direction="fade">
-            <div className="mx-auto max-w-3xl text-center text-white">
-              <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
-                Volunteer
-              </h1>
-              <p className="text-xl text-white/90 leading-relaxed">
-                Other volunteering roles — share your skills beyond mentoring
-                and help students build their futures.
-              </p>
+          <div className="mx-auto max-w-3xl text-white">
+            <ChapterHeader
+              variant="hero"
+              chapter="Volunteer"
+              title="Why Volunteer at Connect2Roots"
+              subtitle="Your expertise can open doors that talent alone cannot."
+              icon={<HandHelping className="h-8 w-8" />}
+            />
+            <div className="mt-8 flex justify-center">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="text-lg px-8 py-6"
+                onClick={() => navigate({ to: "/contact", hash: "volunteer" })}
+              >
+                Apply as a Volunteer
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
             </div>
-          </ScrollReveal>
+          </div>
         </div>
       </section>
 
       <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/30">
         <div className="container">
-          <ChapterHeader
-            chapter="Volunteer"
-            title="Why Volunteer at Connect2Roots"
-            subtitle="Your expertise can open doors that talent alone cannot."
-            icon={<HandHelping className="h-8 w-8" />}
-          />
-
           <div className="max-w-4xl mx-auto space-y-10">
             <ScrollReveal delay={100}>
               <div className="rounded-2xl border border-border bg-gradient-to-br from-muted/40 to-background p-6 md:p-8 shadow-sm space-y-5">
-                <p className="text-lg md:text-xl font-medium text-foreground leading-relaxed tracking-tight">
+                <p className="text-base font-medium text-foreground leading-relaxed">
                   Volunteering with Connect2Roots goes far beyond one-on-one
                   mentoring. Whether you&apos;re a designer, a data analyst, a
                   corporate professional, or simply someone with a skill worth
                   sharing — there&apos;s a role here built for you.
                 </p>
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                <p className="c2r-prose">
                   You can run a single workshop, tell student stories through
                   video and design, help us measure our impact through research,
                   manage our digital platforms, or drive community outreach in
                   your city. Every contribution, however big or small, becomes
                   part of something that outlasts a single session.
                 </p>
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                <p className="c2r-prose">
                   The most meaningful reward isn&apos;t on a résumé — it&apos;s
                   the moment a student lands their first internship because you
                   helped them prepare. You invest a few hours; a student gains a
@@ -102,18 +104,18 @@ export default function GetInvolvedOtherVolunteeringPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={150}>
-              <div className="grid gap-6 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
                 {volunteerBenefits.map((item, index) => (
                   <Card
                     key={index}
-                    className="border-l-4 border-l-c2r-accent h-full"
+                    className="h-full border border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300"
                   >
-                    <CardContent className="pt-6 pb-6 space-y-3">
-                      <item.icon className="h-9 w-9 text-c2r-primary" />
-                      <h3 className="font-semibold text-foreground">
+                    <CardContent className="p-4">
+                      <item.icon className="h-8 w-8 mb-3 text-c2r-primary" />
+                      <h3 className="text-sm font-semibold text-foreground mb-2 leading-snug">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed m-0">
+                      <p className="text-xs leading-relaxed text-muted-foreground m-0">
                         {item.description}
                       </p>
                     </CardContent>

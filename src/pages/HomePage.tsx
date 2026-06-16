@@ -1,14 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  Users,
-  Target,
-  TrendingUp,
-  Sparkles,
-  Heart,
-} from "lucide-react";
+import { ArrowRight, Users, Target, TrendingUp, Heart } from "lucide-react";
 import { useTestimonials } from "@/hooks/useQueries";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { RealityOnGround } from "@/components/RealityOnGround";
@@ -36,14 +29,14 @@ export default function HomePage() {
           backgroundImage: `url(${getImageUrl("/assets/generated/hero-banner.dim_1200x600.jpg")})`,
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+        <div className="absolute inset-0 c2r-gradient-hero-overlay" />
 
         <div className="container relative z-10 py-20">
           <div className="mx-auto max-w-4xl text-center text-white">
             <h1 className="heading-descender-safe mb-6 text-5xl font-bold tracking-tight md:text-7xl leading-tight">
               Empowering Communities for a Brighter Future
             </h1>
-            <p className="mb-10 text-xl md:text-2xl text-white/95 leading-relaxed">
+            <p className="mb-10 c2r-hero-subtitle">
               Career guidance, skill development, and livelihood support with
               free resources available, enabling young people to grow and
               citizens to give back to their roots and society.
@@ -80,7 +73,7 @@ export default function HomePage() {
                 <h2 className="heading-descender-safe text-4xl font-bold mb-6">
                   Welcome to Connect2Roots
                 </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="c2r-prose">
                   Connect2Roots Foundation is a non-profit working with
                   underserved students across India. Young people from smaller
                   towns, rural areas, and first-generation families who have the
@@ -88,10 +81,10 @@ export default function HomePage() {
                   to the right mentor, the right skills, or the right
                   opportunity to turn that potential into a career.
                 </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="c2r-prose">
                   That&apos;s the gap we exist to close.
                 </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="c2r-prose">
                   We connect these students with experienced mentors, practical
                   skill training, and livelihood support — because every young
                   person deserves a real shot at building the future they
@@ -114,19 +107,18 @@ export default function HomePage() {
 
       <RealityOnGround />
 
-      {/* How It Works */}
+      {/* What We Enable */}
       <section className="py-20 md:py-28 bg-background">
         <div className="container">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal>
               <div className="text-center mb-16">
                 <h2 className="heading-descender-safe text-4xl font-bold mb-6">
-                  How It Works
+                  What We Enable
                 </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  Our platform connects students with mentors and provides a
-                  structured pathway to career success through four simple
-                  steps.
+                <p className="c2r-prose max-w-3xl mx-auto">
+                  Through our comprehensive approach, we empower students to
+                  achieve their full potential.
                 </p>
               </div>
             </ScrollReveal>
@@ -134,50 +126,86 @@ export default function HomePage() {
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               {[
                 {
-                  step: "1",
-                  title: "Students Register",
+                  title: "Career Clarity",
                   description:
-                    "Students create profiles with their career aspirations, educational background, and areas of interest.",
-                  icon: Users,
-                },
-                {
-                  step: "2",
-                  title: "Platform Matches Mentors",
-                  description:
-                    "Our AI-powered platform analyzes student profiles and matches them with the most suitable mentors based on industry, experience, and goals.",
-                  icon: Sparkles,
-                },
-                {
-                  step: "3",
-                  title: "C2R Mentorship Curriculum",
-                  description:
-                    "Students and mentors follow our structured curriculum covering career planning, skill development, and professional growth.",
+                    "Students gain clear direction on career paths, industry insights, and professional development strategies.",
                   icon: Target,
                 },
                 {
-                  step: "4",
-                  title: "Skills & Livelihood Programs",
+                  title: "Skill Development",
                   description:
-                    "Students gain access to skill development workshops and livelihood support programs to enhance their employability.",
+                    "Access to industry-relevant training programs that bridge the gap between education and employment.",
                   icon: TrendingUp,
+                },
+                {
+                  title: "Mentorship Network",
+                  description:
+                    "Connection with experienced professionals who provide guidance, support, and real-world perspectives.",
+                  icon: Users,
+                },
+                {
+                  title: "Livelihood Pathways",
+                  description:
+                    "Support for entrepreneurship and job placement to create sustainable career opportunities.",
+                  icon: Heart,
                 },
               ].map((item, index) => (
                 <ScrollReveal key={index} delay={index * 100}>
-                  <Card className="h-full border-2 hover:border-c2r-accent transition-all duration-300 hover:shadow-lg">
-                    <CardContent className="pt-6 text-center">
-                      <div className="mb-4 mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-c2r-primary to-c2r-secondary text-white text-2xl font-bold shadow-lg">
-                        {item.step}
-                      </div>
-                      <item.icon className="h-10 w-10 mx-auto mb-4 text-c2r-accent" />
-                      <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                      <p className="text-muted-foreground">
-                        {item.description}
-                      </p>
+                  <Card className="h-full border border-border/60 shadow-sm hover:shadow-lg transition-all duration-300">
+                    <CardContent className="pt-6">
+                      <item.icon className="h-10 w-10 mb-4 text-c2r-primary" />
+                      <h3 className="c2r-card-title mb-3">{item.title}</h3>
+                      <p className="c2r-prose-sm">{item.description}</p>
                     </CardContent>
                   </Card>
                 </ScrollReveal>
               ))}
             </div>
+
+            <ScrollReveal delay={200}>
+              <div className="mt-16 text-center">
+                <Card className="bg-gradient-to-br from-c2r-primary/5 to-c2r-secondary/5 border-none shadow-xl max-w-4xl mx-auto">
+                  <CardContent className="pt-8">
+                    <h3 className="text-2xl font-bold mb-4">
+                      Impact Snapshot (Extended)
+                    </h3>
+                    <div className="grid gap-6 md:grid-cols-2 text-left">
+                      <div className="space-y-3">
+                        <p className="c2r-prose">
+                          <strong className="text-c2r-primary">
+                            Diverse Reach:
+                          </strong>{" "}
+                          Students from 15+ states across India
+                        </p>
+                        <p className="c2r-prose">
+                          <strong className="text-c2r-primary">
+                            Industry Coverage:
+                          </strong>{" "}
+                          Mentors from 20+ industries including tech,
+                          healthcare, finance, and education
+                        </p>
+                      </div>
+                      <div className="space-y-3">
+                        <p className="c2r-prose">
+                          <strong className="text-c2r-primary">
+                            Success Rate:
+                          </strong>{" "}
+                          85% of mentored students report improved career
+                          clarity
+                        </p>
+                        <p className="c2r-prose">
+                          <strong className="text-c2r-primary">
+                            Community Impact:
+                          </strong>{" "}
+                          Creating ripple effects in underserved communities
+                          nationwide
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -185,7 +213,7 @@ export default function HomePage() {
       <Vision2047 />
 
       {/* Find Your Place & Testimonials */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-c2r-primary to-c2r-secondary text-white">
+      <section className="py-20 md:py-28 c2r-gradient-section text-white">
         <div className="container">
           <div className="max-w-6xl mx-auto">
             <FindYourPlace />
@@ -238,148 +266,6 @@ export default function HomePage() {
               </ScrollReveal>
             )}
           </div>
-        </div>
-      </section>
-
-      {/* What We Enable */}
-      <section className="py-20 md:py-28 bg-background">
-        <div className="container">
-          <div className="max-w-6xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <h2 className="heading-descender-safe text-4xl font-bold mb-6">
-                  What We Enable
-                </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                  Through our comprehensive approach, we empower students to
-                  achieve their full potential.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  title: "Career Clarity",
-                  description:
-                    "Students gain clear direction on career paths, industry insights, and professional development strategies.",
-                  icon: Target,
-                },
-                {
-                  title: "Skill Development",
-                  description:
-                    "Access to industry-relevant training programs that bridge the gap between education and employment.",
-                  icon: TrendingUp,
-                },
-                {
-                  title: "Mentorship Network",
-                  description:
-                    "Connection with experienced professionals who provide guidance, support, and real-world perspectives.",
-                  icon: Users,
-                },
-                {
-                  title: "Livelihood Pathways",
-                  description:
-                    "Support for entrepreneurship and job placement to create sustainable career opportunities.",
-                  icon: Heart,
-                },
-              ].map((item, index) => (
-                <ScrollReveal key={index} delay={index * 100}>
-                  <Card className="h-full border-l-4 border-l-c2r-accent hover:shadow-xl transition-all duration-300">
-                    <CardContent className="pt-6">
-                      <item.icon className="h-12 w-12 mb-4 text-c2r-primary" />
-                      <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {item.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </ScrollReveal>
-              ))}
-            </div>
-
-            <ScrollReveal delay={200}>
-              <div className="mt-16 text-center">
-                <Card className="bg-gradient-to-br from-c2r-primary/5 to-c2r-accent/5 border-none shadow-xl max-w-4xl mx-auto">
-                  <CardContent className="pt-8">
-                    <h3 className="text-2xl font-bold mb-4">
-                      Impact Snapshot (Extended)
-                    </h3>
-                    <div className="grid gap-6 md:grid-cols-2 text-left">
-                      <div className="space-y-3">
-                        <p className="text-lg">
-                          <strong className="text-c2r-primary">
-                            Diverse Reach:
-                          </strong>{" "}
-                          Students from 15+ states across India
-                        </p>
-                        <p className="text-lg">
-                          <strong className="text-c2r-primary">
-                            Industry Coverage:
-                          </strong>{" "}
-                          Mentors from 20+ industries including tech,
-                          healthcare, finance, and education
-                        </p>
-                      </div>
-                      <div className="space-y-3">
-                        <p className="text-lg">
-                          <strong className="text-c2r-primary">
-                            Success Rate:
-                          </strong>{" "}
-                          85% of mentored students report improved career
-                          clarity
-                        </p>
-                        <p className="text-lg">
-                          <strong className="text-c2r-primary">
-                            Community Impact:
-                          </strong>{" "}
-                          Creating ripple effects in underserved communities
-                          nationwide
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-c2r-primary via-c2r-secondary to-c2r-accent text-white">
-        <div className="container">
-          <ScrollReveal>
-            <div className="max-w-4xl mx-auto text-center">
-              <Heart className="h-16 w-16 mx-auto mb-6 text-white fill-white" />
-              <h2 className="heading-descender-safe text-4xl font-bold mb-6">
-                Join Us in Creating Change
-              </h2>
-              <p className="text-xl text-white/90 mb-10 leading-relaxed">
-                Whether you're a student seeking guidance or a professional
-                ready to give back, your journey starts here.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="text-lg px-8 py-6"
-                  onClick={() => navigate({ to: "/about/who-we-are" })}
-                >
-                  Learn More About Us
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="bg-white/10 text-white border-white/30 hover:bg-white/20 text-lg px-8 py-6 backdrop-blur-sm"
-                  onClick={() => navigate({ to: "/get-involved" })}
-                >
-                  Get Involved
-                </Button>
-              </div>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
     </div>

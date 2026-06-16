@@ -339,14 +339,14 @@ export default function ResourcesPage() {
             backgroundImage: `url(${getImageUrl("/assets/generated/mentorship-workshop.dim_800x600.jpg")})`,
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+        <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         <div className="container relative z-10 py-20">
           <ScrollReveal>
             <div className="mx-auto max-w-3xl text-center text-white">
               <h1 className="heading-descender-safe mb-6 text-4xl font-bold md:text-5xl">
                 Resources
               </h1>
-              <p className="text-lg text-white/90">
+              <p className="c2r-hero-subtitle">
                 Access our library of guides, tools, and materials to support
                 your career journey
               </p>
@@ -787,7 +787,7 @@ export default function ResourcesPage() {
                       <CardHeader>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-4">
-                            <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-br from-c2r-primary to-c2r-secondary text-white text-2xl font-bold">
+                            <div className="flex h-16 w-16 items-center justify-center rounded-lg c2r-gradient-accent text-white text-2xl font-bold">
                               {report.year}
                             </div>
                             <div>

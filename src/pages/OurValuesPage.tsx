@@ -74,7 +74,7 @@ export default function OurValuesPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/hero-banner.dim_1200x600.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-accent/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal>
@@ -82,7 +82,7 @@ export default function OurValuesPage() {
               <h1 className="heading-descender-safe mb-6 text-4xl font-bold md:text-5xl">
                 Our Values
               </h1>
-              <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+              <p className="c2r-hero-subtitle">
                 The principles that guide our mission and shape every decision
                 we make
               </p>
@@ -100,7 +100,7 @@ export default function OurValuesPage() {
                 <h2 className="heading-descender-safe text-3xl font-bold mb-6">
                   What Drives Us Forward
                 </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="c2r-prose">
                   At Connect2Roots, our values are more than words on a
                   page—they are the foundation of everything we do. They guide
                   how we serve our students, engage with our mentors,
@@ -117,7 +117,7 @@ export default function OurValuesPage() {
                     <CardContent className="pt-8">
                       <div className="grid gap-8 md:grid-cols-[auto,1fr] items-start">
                         <div className="flex flex-col items-center gap-4">
-                          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-c2r-primary to-c2r-secondary text-white shadow-lg">
+                          <div className="flex h-20 w-20 items-center justify-center rounded-full c2r-gradient-accent text-white shadow-lg">
                             <value.icon className="h-10 w-10" />
                           </div>
                         </div>
@@ -125,7 +125,7 @@ export default function OurValuesPage() {
                           <h3 className="text-2xl font-bold text-c2r-primary">
                             {value.title}
                           </h3>
-                          <p className="text-lg text-foreground leading-relaxed">
+                          <p className="c2r-prose-emphasis">
                             {value.description}
                           </p>
                           <div className="bg-muted/50 p-4 rounded-lg border-l-2 border-c2r-accent">
@@ -153,7 +153,7 @@ export default function OurValuesPage() {
                 <h2 className="heading-descender-safe text-3xl font-bold mb-6">
                   Living Our Values Every Day
                 </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="c2r-prose">
                   Our values are reflected in every program we run, every
                   partnership we forge, and every student we serve.
                 </p>
@@ -186,7 +186,7 @@ export default function OurValuesPage() {
                 <ScrollReveal key={index} delay={index * 100}>
                   <Card className="h-full hover:shadow-lg transition-shadow duration-300">
                     <CardContent className="pt-6">
-                      <h3 className="text-xl font-bold mb-3 text-c2r-primary">
+                      <h3 className="c2r-card-title mb-3 text-c2r-primary">
                         {item.title}
                       </h3>
                       <p className="text-muted-foreground leading-relaxed">
@@ -202,14 +202,14 @@ export default function OurValuesPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-c2r-primary via-c2r-secondary to-c2r-accent text-white">
+      <section className="py-16 md:py-24 c2r-gradient-section text-white">
         <div className="container">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="heading-descender-safe text-3xl font-bold mb-6">
                 Join Us in Living These Values
               </h2>
-              <p className="text-lg text-white/90 mb-8 leading-relaxed">
+              <p className="c2r-hero-subtitle mb-8">
                 Whether you're a student, mentor, partner, or supporter, you can
                 be part of a community that puts these values into action every
                 day.

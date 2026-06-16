@@ -10,15 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Mail, MapPin, Send, Heart } from "lucide-react";
+import { Mail, MapPin, Send, Heart, Crown } from "lucide-react";
 import { SiFacebook, SiX, SiLinkedin, SiInstagram } from "react-icons/si";
 import { useState, useEffect } from "react";
 import { useLocation } from "@tanstack/react-router";
@@ -26,35 +18,22 @@ import {
   useContactForm,
   usePartnershipInquiry,
   useVolunteerForm,
+  useLifetimeMembershipForm,
   type VolunteerFormData,
 } from "@/hooks/useQueries";
+import {
+  VolunteerRegistrationForm,
+  INITIAL_VOLUNTEER_FORM,
+} from "@/components/VolunteerRegistrationForm";
 import { toast } from "sonner";
 import { getImageUrl } from "@/lib/images";
 
-const CONTACT_TABS = ["general", "partnership", "volunteer"] as const;
-
-const INITIAL_VOLUNTEER_FORM: VolunteerFormData = {
-  email: "",
-  fullName: "",
-  gender: "",
-  mobileNo: "",
-  dateOfBirth: "",
-  currentAddress: "",
-  nativeCityVillage: "",
-  languages: "",
-  currentCompanyOrg: "",
-  designation: "",
-  linkedinProfile: "",
-  yearsOfExperience: "",
-  hasVolunteeredBefore: "",
-  highestQualification: "",
-  howCanYouContribute: "",
-  preferredAreasMentoring: "",
-  hoursPerWeek: "",
-  preferredDays: "",
-  preferredTimings: "",
-  identityNumber: "",
-};
+const CONTACT_TABS = [
+  "general",
+  "partnership",
+  "volunteer",
+  "lifetime-membership",
+] as const;
 
 export default function ContactPage() {
   const location = useLocation();
@@ -71,6 +50,9 @@ export default function ContactPage() {
     message: "",
   });
   const [volunteerForm, setVolunteerForm] = useState<VolunteerFormData>(
+    INITIAL_VOLUNTEER_FORM,
+  );
+  const [lifetimeForm, setLifetimeForm] = useState<VolunteerFormData>(
     INITIAL_VOLUNTEER_FORM,
   );
 
@@ -92,6 +74,7 @@ export default function ContactPage() {
   const contactMutation = useContactForm();
   const partnershipMutation = usePartnershipInquiry();
   const volunteerMutation = useVolunteerForm();
+  const lifetimeMembershipMutation = useLifetimeMembershipForm();
 
   const handleGeneralSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -144,6 +127,26 @@ export default function ContactPage() {
   const updateVolunteer = (updates: Partial<VolunteerFormData>) =>
     setVolunteerForm((prev) => ({ ...prev, ...updates }));
 
+  const handleLifetimeMembershipSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!lifetimeForm.preferredDays || !lifetimeForm.preferredTimings) {
+      toast.error("Please select your preferred days and timings.");
+      return;
+    }
+    try {
+      await lifetimeMembershipMutation.mutateAsync(lifetimeForm);
+      toast.success(
+        "Thank you! Your lifetime membership application has been submitted. Our team will contact you within 2–3 working days.",
+      );
+      setLifetimeForm(INITIAL_VOLUNTEER_FORM);
+    } catch {
+      toast.error("Failed to submit application. Please try again.");
+    }
+  };
+
+  const updateLifetimeForm = (updates: Partial<VolunteerFormData>) =>
+    setLifetimeForm((prev) => ({ ...prev, ...updates }));
+
   return (
     <div className="flex flex-col">
       {/* Hero */}
@@ -154,13 +157,13 @@ export default function ContactPage() {
             backgroundImage: `url(${getImageUrl("/assets/generated/team-collaboration.dim_800x500.jpg")})`,
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+        <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         <div className="container relative z-10 py-20">
           <div className="mx-auto max-w-3xl text-center text-white">
-            <h1 className="heading-descender-safe mb-6 text-4xl font-bold md:text-5xl">
+            <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
               Contact Us
             </h1>
-            <p className="text-lg text-white/90">
+            <p className="c2r-hero-subtitle">
               We'd love to hear from you. Reach out with questions, partnership
               inquiries, or to learn more about our work.
             </p>
@@ -177,10 +180,13 @@ export default function ContactPage() {
               onValueChange={setActiveTab}
               className="w-full"
             >
-              <TabsList className="grid w-full grid-cols-3 mb-8">
+              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 mb-8">
                 <TabsTrigger value="general">General Inquiry</TabsTrigger>
                 <TabsTrigger value="partnership">CSR/Partnership</TabsTrigger>
                 <TabsTrigger value="volunteer">Volunteer</TabsTrigger>
+                <TabsTrigger value="lifetime-membership">
+                  Lifetime Membership
+                </TabsTrigger>
               </TabsList>
 
               <TabsContent value="general" id="general">
@@ -377,402 +383,70 @@ export default function ContactPage() {
                     </CardTitle>
                     <CardDescription className="space-y-3 text-left">
                       <p className="font-medium text-foreground">Namaste,</p>
-                      <p>
+                      <p className="c2r-prose">
                         Thank you for your interest in volunteering with
                         Connect2Roots Foundation. Please submit the form below
                         to register as a volunteer with us.
                       </p>
-                      <p className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm dark:border-amber-800 dark:bg-amber-950/50">
+                      <p className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-muted-foreground dark:border-amber-800 dark:bg-amber-950/50">
                         By submitting this form, you consent to be contacted for
                         volunteering opportunities with Connect2Roots. As a
                         volunteer you shall not share confidential information
                         or details about our organisation with any third party
                         without informing the Connect2Roots team.
                       </p>
-                      <p className="text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         * Indicates required field
                       </p>
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <form
+                    <VolunteerRegistrationForm
+                      form={volunteerForm}
+                      onChange={updateVolunteer}
                       onSubmit={handleVolunteerSubmit}
-                      className="space-y-6"
-                    >
-                      <div className="grid gap-6 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <Label htmlFor="vol-email">Email *</Label>
-                          <Input
-                            id="vol-email"
-                            type="email"
-                            placeholder="your.email@example.com"
-                            value={volunteerForm.email}
-                            onChange={(e) =>
-                              updateVolunteer({ email: e.target.value })
-                            }
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="vol-fullName">Full Name *</Label>
-                          <Input
-                            id="vol-fullName"
-                            placeholder="Your full name"
-                            value={volunteerForm.fullName}
-                            onChange={(e) =>
-                              updateVolunteer({ fullName: e.target.value })
-                            }
-                            required
-                          />
-                        </div>
-                      </div>
+                      isPending={volunteerMutation.isPending}
+                    />
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-                      <div className="space-y-2">
-                        <Label>Gender *</Label>
-                        <RadioGroup
-                          value={volunteerForm.gender}
-                          onValueChange={(v) => updateVolunteer({ gender: v })}
-                          className="flex gap-6"
-                        >
-                          <label className="flex items-center gap-2 cursor-pointer">
-                            <RadioGroupItem value="Male" />
-                            <span>Male</span>
-                          </label>
-                          <label className="flex items-center gap-2 cursor-pointer">
-                            <RadioGroupItem value="Female" />
-                            <span>Female</span>
-                          </label>
-                        </RadioGroup>
-                      </div>
-
-                      <div className="grid gap-6 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <Label htmlFor="vol-mobileNo">Mobile No *</Label>
-                          <Input
-                            id="vol-mobileNo"
-                            type="tel"
-                            placeholder="+1 234 567 8900"
-                            value={volunteerForm.mobileNo}
-                            onChange={(e) =>
-                              updateVolunteer({ mobileNo: e.target.value })
-                            }
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="vol-dateOfBirth">
-                            Date of Birth *
-                          </Label>
-                          <Input
-                            id="vol-dateOfBirth"
-                            type="date"
-                            value={volunteerForm.dateOfBirth}
-                            onChange={(e) =>
-                              updateVolunteer({ dateOfBirth: e.target.value })
-                            }
-                            required
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="vol-currentAddress">
-                          Current Address *
-                        </Label>
-                        <Textarea
-                          id="vol-currentAddress"
-                          placeholder="Your current address"
-                          rows={2}
-                          value={volunteerForm.currentAddress}
-                          onChange={(e) =>
-                            updateVolunteer({ currentAddress: e.target.value })
-                          }
-                          required
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="vol-nativeCityVillage">
-                          Native City/Village (Your roots) *
-                        </Label>
-                        <Input
-                          id="vol-nativeCityVillage"
-                          placeholder="e.g. Mumbai, India"
-                          value={volunteerForm.nativeCityVillage}
-                          onChange={(e) =>
-                            updateVolunteer({
-                              nativeCityVillage: e.target.value,
-                            })
-                          }
-                          required
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="vol-languages">
-                          Languages you can speak? *
-                        </Label>
-                        <Input
-                          id="vol-languages"
-                          placeholder="e.g. English, Hindi, Tamil"
-                          value={volunteerForm.languages}
-                          onChange={(e) =>
-                            updateVolunteer({ languages: e.target.value })
-                          }
-                          required
-                        />
-                      </div>
-
-                      <div className="grid gap-6 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <Label htmlFor="vol-currentCompanyOrg">
-                            Your Current Company / Organisation / Educational
-                            Institution *
-                          </Label>
-                          <Input
-                            id="vol-currentCompanyOrg"
-                            placeholder="Company or institution name"
-                            value={volunteerForm.currentCompanyOrg}
-                            onChange={(e) =>
-                              updateVolunteer({
-                                currentCompanyOrg: e.target.value,
-                              })
-                            }
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="vol-designation">
-                            Your designation in Current Organisation (if not
-                            student)
-                          </Label>
-                          <Input
-                            id="vol-designation"
-                            placeholder="Optional"
-                            value={volunteerForm.designation ?? ""}
-                            onChange={(e) =>
-                              updateVolunteer({ designation: e.target.value })
-                            }
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="vol-linkedinProfile">
-                          Your LinkedIn Profile Link *
-                        </Label>
-                        <Input
-                          id="vol-linkedinProfile"
-                          type="url"
-                          placeholder="https://linkedin.com/in/yourprofile"
-                          value={volunteerForm.linkedinProfile}
-                          onChange={(e) =>
-                            updateVolunteer({ linkedinProfile: e.target.value })
-                          }
-                          required
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="vol-yearsOfExperience">
-                          Your total number of years of experience in job or
-                          business
-                        </Label>
-                        <Input
-                          id="vol-yearsOfExperience"
-                          placeholder="e.g. 5"
-                          value={volunteerForm.yearsOfExperience ?? ""}
-                          onChange={(e) =>
-                            updateVolunteer({
-                              yearsOfExperience: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label>Have you been a volunteer in the past? *</Label>
-                        <RadioGroup
-                          value={volunteerForm.hasVolunteeredBefore}
-                          onValueChange={(v) =>
-                            updateVolunteer({ hasVolunteeredBefore: v })
-                          }
-                          className="flex gap-6"
-                        >
-                          <label className="flex items-center gap-2 cursor-pointer">
-                            <RadioGroupItem value="Yes" />
-                            <span>Yes</span>
-                          </label>
-                          <label className="flex items-center gap-2 cursor-pointer">
-                            <RadioGroupItem value="No" />
-                            <span>No</span>
-                          </label>
-                        </RadioGroup>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="vol-highestQualification">
-                          Your Highest Educational Qualification *
-                        </Label>
-                        <Input
-                          id="vol-highestQualification"
-                          placeholder="e.g. B.Tech, MBA, PhD"
-                          value={volunteerForm.highestQualification}
-                          onChange={(e) =>
-                            updateVolunteer({
-                              highestQualification: e.target.value,
-                            })
-                          }
-                          required
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="vol-howCanYouContribute">
-                          How do you think you can contribute to Connect2Roots
-                          Foundation? *
-                        </Label>
-                        <Textarea
-                          id="vol-howCanYouContribute"
-                          placeholder="Describe your skills and how you'd like to contribute..."
-                          rows={4}
-                          value={volunteerForm.howCanYouContribute}
-                          onChange={(e) =>
-                            updateVolunteer({
-                              howCanYouContribute: e.target.value,
-                            })
-                          }
-                          required
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="vol-preferredAreasMentoring">
-                          Please mention your preferred areas for volunteering *
-                        </Label>
-                        <Textarea
-                          id="vol-preferredAreasMentoring"
-                          placeholder="e.g. Events, Teaching, Administration, Technology"
-                          rows={2}
-                          value={volunteerForm.preferredAreasMentoring}
-                          onChange={(e) =>
-                            updateVolunteer({
-                              preferredAreasMentoring: e.target.value,
-                            })
-                          }
-                          required
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="vol-hoursPerWeek">
-                          Number of hours per week you are willing to contribute
-                          for volunteering?
-                        </Label>
-                        <Input
-                          id="vol-hoursPerWeek"
-                          placeholder="e.g. 5-10"
-                          value={volunteerForm.hoursPerWeek ?? ""}
-                          onChange={(e) =>
-                            updateVolunteer({ hoursPerWeek: e.target.value })
-                          }
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label>Your preferred Days for Volunteering? *</Label>
-                        <Select
-                          value={volunteerForm.preferredDays}
-                          onValueChange={(v) =>
-                            updateVolunteer({ preferredDays: v })
-                          }
-                          required
-                        >
-                          <SelectTrigger
-                            id="vol-preferredDays"
-                            className="w-full"
-                          >
-                            <SelectValue placeholder="Select option" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Weekdays (Mon-Fri)">
-                              Weekdays (Mon-Fri)
-                            </SelectItem>
-                            <SelectItem value="Weekends (Sat-Sun)">
-                              Weekends (Sat-Sun)
-                            </SelectItem>
-                            <SelectItem value="Any day works fine">
-                              Any day works fine
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label>
-                          Your preferred Timings for Volunteering? *
-                        </Label>
-                        <Select
-                          value={volunteerForm.preferredTimings}
-                          onValueChange={(v) =>
-                            updateVolunteer({ preferredTimings: v })
-                          }
-                          required
-                        >
-                          <SelectTrigger
-                            id="vol-preferredTimings"
-                            className="w-full"
-                          >
-                            <SelectValue placeholder="Select option" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Morning (9 am - 12 pm)">
-                              Morning (9 am - 12 pm)
-                            </SelectItem>
-                            <SelectItem value="Afternoon (12 pm - 4 pm)">
-                              Afternoon (12 pm - 4 pm)
-                            </SelectItem>
-                            <SelectItem value="Evening (4 pm - 8 pm)">
-                              Evening (4 pm - 8 pm)
-                            </SelectItem>
-                            <SelectItem value="Any time works fine">
-                              Any time works fine
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="vol-identityNumber">
-                          Your identity number (please mention document type as
-                          well)
-                        </Label>
-                        <Input
-                          id="vol-identityNumber"
-                          placeholder="e.g. Aadhaar: XXXX XXXX XXXX"
-                          value={volunteerForm.identityNumber ?? ""}
-                          onChange={(e) =>
-                            updateVolunteer({ identityNumber: e.target.value })
-                          }
-                        />
-                      </div>
-
-                      <Button
-                        type="submit"
-                        size="lg"
-                        className="text-lg px-8 py-6"
-                        disabled={volunteerMutation.isPending}
-                      >
-                        {volunteerMutation.isPending ? (
-                          "Submitting..."
-                        ) : (
-                          <>
-                            <Heart className="mr-2 h-4 w-4" />
-                            Submit Registration
-                          </>
-                        )}
-                      </Button>
-                    </form>
+              <TabsContent value="lifetime-membership" id="lifetime-membership">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Crown className="h-5 w-5 text-c2r-accent" />
+                      Lifetime Membership Application
+                    </CardTitle>
+                    <CardDescription className="space-y-3 text-left">
+                      <p className="font-medium text-foreground">Namaste,</p>
+                      <p className="c2r-prose">
+                        Thank you for your interest in Lifetime Membership with
+                        Connect2Roots Foundation. Our team will contact you
+                        within 2–3 working days with payment and onboarding
+                        details.
+                      </p>
+                      <p className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-muted-foreground dark:border-amber-800 dark:bg-amber-950/50">
+                        By submitting this form, you consent to be contacted
+                        regarding your membership application. As a member you
+                        shall not share confidential information about our
+                        organisation with any third party without informing the
+                        Connect2Roots team.
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        * Indicates required field
+                      </p>
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <VolunteerRegistrationForm
+                      idPrefix="lm-contact"
+                      form={lifetimeForm}
+                      onChange={updateLifetimeForm}
+                      onSubmit={handleLifetimeMembershipSubmit}
+                      isPending={lifetimeMembershipMutation.isPending}
+                      submitLabel="Submit Application"
+                    />
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -799,7 +473,7 @@ export default function ContactPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3 text-base text-muted-foreground">
-                  <p>
+                  <p className="c2r-prose">
                     <strong className="text-foreground">General:</strong>{" "}
                     <a
                       href="mailto:info@connect2roots.org"
@@ -815,7 +489,7 @@ export default function ContactPage() {
                       connect2rootsindia@gmail.com
                     </a>
                   </p>
-                  <p>
+                  <p className="c2r-prose">
                     <strong className="text-foreground">Volunteer:</strong>{" "}
                     <a
                       href="mailto:volunteer@connect2roots.org"
@@ -824,7 +498,7 @@ export default function ContactPage() {
                       volunteer@connect2roots.org
                     </a>
                   </p>
-                  <p>
+                  <p className="c2r-prose">
                     <strong className="text-foreground">CSR:</strong>{" "}
                     <a
                       href="mailto:csr@connect2roots.org"
@@ -885,7 +559,7 @@ export default function ContactPage() {
             <h2 className="heading-descender-safe mb-6 text-3xl font-bold">
               Connect on Social Media
             </h2>
-            <p className="mb-8 text-lg text-muted-foreground">
+            <p className="mb-8 c2r-prose">
               Follow us for updates, success stories, and community news
             </p>
             <div className="flex justify-center gap-6">

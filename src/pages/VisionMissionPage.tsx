@@ -30,7 +30,7 @@ export default function VisionMissionPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/future-of-work.dim_800x500.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-accent/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal direction="fade">
@@ -38,7 +38,7 @@ export default function VisionMissionPage() {
               <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
                 Vision & Mission
               </h1>
-              <p className="text-xl text-white/90 leading-relaxed">
+              <p className="c2r-hero-subtitle">
                 Guided by vision, driven by mission, united by purpose
               </p>
             </div>
@@ -61,7 +61,7 @@ export default function VisionMissionPage() {
                 <CardContent className="pt-12 pb-12">
                   <Eye className="mx-auto mb-6 h-16 w-16 text-c2r-primary" />
                   <blockquote className="text-center space-y-6">
-                    <p className="text-2xl md:text-3xl font-serif italic leading-relaxed text-c2r-primary">
+                    <p className="c2r-quote text-center">
                       "A world where every individual, regardless of their
                       background, has access to the mentorship, skills, and
                       opportunities needed to achieve their career aspirations
@@ -74,29 +74,26 @@ export default function VisionMissionPage() {
           </ScrollReveal>
 
           <ScrollReveal delay={200}>
-            <div className="mt-16 max-w-4xl mx-auto">
-              <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-6">
-                <p className="text-xl">
-                  We envision a future where geographical location, economic
-                  status, or social background no longer determine one's access
-                  to quality career guidance and professional development.
-                </p>
+            <div className="mt-16 max-w-4xl mx-auto space-y-6">
+              <p className="c2r-prose-emphasis">
+                We envision a future where geographical location, economic
+                status, or social background no longer determine one's access to
+                quality career guidance and professional development.
+              </p>
 
-                <p>
-                  In this future, every aspiring professional can connect with
-                  experienced mentors who understand their journey, every
-                  student has access to the skills they need to thrive in the
-                  modern economy, and every community has the resources to
-                  nurture its own talent.
-                </p>
+              <p className="c2r-prose">
+                In this future, every aspiring professional can connect with
+                experienced mentors who understand their journey, every student
+                has access to the skills they need to thrive in the modern
+                economy, and every community has the resources to nurture its
+                own talent.
+              </p>
 
-                <p>
-                  This is not just a dream—it's a commitment we work toward
-                  every single day through our programs, partnerships, and the
-                  dedicated community of mentors and supporters who believe in
-                  this vision.
-                </p>
-              </div>
+              <p className="c2r-prose">
+                This is not just a dream—it's a commitment we work toward every
+                single day through our programs, partnerships, and the dedicated
+                community of mentors and supporters who believe in this vision.
+              </p>
             </div>
           </ScrollReveal>
         </div>
@@ -104,7 +101,7 @@ export default function VisionMissionPage() {
 
       {/* Mission Statement */}
       <section className="py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-c2r-secondary/10 via-transparent to-c2r-accent/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/8 via-transparent to-c2r-secondary/8" />
         <div className="container relative">
           <ChapterHeader
             chapter="Our Mission"
@@ -118,7 +115,7 @@ export default function VisionMissionPage() {
                 <CardContent className="pt-12 pb-12">
                   <Target className="mx-auto mb-6 h-16 w-16 text-c2r-accent" />
                   <blockquote className="text-center space-y-6">
-                    <p className="text-2xl md:text-3xl font-bold text-foreground leading-relaxed">
+                    <p className="c2r-prose-emphasis text-center">
                       "To empower underserved communities by providing
                       accessible, high-quality career mentorship, skill
                       development programs, and entrepreneurship support that
@@ -135,7 +132,7 @@ export default function VisionMissionPage() {
               <Card className="h-full border-l-4 border-l-c2r-primary transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="pt-8">
                   <Compass className="mb-4 h-10 w-10 text-c2r-primary" />
-                  <h3 className="text-xl font-bold mb-3">Career Mentorship</h3>
+                  <h3 className="c2r-card-title mb-3">Career Mentorship</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Connecting aspiring professionals with experienced mentors
                     who provide personalized guidance, industry insights, and
@@ -149,7 +146,7 @@ export default function VisionMissionPage() {
               <Card className="h-full border-l-4 border-l-c2r-secondary transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="pt-8">
                   <Lightbulb className="mb-4 h-10 w-10 text-c2r-secondary" />
-                  <h3 className="text-xl font-bold mb-3">Skill Development</h3>
+                  <h3 className="c2r-card-title mb-3">Skill Development</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Offering practical training programs that equip individuals
                     with in-demand skills for the modern workforce and emerging
@@ -163,7 +160,7 @@ export default function VisionMissionPage() {
               <Card className="h-full border-l-4 border-l-c2r-accent transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
                 <CardContent className="pt-8">
                   <TrendingUp className="mb-4 h-10 w-10 text-c2r-accent" />
-                  <h3 className="text-xl font-bold mb-3">
+                  <h3 className="c2r-card-title mb-3">
                     Entrepreneurship Support
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -189,11 +186,11 @@ export default function VisionMissionPage() {
 
           <ScrollReveal delay={100}>
             <div className="max-w-5xl mx-auto">
-              <Card className="bg-gradient-to-br from-c2r-accent/25 to-c2r-primary/25 border-none shadow-lg">
+              <Card className="bg-gradient-to-br from-c2r-primary/20 to-c2r-secondary/20 border-none shadow-lg">
                 <CardContent className="pt-12 pb-12">
                   <Heart className="mx-auto mb-6 h-16 w-16 text-c2r-accent" />
-                  <div className="prose prose-lg max-w-none text-center space-y-6">
-                    <p className="text-xl text-muted-foreground leading-relaxed">
+                  <div className="space-y-6 text-center">
+                    <p className="c2r-prose">
                       We exist to break down barriers and create pathways to
                       success for those who need it most. By connecting aspiring
                       professionals with experienced mentors, providing
@@ -217,7 +214,7 @@ export default function VisionMissionPage() {
                       <Users className="h-6 w-6 text-c2r-primary" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold mb-2">
+                      <h3 className="c2r-card-title mb-2">
                         Empowering Individuals
                       </h3>
                       <p className="text-muted-foreground leading-relaxed">
@@ -237,7 +234,7 @@ export default function VisionMissionPage() {
                       <Globe className="h-6 w-6 text-c2r-secondary" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold mb-2">
+                      <h3 className="c2r-card-title mb-2">
                         Transforming Communities
                       </h3>
                       <p className="text-muted-foreground leading-relaxed">
@@ -257,7 +254,7 @@ export default function VisionMissionPage() {
                       <Heart className="h-6 w-6 text-c2r-accent" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold mb-2">
+                      <h3 className="c2r-card-title mb-2">
                         Building an Inclusive Future
                       </h3>
                       <p className="text-muted-foreground leading-relaxed">
@@ -278,14 +275,14 @@ export default function VisionMissionPage() {
       {/* CTA Section */}
       <section className="relative py-20 overflow-hidden">
         <ParallaxSection speed={0.4} className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary to-c2r-accent" />
+          <div className="absolute inset-0 c2r-gradient-section" />
         </ParallaxSection>
         <div className="container relative z-10 text-center text-white">
           <ScrollReveal direction="fade">
             <h2 className="heading-descender-safe text-4xl font-bold mb-4">
               Join Us in This Mission
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="c2r-hero-subtitle mb-8 max-w-2xl mx-auto">
               Whether as a mentor, partner, or supporter—your contribution makes
               this vision a reality
             </p>

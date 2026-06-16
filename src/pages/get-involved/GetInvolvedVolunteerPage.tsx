@@ -57,45 +57,48 @@ export default function GetInvolvedVolunteerPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/volunteer-mentoring.dim_800x500.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
-          <ScrollReveal direction="fade">
-            <div className="mx-auto max-w-3xl text-center text-white">
-              <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
-                Become a Mentor
-              </h1>
-              <p className="text-xl text-white/90 leading-relaxed">
-                A few hours a week can change a student&apos;s future.
-              </p>
+          <div className="mx-auto max-w-3xl text-white">
+            <ChapterHeader
+              variant="hero"
+              chapter="Mentor"
+              title="Why Mentor with Connect2Roots"
+              subtitle="Your experience can become someone else's turning point."
+              icon={<Users className="h-8 w-8" />}
+            />
+            <div className="mt-8 flex justify-center">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="text-lg px-8 py-6"
+                onClick={() => navigate({ to: "/contact" })}
+              >
+                Apply as a Mentor
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
             </div>
-          </ScrollReveal>
+          </div>
         </div>
       </section>
 
-      <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/30">
+      <section className="py-10 md:py-14 bg-gradient-to-b from-background to-muted/30">
         <div className="container">
-          <ChapterHeader
-            chapter="Mentor"
-            title="Why Mentor with Connect2Roots"
-            subtitle="Your experience can become someone else's turning point."
-            icon={<Users className="h-8 w-8" />}
-          />
-
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <ScrollReveal delay={100}>
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
                 {mentorBenefits.map((item, index) => (
                   <Card
                     key={index}
-                    className="border-l-4 border-l-c2r-accent h-full"
+                    className="h-full border border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300"
                   >
-                    <CardContent className="pt-6 pb-6 space-y-3">
-                      <item.icon className="h-9 w-9 text-c2r-primary" />
-                      <h3 className="font-semibold text-foreground">
+                    <CardContent className="p-4">
+                      <item.icon className="h-8 w-8 mb-3 text-c2r-primary" />
+                      <h3 className="text-sm font-semibold text-foreground mb-2 leading-snug">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed m-0">
+                      <p className="text-xs leading-relaxed text-muted-foreground m-0">
                         {item.description}
                       </p>
                     </CardContent>

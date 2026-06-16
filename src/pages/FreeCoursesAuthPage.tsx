@@ -125,7 +125,7 @@ export default function FreeCoursesAuthPage() {
             backgroundImage: `url(${getImageUrl("/assets/generated/mentorship-workshop.dim_800x600.jpg")})`,
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+        <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         <div className="relative z-10 flex flex-col justify-between p-10 text-white w-full">
           <div className="flex items-center gap-3">
             <span className="text-lg font-bold">Connect2Roots</span>
@@ -307,9 +307,7 @@ export default function FreeCoursesAuthPage() {
           </p>
 
           <div className="mt-8 pt-8 border-t border-border text-center">
-            <p className="text-sm font-semibold text-foreground mb-2">
-              Find us on
-            </p>
+            <p className="text-sm c2r-card-title mb-2">Find us on</p>
             <a
               href="https://www.youtube.com/@connect2rootsacademy"
               target="_blank"

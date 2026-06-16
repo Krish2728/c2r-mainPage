@@ -41,7 +41,7 @@ export default function GetInvolvedHowItWorksPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/corporate-handshake.dim_600x400.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal direction="fade">
@@ -49,7 +49,7 @@ export default function GetInvolvedHowItWorksPage() {
               <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
                 How It Works
               </h1>
-              <p className="text-xl text-white/90">In 3 Simple Steps</p>
+              <p className="c2r-hero-subtitle">In 3 Simple Steps</p>
             </div>
           </ScrollReveal>
         </div>
@@ -68,7 +68,7 @@ export default function GetInvolvedHowItWorksPage() {
               <ScrollReveal key={index} delay={index * 100}>
                 <Card className="border-l-4 border-l-c2r-accent overflow-hidden">
                   <CardContent className="pt-6 flex gap-6">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-c2r-primary to-c2r-accent text-white text-2xl font-bold">
+                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full c2r-gradient-accent text-white text-2xl font-bold">
                       {step.num}
                     </div>
                     <div>

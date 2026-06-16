@@ -122,7 +122,7 @@ export default function JourneyPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/team-collaboration.dim_800x500.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-accent/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal>
@@ -130,7 +130,7 @@ export default function JourneyPage() {
               <h1 className="heading-descender-safe mb-6 text-4xl font-bold md:text-5xl">
                 Our Journey
               </h1>
-              <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+              <p className="c2r-hero-subtitle">
                 From a small idea to a growing movement—the story of
                 Connect2Roots
               </p>
@@ -148,7 +148,7 @@ export default function JourneyPage() {
                 <h2 className="heading-descender-safe text-3xl font-bold mb-6">
                   A Story of Growth and Impact
                 </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="c2r-prose">
                   What began as a vision to connect underserved youth with
                   career mentors has grown into a comprehensive platform
                   transforming lives across India. Here's how we've evolved over
@@ -160,14 +160,14 @@ export default function JourneyPage() {
             {/* Timeline */}
             <div className="relative">
               {/* Vertical line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-c2r-primary via-c2r-secondary to-c2r-accent hidden md:block" />
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-c2r-primary via-c2r-secondary to-c2r-secondary hidden md:block" />
 
               <div className="space-y-16">
                 {milestones.map((milestone, index) => (
                   <ScrollReveal key={index} delay={index * 100}>
                     <div className="relative">
                       {/* Timeline dot */}
-                      <div className="absolute left-0 top-0 hidden md:flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-c2r-primary to-c2r-secondary text-white shadow-lg z-10">
+                      <div className="absolute left-0 top-0 hidden md:flex h-16 w-16 items-center justify-center rounded-full c2r-gradient-accent text-white shadow-lg z-10">
                         <milestone.icon className="h-8 w-8" />
                       </div>
 
@@ -188,7 +188,7 @@ export default function JourneyPage() {
                                 <h3 className="text-2xl font-bold">
                                   {milestone.title}
                                 </h3>
-                                <p className="text-lg text-muted-foreground leading-relaxed">
+                                <p className="c2r-prose">
                                   {milestone.description}
                                 </p>
                                 <div className="bg-muted/50 p-4 rounded-lg">
@@ -233,21 +233,21 @@ export default function JourneyPage() {
       </section>
 
       {/* Looking Forward */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-c2r-primary via-c2r-secondary to-c2r-accent text-white">
+      <section className="py-16 md:py-24 c2r-gradient-section text-white">
         <div className="container">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="heading-descender-safe text-3xl font-bold mb-6">
                 The Journey Continues
               </h2>
-              <p className="text-lg text-white/90 mb-8 leading-relaxed">
+              <p className="c2r-hero-subtitle mb-8">
                 Every milestone we've achieved has been possible because of our
                 dedicated mentors, passionate students, supportive partners, and
                 committed team. As we look to the future, we remain focused on
                 our mission: empowering every young person to achieve their full
                 potential.
               </p>
-              <p className="text-xl font-semibold text-white">
+              <p className="c2r-hero-subtitle font-semibold">
                 Join us as we write the next chapter of this journey together.
               </p>
             </div>

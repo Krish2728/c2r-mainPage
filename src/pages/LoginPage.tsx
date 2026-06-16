@@ -19,13 +19,13 @@ export default function LoginPage() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-c2r-primary to-c2r-secondary py-20 text-white">
+      <section className="c2r-gradient-section py-20 text-white">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="heading-descender-safe mb-6 text-4xl font-bold md:text-5xl">
               Login
             </h1>
-            <p className="text-lg text-white/90">
+            <p className="c2r-hero-subtitle">
               Access your Connect2Roots account to manage your profile and
               connections
             </p>
@@ -88,7 +88,7 @@ export default function LoginPage() {
                 ) : (
                   <>
                     <div className="space-y-4 text-sm text-muted-foreground">
-                      <p>
+                      <p className="c2r-prose">
                         Sign in to access your Connect2Roots account and manage
                         your profile, mentorship connections, and program
                         participation.
@@ -121,7 +121,7 @@ export default function LoginPage() {
                     </Button>
 
                     <div className="text-center text-sm text-muted-foreground">
-                      <p>
+                      <p className="c2r-prose">
                         Don't have an account?{" "}
                         <a
                           href="/get-involved"

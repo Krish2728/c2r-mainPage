@@ -68,7 +68,7 @@ export default function AboutPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/team-collaboration.dim_800x500.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal direction="fade">
@@ -76,7 +76,7 @@ export default function AboutPage() {
               <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
                 Our Journey
               </h1>
-              <p className="text-xl text-white/90 leading-relaxed">
+              <p className="c2r-hero-subtitle">
                 From a simple idea to a movement that's transforming lives and
                 communities
               </p>
@@ -97,7 +97,7 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-c2r-primary via-c2r-secondary to-c2r-accent md:left-1/2" />
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-c2r-primary via-c2r-secondary to-c2r-secondary md:left-1/2" />
 
               {timeline.map((item, index) => (
                 <ScrollReveal
@@ -112,7 +112,7 @@ export default function AboutPage() {
                       {index % 2 === 0 ? (
                         <>
                           <div className="flex-1 md:block hidden" />
-                          <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-c2r-primary to-c2r-secondary text-white font-bold shadow-lg z-10">
+                          <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 flex h-16 w-16 items-center justify-center rounded-full c2r-gradient-accent text-white font-bold shadow-lg z-10">
                             {item.year}
                           </div>
                           <div className="flex-1 ml-24 md:ml-0">
@@ -142,7 +142,7 @@ export default function AboutPage() {
                               </CardContent>
                             </Card>
                           </div>
-                          <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-c2r-secondary to-c2r-accent text-white font-bold shadow-lg z-10">
+                          <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 flex h-16 w-16 items-center justify-center rounded-full c2r-gradient-accent text-white font-bold shadow-lg z-10">
                             {item.year}
                           </div>
                           <div className="flex-1 md:block hidden" />
@@ -159,7 +159,7 @@ export default function AboutPage() {
 
       {/* Vision & Mission */}
       <section className="py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-c2r-secondary/10 via-transparent to-c2r-accent/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/8 via-transparent to-c2r-secondary/8" />
         <div className="container relative">
           <ChapterHeader
             chapter="Our Purpose"
@@ -175,7 +175,7 @@ export default function AboutPage() {
                   <h3 className="heading-descender-safe text-3xl font-bold mb-4">
                     Our Vision
                   </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="c2r-prose">
                     A world where every individual, regardless of their
                     background, has access to the mentorship, skills, and
                     opportunities needed to achieve their career aspirations and
@@ -192,7 +192,7 @@ export default function AboutPage() {
                   <h3 className="heading-descender-safe text-3xl font-bold mb-4">
                     Our Mission
                   </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="c2r-prose">
                     To empower underserved communities by providing accessible,
                     high-quality career mentorship, skill development programs,
                     and entrepreneurship support that bridges the gap between
@@ -205,13 +205,13 @@ export default function AboutPage() {
 
           <ScrollReveal delay={300}>
             <div className="mt-16 max-w-4xl mx-auto text-center">
-              <Card className="bg-gradient-to-br from-c2r-accent/10 to-c2r-primary/10 border-none">
+              <Card className="bg-gradient-to-br from-c2r-primary/10 to-c2r-secondary/10 border-none">
                 <CardContent className="pt-8">
                   <Heart className="mx-auto mb-6 h-16 w-16 text-c2r-accent" />
                   <h3 className="heading-descender-safe text-3xl font-bold mb-4">
                     Our Purpose
                   </h3>
-                  <p className="text-xl text-muted-foreground leading-relaxed">
+                  <p className="c2r-prose">
                     We exist to break down barriers and create pathways to
                     success for those who need it most. By connecting aspiring
                     professionals with experienced mentors, providing practical
@@ -265,9 +265,7 @@ export default function AboutPage() {
                             className="mb-4 h-32 w-32 rounded-full object-cover mx-auto border-4 border-c2r-accent/20"
                           />
                         )}
-                        <h3 className="text-xl font-bold mb-1">
-                          {member.name}
-                        </h3>
+                        <h3 className="c2r-card-title mb-1">{member.name}</h3>
                         <p className="text-sm text-c2r-primary font-semibold mb-3">
                           {member.role}
                         </p>
@@ -319,15 +317,15 @@ export default function AboutPage() {
                       className="h-40 w-40 rounded-full object-cover border-4 border-c2r-accent/20 shadow-xl"
                     />
                     <div className="flex-1">
-                      <blockquote className="space-y-6 text-lg text-muted-foreground italic leading-relaxed">
-                        <p>
+                      <blockquote className="space-y-6 c2r-prose italic">
+                        <p className="c2r-prose">
                           "When I started Connect2Roots, I had a simple vision:
                           to ensure that no talented individual is held back by
                           lack of access to guidance and opportunities. Today,
                           seeing thousands of lives transformed through our
                           programs fills me with immense pride and gratitude."
                         </p>
-                        <p>
+                        <p className="c2r-prose">
                           "But our work is far from done. Every day, there are
                           countless young people searching for direction,
                           professionals eager to give back, and communities
@@ -335,7 +333,7 @@ export default function AboutPage() {
                           this mission—whether as a mentor, partner, donor, or
                           supporter."
                         </p>
-                        <p>
+                        <p className="c2r-prose">
                           "Together, we can create a world where everyone has
                           the opportunity to thrive."
                         </p>
@@ -355,7 +353,7 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="relative py-20 overflow-hidden">
         <ParallaxSection speed={0.4} className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary to-c2r-accent" />
+          <div className="absolute inset-0 c2r-gradient-section" />
         </ParallaxSection>
         <div className="container relative z-10 text-center text-white">
           <ScrollReveal direction="fade">
@@ -363,7 +361,7 @@ export default function AboutPage() {
             <h2 className="heading-descender-safe text-4xl font-bold mb-4">
               Be Part of Our Story
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="c2r-hero-subtitle mb-8 max-w-2xl mx-auto">
               Every great story needs heroes. Will you be one of ours?
             </p>
             <div className="flex flex-wrap justify-center gap-4">

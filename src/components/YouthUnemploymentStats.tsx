@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
-import { TrendingUp, TrendingDown, Users, MapPin, Info } from "lucide-react";
+import { TrendingUp, Users, MapPin, Info } from "lucide-react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import {
   youthUnemploymentSummary,
   highestYouthUnemployment,
-  lowestYouthUnemployment,
   maxYouthUnemploymentRate,
   type StateUnemployment,
 } from "@/data/youthUnemployment";
@@ -113,9 +112,7 @@ function StateRankRow({
         </span>
         <div className="flex-1 min-w-0">
           <div className="flex items-baseline justify-between gap-2">
-            <h4 className="font-semibold text-foreground truncate">
-              {row.state}
-            </h4>
+            <h4 className="c2r-card-title truncate">{row.state}</h4>
             <span
               className={`text-lg font-bold shrink-0 ${
                 variant === "high" ? "text-red-600" : "text-c2r-primary"
@@ -182,9 +179,7 @@ function StateRankingPanel({
             {icon}
           </div>
           <div>
-            <h3 className="font-serif text-xl font-bold text-foreground">
-              {title}
-            </h3>
+            <h3 className="c2r-card-title">{title}</h3>
             <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>
           </div>
         </div>
@@ -214,15 +209,13 @@ export function YouthUnemploymentStats() {
     nationalRate,
     highestRate,
     highestState,
-    lowestRate,
-    lowestState,
     youthShareOfUnemployed,
     sources,
   } = youthUnemploymentSummary;
 
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
-      <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary via-c2r-primary to-c2r-secondary" />
+      <div className="absolute inset-0 c2r-gradient-section" />
       <div className="absolute -right-24 top-0 h-72 w-72 rounded-full bg-white/5 blur-3xl" />
       <div className="absolute -bottom-32 left-1/4 h-80 w-80 rounded-full bg-c2r-accent/10 blur-3xl" />
 
@@ -243,19 +236,17 @@ export function YouthUnemploymentStats() {
           >
             Youth Unemployment in India
           </p>
-          <h2 className="heading-descender-safe font-serif text-3xl md:text-5xl font-bold leading-tight mb-4">
-            Where Are{" "}
-            <span className={`italic ${accentBright}`}>Young Lives</span>{" "}
-            Waiting?
+          <h2 className="c2r-heading-dark-lg mb-4">
+            Youth Unemployment Rate in India
           </h2>
-          <p className="text-base md:text-lg text-white/80 max-w-2xl mx-auto">
-            State-wise youth unemployment rates for ages 15–29 — because every
-            percentage represents a young person searching for direction,
-            opportunity, and a first break.
+          <p className="c2r-prose-on-dark max-w-2xl mx-auto">
+            State-wise rates for ages 15–29 — every percentage represents a
+            young person searching for direction, opportunity, and a first
+            break.
           </p>
         </motion.div>
 
-        <div className="mx-auto max-w-6xl grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-12">
+        <div className="mx-auto max-w-5xl grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-12">
           <MetricCard
             icon={<Users className="h-5 w-5" />}
             end={nationalRate}
@@ -272,23 +263,15 @@ export function YouthUnemploymentStats() {
             delay={0.08}
           />
           <MetricCard
-            icon={<TrendingDown className="h-5 w-5" />}
-            end={lowestRate}
-            label={`Lowest rate — ${lowestState}`}
-            sublabel="Among states & UTs surveyed"
-            variant="positive"
-            delay={0.16}
-          />
-          <MetricCard
             icon={<MapPin className="h-5 w-5" />}
             end={youthShareOfUnemployed}
             label="Of India's unemployed are youth"
             sublabel="ILO, 2024"
-            delay={0.24}
+            delay={0.16}
           />
         </div>
 
-        <div className="mx-auto max-w-6xl grid gap-4 lg:grid-cols-2 lg:gap-5 items-start mb-10">
+        <div className="mx-auto max-w-4xl mb-10">
           <StateRankingPanel
             title="Highest youth unemployment"
             subtitle="States where young people face the steepest barriers to work"
@@ -296,18 +279,11 @@ export function YouthUnemploymentStats() {
             variant="high"
             icon={<TrendingUp className="h-5 w-5" />}
           />
-          <StateRankingPanel
-            title="Lowest youth unemployment"
-            subtitle="States with relatively stronger youth employment outcomes"
-            rows={lowestYouthUnemployment}
-            variant="low"
-            icon={<TrendingDown className="h-5 w-5" />}
-          />
         </div>
 
         <ScrollReveal delay={100}>
           <div className="mx-auto max-w-3xl rounded-xl border border-white/15 bg-white/10 px-6 py-5 text-center backdrop-blur-sm">
-            <p className="text-sm text-white/90 leading-relaxed italic mb-3">
+            <p className="c2r-prose-sm italic text-white/90 mb-3">
               &ldquo;Talent is evenly distributed — opportunity is not. These
               numbers are why Connect2Roots exists: to reach students where
               guidance and pathways are hardest to find.&rdquo;

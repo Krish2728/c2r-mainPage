@@ -3,6 +3,7 @@ import {
   createRouter,
   createRoute,
   createRootRoute,
+  redirect,
 } from "@tanstack/react-router";
 import { Layout } from "./components/Layout";
 import HomePage from "./pages/HomePage";
@@ -24,7 +25,7 @@ import GetInvolvedCorporatePage from "./pages/get-involved/GetInvolvedCorporateP
 import GetInvolvedHowItWorksPage from "./pages/get-involved/GetInvolvedHowItWorksPage";
 import GetInvolvedDonationPage from "./pages/get-involved/GetInvolvedDonationPage";
 import GetInvolvedOtherAlliancesPage from "./pages/get-involved/GetInvolvedOtherAlliancesPage";
-import GetInvolvedFoundersMessagePage from "./pages/get-involved/GetInvolvedFoundersMessagePage";
+import GetInvolvedLifetimeMembershipPage from "./pages/get-involved/GetInvolvedLifetimeMembershipPage";
 import GetInvolvedOtherVolunteeringPage from "./pages/get-involved/GetInvolvedOtherVolunteeringPage";
 import ContactPage from "./pages/ContactPage";
 import LoginPage from "./pages/LoginPage";
@@ -156,10 +157,18 @@ const getInvolvedOtherVolunteeringRoute = createRoute({
   component: GetInvolvedOtherVolunteeringPage,
 });
 
+const getInvolvedLifetimeMembershipRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/get-involved/lifetime-membership",
+  component: GetInvolvedLifetimeMembershipPage,
+});
+
 const getInvolvedFoundersMessageRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/get-involved/founders-message",
-  component: GetInvolvedFoundersMessagePage,
+  beforeLoad: () => {
+    throw redirect({ to: "/get-involved/lifetime-membership" });
+  },
 });
 
 const contactRoute = createRoute({
@@ -213,6 +222,7 @@ const routeTree = rootRoute.addChildren([
   getInvolvedDonationRoute,
   getInvolvedOtherAlliancesRoute,
   getInvolvedOtherVolunteeringRoute,
+  getInvolvedLifetimeMembershipRoute,
   getInvolvedFoundersMessageRoute,
   contactRoute,
   loginRoute,

@@ -62,67 +62,83 @@ const audiences: AudienceCard[] = [
 ];
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" as const },
+    transition: { delay: i * 0.08, duration: 0.45, ease: "easeOut" as const },
   }),
 };
 
+const accentGold = "oklch(0.82_0.11_68)";
+
+function AudienceCard({ item, index }: { item: AudienceCard; index: number }) {
+  const Icon = item.icon;
+  const isLastOdd =
+    index === audiences.length - 1 && audiences.length % 2 !== 0;
+
+  return (
+    <motion.article
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-40px" }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
+      className={`group flex h-full min-h-[220px] flex-col rounded-xl border border-white/25 bg-white/15 p-4 shadow-md backdrop-blur-md transition-all duration-300 hover:border-[oklch(0.82_0.11_68/0.5)] hover:bg-white/20 sm:min-h-[240px] lg:min-h-0 ${
+        isLastOdd
+          ? "col-span-2 mx-auto w-full max-w-[calc(50%-0.375rem)] sm:max-w-[calc(50%-0.375rem)] lg:col-span-1 lg:mx-0 lg:max-w-none"
+          : ""
+      }`}
+    >
+      <div
+        className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 bg-white/10 transition-colors duration-300 group-hover:bg-white/20"
+        style={{ color: accentGold }}
+      >
+        <Icon className="h-4 w-4" />
+      </div>
+
+      <h3 className="mb-2 text-sm font-semibold leading-snug text-white">
+        {item.title}
+      </h3>
+
+      <p className="mb-4 flex-1 text-sm leading-relaxed text-white/90">
+        {item.description}
+      </p>
+
+      <Button
+        asChild
+        size="sm"
+        className="h-9 w-full border border-[oklch(0.82_0.11_68/0.4)] bg-[oklch(0.82_0.11_68/0.18)] text-sm font-medium text-white shadow-none hover:border-[oklch(0.82_0.11_68/0.6)] hover:bg-[oklch(0.82_0.11_68/0.28)]"
+      >
+        <Link to={item.to}>{item.cta}</Link>
+      </Button>
+    </motion.article>
+  );
+}
+
 export function FindYourPlace() {
   return (
-    <div className="mb-16">
+    <div className="mb-12">
       <motion.div
-        className="text-center mb-12"
+        className="mb-8 text-center"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.55 }}
       >
-        <h2 className="heading-descender-safe font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+        <h2 className="c2r-heading-dark mb-3 text-2xl md:text-3xl">
           Find your place at Connect2Roots
         </h2>
-        <p className="text-lg md:text-xl text-white/85">
+        <p className="c2r-hero-subtitle text-base md:text-lg">
           Every person has a role to play. Find yours.
         </p>
       </motion.div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {audiences.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <motion.article
-              key={item.title}
-              custom={index}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
-              whileHover={{ y: -6, transition: { duration: 0.25 } }}
-              className="group flex flex-col rounded-2xl border border-white/20 bg-white/10 p-6 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-[oklch(0.82_0.11_68/0.45)] hover:bg-white/15 hover:shadow-xl hover:shadow-black/20 md:p-7"
-            >
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-[oklch(0.82_0.11_68)] transition-all duration-300 group-hover:border-[oklch(0.82_0.11_68/0.4)] group-hover:bg-[oklch(0.82_0.11_68/0.15)] group-hover:scale-110">
-                <Icon className="h-6 w-6" />
-              </div>
-
-              <h3 className="mb-3 text-lg font-bold text-white">
-                {item.title}
-              </h3>
-
-              <p className="mb-6 flex-1 text-sm leading-relaxed text-white/75 md:text-base">
-                {item.description}
-              </p>
-
-              <Button
-                asChild
-                className="w-full border border-[oklch(0.82_0.11_68/0.35)] bg-[oklch(0.82_0.11_68/0.12)] text-[oklch(0.88_0.08_68)] shadow-none hover:border-[oklch(0.82_0.11_68/0.55)] hover:bg-[oklch(0.82_0.11_68/0.22)] hover:text-white"
-              >
-                <Link to={item.to}>{item.cta}</Link>
-              </Button>
-            </motion.article>
-          );
-        })}
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
+        {audiences.map((item, index) => (
+          <AudienceCard key={item.title} item={item} index={index} />
+        ))}
       </div>
     </div>
   );

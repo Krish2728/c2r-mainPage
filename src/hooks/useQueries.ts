@@ -286,6 +286,38 @@ export function useVolunteerForm() {
   });
 }
 
+export function useLifetimeMembershipForm() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: VolunteerFormData) => {
+      if (API_BASE) {
+        const res = await fetch(`${API_BASE}/api/lifetime-membership`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (res.status === 404) {
+          console.warn(
+            "POST /api/lifetime-membership returned 404. Add this endpoint on the backend to store submissions.",
+          );
+          return { ok: true };
+        }
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(
+            err.message || "Failed to submit lifetime membership application",
+          );
+        }
+        return res.json();
+      }
+      console.log("Lifetime membership form submission:", data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["lifetimeMembershipForms"] });
+    },
+  });
+}
+
 export function useMentorApplication() {
   const queryClient = useQueryClient();
   return useMutation({

@@ -154,7 +154,7 @@ function ProgramsPage() {
               backgroundImage: `url(${getImageUrl("/assets/generated/career-catalyst.dim_600x400.jpg")})`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         </ParallaxSection>
         <div className="container relative z-10 py-20">
           <ScrollReveal direction="fade">
@@ -162,7 +162,7 @@ function ProgramsPage() {
               <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
                 Three Chapters of Transformation
               </h1>
-              <p className="text-xl text-white/90 leading-relaxed">
+              <p className="c2r-hero-subtitle">
                 Every journey has its stages. Dream, Learn, Thrive—these are the
                 chapters we write together.
               </p>
@@ -191,14 +191,12 @@ function ProgramsPage() {
                       delay={100}
                       direction={index % 2 === 0 ? "left" : "right"}
                     >
-                      <Card className="bg-gradient-to-br from-c2r-accent/5 to-c2r-primary/5 border-l-4 border-l-c2r-accent">
+                      <Card className="bg-gradient-to-br from-c2r-primary/5 to-c2r-secondary/5 border-l-4 border-l-c2r-accent">
                         <CardContent className="pt-8">
-                          <h3 className="text-xl sm:text-2xl font-bold mb-4">
+                          <h3 className="c2r-card-title mb-4">
                             A Story of {program.chapter}
                           </h3>
-                          <p className="text-base sm:text-lg text-muted-foreground italic leading-relaxed">
-                            {program.story}
-                          </p>
+                          <p className="c2r-prose italic">{program.story}</p>
                         </CardContent>
                       </Card>
                     </ScrollReveal>
@@ -219,16 +217,16 @@ function ProgramsPage() {
                             </div>
                             <div className="space-y-6">
                               <div>
-                                <h4 className="text-xl sm:text-2xl font-bold mb-3">
+                                <h4 className="c2r-card-title mb-3">
                                   Our Approach
                                 </h4>
-                                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                                <p className="text-base sm:c2r-prose">
                                   {program.objective}
                                 </p>
                               </div>
 
                               <div>
-                                <h4 className="text-lg sm:text-xl font-semibold mb-3">
+                                <h4 className="c2r-card-title mb-3">
                                   Focus Areas
                                 </h4>
                                 <div className="flex flex-wrap gap-2">
@@ -246,7 +244,7 @@ function ProgramsPage() {
 
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div>
-                                  <h4 className="text-lg sm:text-xl font-semibold mb-3">
+                                  <h4 className="c2r-card-title mb-3">
                                     What You'll Experience
                                   </h4>
                                   <ul className="space-y-2">
@@ -262,7 +260,7 @@ function ProgramsPage() {
                                   </ul>
                                 </div>
                                 <div className="md:text-right md:pl-8">
-                                  <h4 className="text-lg sm:text-xl font-semibold mb-3">
+                                  <h4 className="c2r-card-title mb-3">
                                     Your Transformation
                                   </h4>
                                   <ul className="space-y-2 md:flex md:flex-col md:items-end">
@@ -294,14 +292,14 @@ function ProgramsPage() {
       {/* CTA */}
       <section className="relative py-20 overflow-hidden">
         <ParallaxSection speed={0.4} className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-c2r-secondary to-c2r-accent" />
+          <div className="absolute inset-0 c2r-gradient-accent" />
         </ParallaxSection>
         <div className="container relative z-10 text-center text-white">
           <ScrollReveal direction="fade">
             <h2 className="heading-descender-safe text-4xl font-bold mb-4">
               Ready to Write Your Chapter?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="c2r-hero-subtitle mb-8 max-w-2xl mx-auto">
               Every great story begins with a single step. Take yours today.
             </p>
             <div className="flex flex-wrap justify-center gap-4">

@@ -22,7 +22,7 @@ export default function DonationCancelPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-12 w-12 animate-spin text-c2r-accent mx-auto mb-4" />
-          <p className="text-lg text-muted-foreground">Processing...</p>
+          <p className="c2r-prose">Processing...</p>
         </div>
       </div>
     );

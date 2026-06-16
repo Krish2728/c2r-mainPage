@@ -223,7 +223,7 @@ export function TriangleFramework({ className = "" }: TriangleFrameworkProps) {
               <Card className="border border-c2r-primary sm:border-2 shadow-md sm:shadow-lg hover:shadow-xl transition-shadow p-2 sm:py-6 sm:px-6">
                 <CardContent className="p-0 sm:pt-6 sm:px-6">
                   <div className="flex items-center gap-1.5 sm:gap-3 mb-1.5 sm:mb-3">
-                    <div className="h-6 w-6 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-c2r-primary to-c2r-secondary flex items-center justify-center text-white font-bold text-xs sm:text-xl shrink-0">
+                    <div className="h-6 w-6 sm:h-12 sm:w-12 rounded-full c2r-gradient-accent flex items-center justify-center text-white font-bold text-xs sm:text-xl shrink-0">
                       T
                     </div>
                     <Target className="h-4 w-4 sm:h-8 sm:w-8 text-c2r-primary shrink-0" />
@@ -254,7 +254,7 @@ export function TriangleFramework({ className = "" }: TriangleFrameworkProps) {
               <Card className="border border-c2r-secondary sm:border-2 shadow-md sm:shadow-lg hover:shadow-xl transition-shadow p-2 sm:py-6 sm:px-6">
                 <CardContent className="p-0 sm:pt-6 sm:px-6">
                   <div className="flex items-center gap-1.5 sm:gap-3 mb-1.5 sm:mb-3">
-                    <div className="h-6 w-6 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-c2r-secondary to-c2r-accent flex items-center justify-center text-white font-bold text-xs sm:text-xl shrink-0">
+                    <div className="h-6 w-6 sm:h-12 sm:w-12 rounded-full c2r-gradient-accent flex items-center justify-center text-white font-bold text-xs sm:text-xl shrink-0">
                       R
                     </div>
                     <Users className="h-4 w-4 sm:h-8 sm:w-8 text-c2r-secondary shrink-0" />
@@ -285,7 +285,7 @@ export function TriangleFramework({ className = "" }: TriangleFrameworkProps) {
               <Card className="border border-c2r-accent sm:border-2 shadow-md sm:shadow-lg hover:shadow-xl transition-shadow p-2 sm:py-6 sm:px-6">
                 <CardContent className="p-0 sm:pt-6 sm:px-6">
                   <div className="flex items-center gap-1.5 sm:gap-3 mb-1.5 sm:mb-3">
-                    <div className="h-6 w-6 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-c2r-accent to-c2r-primary flex items-center justify-center text-white font-bold text-xs sm:text-xl shrink-0">
+                    <div className="h-6 w-6 sm:h-12 sm:w-12 rounded-full c2r-gradient-accent flex items-center justify-center text-white font-bold text-xs sm:text-xl shrink-0">
                       I
                     </div>
                     <Building2 className="h-4 w-4 sm:h-8 sm:w-8 text-c2r-accent shrink-0" />
@@ -311,7 +311,7 @@ export function TriangleFramework({ className = "" }: TriangleFrameworkProps) {
                 transitionDelay: delay3,
               }}
             >
-              <div className="bg-gradient-to-br from-c2r-primary via-c2r-secondary to-c2r-black p-2 sm:p-4 md:p-6 lg:p-8 rounded-lg sm:rounded-2xl shadow-xl sm:shadow-2xl text-center">
+              <div className="c2r-gradient-section p-2 sm:p-4 md:p-6 lg:p-8 rounded-lg sm:rounded-2xl shadow-xl sm:shadow-2xl text-center">
                 <h3 className="text-[10px] sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-white mb-0.5 sm:mb-2 leading-tight">
                   Sustainable Career Outcomes
                 </h3>

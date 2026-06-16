@@ -82,13 +82,13 @@ export default function MentorshipPage() {
           backgroundImage: `url(${getImageUrl("/assets/generated/mentorship-workshop.dim_800x600.jpg")})`,
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80" />
+        <div className="absolute inset-0 c2r-gradient-hero-overlay" />
         <div className="container relative z-10 py-20">
           <div className="mx-auto max-w-4xl text-center text-white">
             <h1 className="heading-descender-safe mb-6 text-5xl font-bold tracking-tight md:text-6xl leading-tight">
               Where Paths Cross, Lives Change
             </h1>
-            <p className="text-xl text-white/95 leading-relaxed max-w-2xl mx-auto">
+            <p className="c2r-hero-subtitle max-w-2xl mx-auto">
               The story of mentorship is the story of human connection—where
               experience meets aspiration, and guidance transforms into
               possibility.
@@ -108,7 +108,7 @@ export default function MentorshipPage() {
               <h2 className="heading-descender-safe text-4xl font-bold text-c2r-primary mb-3">
                 Why Mentorship Matters
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="c2r-prose">
                 One conversation can change everything
               </p>
             </div>
@@ -125,7 +125,7 @@ export default function MentorshipPage() {
             </ScrollReveal>
             <ScrollReveal direction="right">
               <div className="rounded-xl shadow-md bg-card border border-border p-6 md:p-8 border-l-4 border-l-c2r-accent">
-                <h3 className="text-xl font-bold mb-4">The Ripple Effect</h3>
+                <h3 className="c2r-card-title mb-4">The Ripple Effect</h3>
                 <p className="text-muted-foreground leading-relaxed mb-6">
                   Mentorship isn't just about career advice—it's about seeing
                   potential where others see obstacles. It's about opening
@@ -159,7 +159,7 @@ export default function MentorshipPage() {
               <h2 className="heading-descender-safe text-4xl font-bold text-c2r-primary mb-3">
                 Your Journey Begins Here
               </h2>
-              <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+              <p className="c2r-prose max-w-xl mx-auto">
                 Every expert was once a beginner. Every success story started
                 with a question.
               </p>
@@ -188,7 +188,7 @@ export default function MentorshipPage() {
           <div className="grid gap-10 md:grid-cols-2 items-start">
             <ScrollReveal direction="left">
               <div>
-                <h3 className="text-xl font-bold mb-6">What You'll Gain</h3>
+                <h3 className="c2r-card-title mb-6">What You'll Gain</h3>
                 <ul className="space-y-3 mb-8">
                   {SEEKER_GAINS.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
@@ -226,7 +226,7 @@ export default function MentorshipPage() {
             </ScrollReveal>
             <ScrollReveal direction="right">
               <div className="rounded-xl shadow-md bg-gradient-to-br from-c2r-primary/10 to-c2r-secondary/10 p-6 md:p-8 border border-c2r-primary/20">
-                <h3 className="text-xl font-bold mb-6">Your Journey Unfolds</h3>
+                <h3 className="c2r-card-title mb-6">Your Journey Unfolds</h3>
                 <ol className="space-y-5">
                   {JOURNEY_STEPS.map((step, i) => (
                     <li key={i} className="flex gap-4">
@@ -234,9 +234,7 @@ export default function MentorshipPage() {
                         {i + 1}
                       </span>
                       <div>
-                        <p className="font-semibold text-foreground">
-                          {step.title}
-                        </p>
+                        <p className="c2r-card-title">{step.title}</p>
                         <p className="text-sm text-muted-foreground">
                           {step.description}
                         </p>
@@ -262,7 +260,7 @@ export default function MentorshipPage() {
               <h2 className="heading-descender-safe text-4xl font-bold text-c2r-primary mb-3">
                 Share Your Light
               </h2>
-              <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+              <p className="c2r-prose max-w-xl mx-auto">
                 The greatest gift you can give is your experience, wisdom, and
                 belief in someone's potential.
               </p>
@@ -292,25 +290,23 @@ export default function MentorshipPage() {
           <div className="grid gap-10 md:grid-cols-2 items-start">
             <ScrollReveal direction="left">
               <div className="rounded-xl shadow-md bg-card p-6 md:p-8 border-l-4 border-l-c2r-accent">
-                <h3 className="text-xl font-bold mb-6">Your Commitment</h3>
+                <h3 className="c2r-card-title mb-6">Your Commitment</h3>
                 <div className="space-y-4 mb-8">
                   <div>
-                    <p className="font-semibold text-foreground">
-                      Time Investment
-                    </p>
+                    <p className="c2r-card-title">Time Investment</p>
                     <p className="text-sm text-muted-foreground">
                       2–4 hours per month—small moments that create lasting
                       impact
                     </p>
                   </div>
                   <div>
-                    <p className="font-semibold text-foreground">Duration</p>
+                    <p className="c2r-card-title">Duration</p>
                     <p className="text-sm text-muted-foreground">
                       Minimum 6 months to build meaningful relationships
                     </p>
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-4">What We Provide</h3>
+                <h3 className="c2r-card-title mb-4">What We Provide</h3>
                 <ul className="space-y-2 text-muted-foreground text-sm list-disc list-inside">
                   <li>Comprehensive training and resources</li>
                   <li>Community of fellow mentors</li>
@@ -321,7 +317,7 @@ export default function MentorshipPage() {
             </ScrollReveal>
             <ScrollReveal direction="right">
               <div className="rounded-xl shadow-md bg-card p-6 md:p-8 border-l-4 border-l-c2r-primary">
-                <h3 className="text-xl font-bold mb-6">Why Become a Mentor</h3>
+                <h3 className="c2r-card-title mb-6">Why Become a Mentor</h3>
                 <ul className="space-y-3 mb-8">
                   {MENTOR_BENEFITS.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
@@ -362,14 +358,14 @@ export default function MentorshipPage() {
       </section>
 
       {/* Join the Next Chapter - CTA */}
-      <section className="py-20 md:py-28 bg-gradient-to-r from-c2r-secondary via-c2r-primary to-c2r-accent">
+      <section className="py-20 md:py-28 c2r-gradient-section">
         <div className="container">
           <ScrollReveal>
             <div className="max-w-2xl mx-auto text-center text-white">
               <h2 className="heading-descender-safe text-4xl md:text-5xl font-bold mb-4">
                 Join the Next Chapter
               </h2>
-              <p className="text-xl text-white/95 mb-10">
+              <p className="c2r-hero-subtitle mb-10">
                 Whether you're seeking guidance or ready to give back, your
                 story begins here.
               </p>
