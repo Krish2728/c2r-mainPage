@@ -13,7 +13,6 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { ParallaxSection } from "@/components/ParallaxSection";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import { RoleCategories } from "@/components/RoleCategories";
-import { YouthUnemploymentStats } from "@/components/YouthUnemploymentStats";
 import { MentorClosingCTA } from "@/components/MentorClosingCTA";
 import { mentorRoleCategories } from "@/data/mentorRoles";
 import { getImageUrl } from "@/lib/images";
@@ -133,8 +132,6 @@ export default function GetInvolvedVolunteerPage() {
           </ScrollReveal>
         </div>
       </section>
-
-      <YouthUnemploymentStats />
 
       <MentorClosingCTA />
     </div>
