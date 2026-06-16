@@ -11,8 +11,9 @@ import {
 } from "lucide-react";
 import { useTestimonials } from "@/hooks/useQueries";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { AnimatedCounter } from "@/components/AnimatedCounter";
-import { TriangleFramework } from "@/components/TriangleFramework";
+import { RealityOnGround } from "@/components/RealityOnGround";
+import { Vision2047 } from "@/components/Vision2047";
+import { FindYourPlace } from "@/components/FindYourPlace";
 import { getImageUrl } from "@/lib/images";
 import {
   Carousel,
@@ -43,9 +44,9 @@ export default function HomePage() {
               Empowering Communities for a Brighter Future
             </h1>
             <p className="mb-10 text-xl md:text-2xl text-white/95 leading-relaxed">
-              Free career guidance, future-ready skills, and livelihood pathways
-              — enabling young people to grow and citizens to give back to their
-              roots and society.
+              Career guidance, skill development, and livelihood support with
+              free resources available, enabling young people to grow and
+              citizens to give back to their roots and society.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button
@@ -80,20 +81,21 @@ export default function HomePage() {
                   Welcome to Connect2Roots
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Connect2Roots Foundation is a non-profit organization
-                  dedicated to empowering underserved communities through free
-                  career mentorship, skill development, and livelihood support.
+                  Connect2Roots Foundation is a non-profit working with
+                  underserved students across India. Young people from smaller
+                  towns, rural areas, and first-generation families who have the
+                  ambition, the drive, and the potential, but never had access
+                  to the right mentor, the right skills, or the right
+                  opportunity to turn that potential into a career.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  We believe that every young person deserves access to
-                  guidance, opportunities, and the tools they need to build a
-                  meaningful career and contribute to society.
+                  That&apos;s the gap we exist to close.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Our mission is to bridge the gap between aspiration and
-                  achievement by connecting students with experienced mentors,
-                  providing future-ready skills training, and creating pathways
-                  to sustainable livelihoods.
+                  We connect these students with experienced mentors, practical
+                  skill training, and livelihood support — because every young
+                  person deserves a real shot at building the future they
+                  imagined.
                 </p>
               </div>
             </ScrollReveal>
@@ -110,95 +112,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Problem We Are Trying to Solve */}
-      <section className="py-20 md:py-28 bg-muted/30">
-        <div className="container">
-          <div className="max-w-6xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-12">
-                <h2 className="heading-descender-safe text-4xl font-bold mb-6">
-                  The Problem We Are Trying to Solve
-                </h2>
-                <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                  Millions of young people in underserved communities face
-                  significant barriers to career success, not due to lack of
-                  talent or ambition, but due to systemic gaps in access and
-                  opportunity.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid gap-12 md:grid-cols-2 items-center mt-16">
-              <ScrollReveal direction="left" delay={100}>
-                <img
-                  src={getImageUrl(
-                    "/assets/generated/founder-headshot.dim_300x300.jpg",
-                  )}
-                  alt="Founder"
-                  className="rounded-lg shadow-xl w-full max-w-md mx-auto"
-                />
-              </ScrollReveal>
-              <ScrollReveal direction="right" delay={100}>
-                <div className="space-y-6">
-                  <div className="bg-c2r-accent/10 border-l-4 border-c2r-accent p-6 rounded-r-lg">
-                    <p className="text-2xl font-bold text-c2r-accent mb-2">
-                      "Talent is everywhere, opportunity is not."
-                    </p>
-                  </div>
-                  <ul className="space-y-4">
-                    <li className="flex items-start gap-3">
-                      <div className="mt-1 h-6 w-6 rounded-full bg-c2r-primary/20 flex items-center justify-center shrink-0">
-                        <div className="h-2 w-2 rounded-full bg-c2r-primary" />
-                      </div>
-                      <p className="text-lg text-muted-foreground">
-                        <strong>Lack of Career Guidance:</strong> Students from
-                        underserved backgrounds often lack access to mentors who
-                        can guide them through career choices, skill
-                        development, and job opportunities.
-                      </p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="mt-1 h-6 w-6 rounded-full bg-c2r-primary/20 flex items-center justify-center shrink-0">
-                        <div className="h-2 w-2 rounded-full bg-c2r-primary" />
-                      </div>
-                      <p className="text-lg text-muted-foreground">
-                        <strong>Skills Gap:</strong> Traditional education
-                        systems often fail to equip students with the practical,
-                        industry-relevant skills needed to succeed in today's
-                        job market.
-                      </p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="mt-1 h-6 w-6 rounded-full bg-c2r-primary/20 flex items-center justify-center shrink-0">
-                        <div className="h-2 w-2 rounded-full bg-c2r-primary" />
-                      </div>
-                      <p className="text-lg text-muted-foreground">
-                        <strong>Limited Livelihood Opportunities:</strong> Even
-                        with education, many young people struggle to find
-                        meaningful employment or entrepreneurial pathways due to
-                        lack of networks and resources.
-                      </p>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="mt-1 h-6 w-6 rounded-full bg-c2r-primary/20 flex items-center justify-center shrink-0">
-                        <div className="h-2 w-2 rounded-full bg-c2r-primary" />
-                      </div>
-                      <p className="text-lg text-muted-foreground">
-                        <strong>
-                          Disconnect Between Education and Industry:
-                        </strong>{" "}
-                        There is a significant gap between what students learn
-                        in school and what employers need, leaving many
-                        graduates unprepared for the workforce.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
-      </section>
+      <RealityOnGround />
 
       {/* How It Works */}
       <section className="py-20 md:py-28 bg-background">
@@ -268,106 +182,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TRIANGLE Framework Section */}
-      <section className="bg-gradient-to-b from-muted/30 to-background">
-        <ScrollReveal>
-          <div className="text-center pt-20 pb-8 container">
-            <h2 className="heading-descender-safe text-4xl font-bold mb-6">
-              The TRIANGLE Framework
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Our proven approach to transforming aspirations into sustainable
-              career outcomes through three interconnected pillars.
-            </p>
-          </div>
-        </ScrollReveal>
-        <TriangleFramework />
-      </section>
+      <Vision2047 />
 
-      {/* Impact Snapshot */}
+      {/* Find Your Place & Testimonials */}
       <section className="py-20 md:py-28 bg-gradient-to-br from-c2r-primary to-c2r-secondary text-white">
         <div className="container">
           <div className="max-w-6xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <h2 className="heading-descender-safe text-4xl font-bold mb-6">
-                  Our Impact
-                </h2>
-                <p className="text-xl text-white/90 max-w-3xl mx-auto">
-                  Together, we're transforming lives and building a more
-                  equitable future for underserved communities.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid gap-8 md:grid-cols-3 mb-16">
-              {[
-                { value: 2000, suffix: "+", label: "Students Mentored" },
-                { value: 10, suffix: "+", label: "Partner Colleges" },
-                { value: 50, suffix: "+", label: "Volunteer Mentors" },
-              ].map((stat, index) => (
-                <ScrollReveal key={index} delay={index * 100}>
-                  <div className="text-center transition-all duration-300 hover:scale-105">
-                    <AnimatedCounter
-                      end={stat.value}
-                      suffix={stat.suffix}
-                      className="heading-descender-safe mb-2 text-5xl md:text-6xl font-bold"
-                    />
-                    <div className="text-lg text-white/90">{stat.label}</div>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-
-            {/* Field Work Images Gallery */}
-            <ScrollReveal delay={100}>
-              <div className="mb-16">
-                <h3 className="heading-descender-safe text-3xl font-bold text-center mb-8">
-                  Stories from the Field
-                </h3>
-                <div className="grid gap-6 md:grid-cols-3">
-                  {[
-                    {
-                      src: getImageUrl(
-                        "/assets/generated/mentorship-workshop.dim_800x600.jpg",
-                      ),
-                      alt: "Mentorship Workshop",
-                      title: "Mentorship in Action",
-                    },
-                    {
-                      src: getImageUrl(
-                        "/assets/generated/volunteer-mentoring.dim_800x500.jpg",
-                      ),
-                      alt: "Volunteer Mentoring",
-                      title: "Volunteer Mentors",
-                    },
-                    {
-                      src: getImageUrl(
-                        "/assets/generated/skill-development.dim_600x400.jpg",
-                      ),
-                      alt: "Skill Development",
-                      title: "Skills Training",
-                    },
-                  ].map((image, index) => (
-                    <Card
-                      key={index}
-                      className="bg-white/10 backdrop-blur-sm border-white/20 overflow-hidden hover:scale-105 transition-transform duration-300"
-                    >
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="w-full h-48 object-cover"
-                      />
-                      <CardContent className="pt-4">
-                        <p className="text-white font-semibold text-center">
-                          {image.title}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
+            <FindYourPlace />
 
             {/* Testimonials Carousel */}
             {testimonials.length > 0 && (
@@ -417,24 +238,6 @@ export default function HomePage() {
               </ScrollReveal>
             )}
           </div>
-        </div>
-      </section>
-
-      {/* AI Advantage Banner */}
-      <section className="py-20 md:py-28 bg-gradient-to-r from-c2r-secondary via-c2r-primary to-c2r-accent">
-        <div className="container">
-          <ScrollReveal>
-            <div className="max-w-4xl mx-auto text-center text-white">
-              <Sparkles className="h-16 w-16 mx-auto mb-6 text-white" />
-              <h2 className="heading-descender-safe text-4xl font-bold mb-6">
-                Where Technology Meets Empathy
-              </h2>
-              <p className="text-2xl text-white/95 leading-relaxed">
-                AI that understands aspirations — matching students with mentors
-                who truly care about their success.
-              </p>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 

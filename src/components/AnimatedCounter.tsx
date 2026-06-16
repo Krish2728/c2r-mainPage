@@ -4,16 +4,20 @@ interface AnimatedCounterProps {
   end: number;
   duration?: number;
   suffix?: string;
+  prefix?: string;
   className?: string;
   decimals?: number;
+  locale?: string;
 }
 
 export function AnimatedCounter({
   end,
   duration = 2000,
   suffix = "",
+  prefix = "",
   className = "",
   decimals = 0,
+  locale = "en-US",
 }: AnimatedCounterProps) {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -65,10 +69,16 @@ export function AnimatedCounter({
   }, [isVisible, end, duration, decimals]);
 
   const displayValue =
-    decimals > 0 ? count.toFixed(decimals) : count.toLocaleString();
+    decimals > 0
+      ? count.toLocaleString(locale, {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        })
+      : count.toLocaleString(locale);
 
   return (
     <div ref={ref} className={className}>
+      {prefix}
       {displayValue}
       {suffix}
     </div>
