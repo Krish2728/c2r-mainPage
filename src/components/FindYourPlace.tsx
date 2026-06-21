@@ -85,20 +85,20 @@ function AudienceCard({ item, index }: { item: AudienceCard; index: number }) {
       whileInView="visible"
       viewport={{ once: true, margin: "-40px" }}
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      className={`group flex h-full min-h-[220px] flex-col rounded-xl border border-white/25 bg-white/15 p-4 shadow-md backdrop-blur-md transition-all duration-300 hover:border-[oklch(0.82_0.11_68/0.5)] hover:bg-white/20 sm:min-h-[240px] lg:min-h-0 ${
+      className={`group flex h-full flex-col rounded-xl border border-white/25 bg-white/15 p-4 shadow-md backdrop-blur-md transition-all duration-300 hover:border-[oklch(0.82_0.11_68/0.5)] hover:bg-white/20 sm:p-5 ${
         isLastOdd
-          ? "col-span-2 mx-auto w-full max-w-[calc(50%-0.375rem)] sm:max-w-[calc(50%-0.375rem)] lg:col-span-1 lg:mx-0 lg:max-w-none"
+          ? "sm:col-span-2 sm:mx-auto sm:w-full sm:max-w-md lg:col-span-1 lg:mx-0 lg:max-w-none"
           : ""
       }`}
     >
       <div
-        className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg border border-white/20 bg-white/10 transition-colors duration-300 group-hover:bg-white/20"
+        className="mb-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/10 transition-colors duration-300 group-hover:bg-white/20"
         style={{ color: accentGold }}
       >
         <Icon className="h-4 w-4" />
       </div>
 
-      <h3 className="mb-2 text-sm font-semibold leading-snug text-white">
+      <h3 className="mb-2 text-base font-semibold leading-snug text-white sm:text-sm">
         {item.title}
       </h3>
 
@@ -109,7 +109,7 @@ function AudienceCard({ item, index }: { item: AudienceCard; index: number }) {
       <Button
         asChild
         size="sm"
-        className="h-9 w-full border border-[oklch(0.82_0.11_68/0.4)] bg-[oklch(0.82_0.11_68/0.18)] text-sm font-medium text-white shadow-none hover:border-[oklch(0.82_0.11_68/0.6)] hover:bg-[oklch(0.82_0.11_68/0.28)]"
+        className="h-auto min-h-9 w-full shrink-0 whitespace-normal border border-[oklch(0.82_0.11_68/0.4)] bg-[oklch(0.82_0.11_68/0.18)] px-3 py-2.5 text-center text-xs font-medium leading-snug text-white shadow-none hover:border-[oklch(0.82_0.11_68/0.6)] hover:bg-[oklch(0.82_0.11_68/0.28)] sm:text-sm"
       >
         <Link to={item.to}>{item.cta}</Link>
       </Button>
@@ -135,7 +135,7 @@ export function FindYourPlace() {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5">
         {audiences.map((item, index) => (
           <AudienceCard key={item.title} item={item} index={index} />
         ))}

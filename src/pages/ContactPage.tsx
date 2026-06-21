@@ -10,8 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Mail, MapPin, Send, Heart, Crown } from "lucide-react";
-import { SiFacebook, SiX, SiLinkedin, SiInstagram } from "react-icons/si";
+import { Mail, MapPin, Send, Heart, Crown, Linkedin } from "lucide-react";
+import { SiFacebook, SiX, SiInstagram } from "react-icons/si";
 import { useState, useEffect } from "react";
 import { useLocation } from "@tanstack/react-router";
 import {
@@ -585,7 +585,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="flex h-16 w-16 items-center justify-center rounded-full bg-c2r-primary text-white transition-transform hover:scale-110"
               >
-                <SiLinkedin className="h-8 w-8" />
+                <Linkedin className="h-8 w-8" />
               </a>
               <a
                 href="https://www.instagram.com/connect2rootsfoundation/"

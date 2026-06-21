@@ -37,11 +37,11 @@ import {
   Calendar,
   Handshake,
   HandHelping,
+  Linkedin,
 } from "lucide-react";
 import {
   SiFacebook,
   SiX,
-  SiLinkedin,
   SiInstagram,
   SiYoutube,
 } from "react-icons/si";
@@ -1593,7 +1593,7 @@ export function Layout() {
                   className="text-muted-foreground hover:text-primary transition-colors"
                   aria-label="LinkedIn"
                 >
-                  <SiLinkedin className="h-6 w-6" />
+                  <Linkedin className="h-6 w-6" />
                 </a>
                 <a
                   href="https://www.instagram.com/connect2rootsfoundation/"

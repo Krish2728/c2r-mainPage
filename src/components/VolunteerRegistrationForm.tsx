@@ -12,6 +12,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Heart } from "lucide-react";
 import type { VolunteerFormData } from "@/hooks/useQueries";
+import { LanguageSelect } from "@/components/LanguageSelect";
 
 export const INITIAL_VOLUNTEER_FORM: VolunteerFormData = {
   email: "",
@@ -152,12 +153,12 @@ export function VolunteerRegistrationForm({
         <Label htmlFor={`${idPrefix}-languages`}>
           Languages you can speak? *
         </Label>
-        <Input
+        <LanguageSelect
           id={`${idPrefix}-languages`}
-          placeholder="e.g. English, Hindi, Tamil"
           value={form.languages}
-          onChange={(e) => onChange({ languages: e.target.value })}
+          onChange={(languages) => onChange({ languages })}
           required
+          placeholder="Select languages you speak"
         />
       </div>
 
