@@ -118,8 +118,8 @@ export default function GetInvolvedOtherAlliancesPage() {
         <GetInvolvedContentWidth size="narrow">
           <ScrollReveal>
             <p className="c2r-prose text-center">
-              Integrate C2R mentoring modules into existing programs for training
-              & sourcing of students.
+              Integrate C2R mentoring modules into existing programs for
+              training & sourcing of students.
             </p>
           </ScrollReveal>
         </GetInvolvedContentWidth>

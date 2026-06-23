@@ -147,8 +147,8 @@ export default function WhoWeArePage() {
                       sparked a question:{" "}
                       <span className="font-bold italic text-foreground">
                         &ldquo;What if we could connect every aspiring
-                        professional with someone who&apos;s walked the path they
-                        want to take?&rdquo;
+                        professional with someone who&apos;s walked the path
+                        they want to take?&rdquo;
                       </span>
                     </p>
                     <p className="c2r-prose">

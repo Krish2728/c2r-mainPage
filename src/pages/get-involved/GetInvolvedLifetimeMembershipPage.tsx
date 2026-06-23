@@ -23,15 +23,8 @@ import {
   membershipNote,
 } from "@/data/lifetimeMembershipBenefits";
 import { getImageUrl } from "@/lib/images";
-import {
-  ArrowRight,
-  Heart,
-} from "lucide-react";
-import {
-  MdAutoAwesome,
-  MdAllInclusive,
-  MdVerifiedUser,
-} from "react-icons/md";
+import { ArrowRight, Heart } from "lucide-react";
+import { MdAutoAwesome, MdAllInclusive, MdVerifiedUser } from "react-icons/md";
 import { getInvolvedIcons, ICON } from "@/lib/siteIcons";
 import { toast } from "sonner";
 import {

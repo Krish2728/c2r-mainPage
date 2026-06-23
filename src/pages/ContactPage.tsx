@@ -10,11 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Send,
-  Linkedin,
-  ArrowRight,
-} from "lucide-react";
+import { Send, Linkedin, ArrowRight } from "lucide-react";
 import { SiFacebook, SiX, SiInstagram, SiYoutube } from "react-icons/si";
 import { useState, useEffect } from "react";
 import type { IconType } from "react-icons";

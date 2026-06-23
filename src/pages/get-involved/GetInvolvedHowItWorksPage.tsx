@@ -55,7 +55,9 @@ export default function GetInvolvedHowItWorksPage() {
           size="lg"
           variant="secondary"
           className={GI_BTN_HERO}
-          onClick={() => navigate({ to: "/get-involved/corporate-partnerships" })}
+          onClick={() =>
+            navigate({ to: "/get-involved/corporate-partnerships" })
+          }
         >
           Explore Corporate Partnerships
           <ArrowRight className="ml-2 h-5 w-5" />
@@ -87,7 +89,9 @@ export default function GetInvolvedHowItWorksPage() {
           </div>
           <GetInvolvedSectionCta
             label="Explore Corporate Partnerships"
-            onClick={() => navigate({ to: "/get-involved/corporate-partnerships" })}
+            onClick={() =>
+              navigate({ to: "/get-involved/corporate-partnerships" })
+            }
           />
         </GetInvolvedContentWidth>
       </GetInvolvedSection>

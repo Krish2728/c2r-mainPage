@@ -345,7 +345,9 @@ export default function GetInvolvedCorporatePage() {
                 >
                   <Card className="cursor-pointer border border-border/60 shadow-sm transition-shadow duration-300 hover:border-c2r-primary/30 hover:shadow-md">
                     <CardContent className="flex flex-col gap-2 pt-6 sm:flex-row sm:items-center sm:justify-between">
-                      <span className="text-muted-foreground">{link.label}</span>
+                      <span className="text-muted-foreground">
+                        {link.label}
+                      </span>
                       <Button
                         variant="outline"
                         size="sm"
@@ -448,7 +450,9 @@ export default function GetInvolvedCorporatePage() {
                     <p className="mb-1 text-sm font-medium text-foreground">
                       Our solution:
                     </p>
-                    <p className="text-sm text-muted-foreground">{ch.solution}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {ch.solution}
+                    </p>
                   </CardContent>
                 </Card>
               </ScrollReveal>

@@ -325,6 +325,27 @@
       0 0 0 1px oklch(var(--c2r-primary) / 0.08);
   }
 
+  /* Team grid — 0.5s snappier reveal than default .reveal */
+  .team-member-grid .reveal {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .team-member-grid > * {
+    min-width: 0;
+  }
+
+  /* Team member card — reference-style hover lift (desktop only) */
+  .team-member-card {
+    transition:
+      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.35s ease;
+  }
+  @media (min-width: 768px) {
+    .team-member-card:hover {
+      transform: translateY(-6px);
+    }
+  }
+
   /* Quick link card: arrow slides right on hover */
   .link-card-arrow {
     transition: transform 0.25s ease;

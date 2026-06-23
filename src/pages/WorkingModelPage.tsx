@@ -87,8 +87,7 @@ const howItWorksSteps = [
 const mentorPathwaySteps = [
   {
     stage: "Discovery",
-    description:
-      "Students explore career options through mentor interactions",
+    description: "Students explore career options through mentor interactions",
     outcome: "Career clarity and direction",
   },
   {
@@ -161,25 +160,26 @@ export default function WorkingModelPage() {
           <ScrollReveal delay={100}>
             <GetInvolvedIntroCard>
               <p className="c2r-prose-emphasis">
-                India stands at a critical juncture—with unprecedented potential,
-                yet millions face{" "}
+                India stands at a critical juncture—with unprecedented
+                potential, yet millions face{" "}
                 <span className="font-bold text-foreground">
                   the gap between education and employability
                 </span>
                 .
               </p>
               <p className="c2r-prose">
-                Traditional education systems often fail to provide the practical
-                skills, industry connections, and career guidance needed in
-                today&apos;s job market—particularly in underserved communities.
+                Traditional education systems often fail to provide the
+                practical skills, industry connections, and career guidance
+                needed in today&apos;s job market—particularly in underserved
+                communities.
               </p>
             </GetInvolvedIntroCard>
           </ScrollReveal>
           <ScrollReveal delay={150}>
             <GetInvolvedNoteCard title="The Challenge">
-              How do we bridge this gap and ensure that every talented individual,
-              regardless of background, has the guidance and skills needed to
-              thrive in the modern economy?
+              How do we bridge this gap and ensure that every talented
+              individual, regardless of background, has the guidance and skills
+              needed to thrive in the modern economy?
             </GetInvolvedNoteCard>
           </ScrollReveal>
         </GetInvolvedContentWidth>

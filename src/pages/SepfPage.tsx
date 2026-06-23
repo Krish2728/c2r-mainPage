@@ -110,9 +110,7 @@ const sdgs = [
     title: "Partnerships for the Goals",
     description:
       "Strengthening the means of implementation and revitalizing global partnerships for sustainable development.",
-    image: getImageUrl(
-      "/assets/generated/sdg-17-partnerships.dim_200x200.png",
-    ),
+    image: getImageUrl("/assets/generated/sdg-17-partnerships.dim_200x200.png"),
   },
 ];
 
@@ -283,8 +281,8 @@ export default function SepfPage() {
                     SEPF conducts deep research into the evolving landscape of
                     skills, entrepreneurship, and employment. We identify
                     future-ready career pathways and translate complex labor
-                    market trends into actionable guidance for youth,
-                    educators, and policymakers.
+                    market trends into actionable guidance for youth, educators,
+                    and policymakers.
                   </p>
                   <p className="c2r-prose">
                     Through partnerships with industry, academia, and
@@ -422,7 +420,9 @@ export default function SepfPage() {
             <ScrollReveal delay={150}>
               <Card className="h-full border border-border/60 shadow-sm">
                 <CardHeader>
-                  <CardTitle className="c2r-card-title">Global Shifts</CardTitle>
+                  <CardTitle className="c2r-card-title">
+                    Global Shifts
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <BulletList
@@ -531,7 +531,9 @@ export default function SepfPage() {
                       suffix="%"
                       className="text-5xl font-bold text-c2r-primary"
                     />
-                    <p className="c2r-prose-emphasis mb-2 mt-4">Career Clarity</p>
+                    <p className="c2r-prose-emphasis mb-2 mt-4">
+                      Career Clarity
+                    </p>
                     <p className="text-sm text-muted-foreground">
                       of mentored youth report clearer career goals
                     </p>

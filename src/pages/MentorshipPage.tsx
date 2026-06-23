@@ -99,15 +99,15 @@ function scrollToSection(slug: string) {
   document.getElementById(slug)?.scrollIntoView({ behavior: "smooth" });
 }
 
-function MenteeButton({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
+function MenteeButton({
+  navigate,
+}: {
+  navigate: ReturnType<typeof useNavigate>;
+}) {
   if (MENTOR_AUTH_MENTEE) {
     return (
       <Button size="lg" className={GI_BTN_PRIMARY} asChild>
-        <a
-          href={MENTOR_AUTH_MENTEE}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href={MENTOR_AUTH_MENTEE} target="_blank" rel="noopener noreferrer">
           Become a Mentee
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>
@@ -126,15 +126,15 @@ function MenteeButton({ navigate }: { navigate: ReturnType<typeof useNavigate> }
   );
 }
 
-function MentorButton({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
+function MentorButton({
+  navigate,
+}: {
+  navigate: ReturnType<typeof useNavigate>;
+}) {
   if (MENTOR_AUTH_MENTOR) {
     return (
       <Button size="lg" className={GI_BTN_PRIMARY} asChild>
-        <a
-          href={MENTOR_AUTH_MENTOR}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href={MENTOR_AUTH_MENTOR} target="_blank" rel="noopener noreferrer">
           Join as a Mentor
           <ArrowRight className="ml-2 h-5 w-5" />
         </a>
@@ -293,7 +293,9 @@ export default function MentorshipPage() {
               <ScrollReveal delay={100}>
                 <Card className="h-full border border-border/60 shadow-sm">
                   <CardContent className="pt-6">
-                    <h3 className="c2r-card-title mb-6">What You&apos;ll Gain</h3>
+                    <h3 className="c2r-card-title mb-6">
+                      What You&apos;ll Gain
+                    </h3>
                     <ul className="mb-8 space-y-3">
                       {SEEKER_GAINS.map((item) => (
                         <li key={item} className="flex items-start gap-3">
@@ -409,9 +411,7 @@ export default function MentorshipPage() {
               <ScrollReveal delay={150}>
                 <Card className="h-full border border-border/60 shadow-sm">
                   <CardContent className="pt-6">
-                    <h3 className="c2r-card-title mb-6">
-                      Why Become a Mentor
-                    </h3>
+                    <h3 className="c2r-card-title mb-6">Why Become a Mentor</h3>
                     <ul className="mb-8 space-y-3">
                       {MENTOR_BENEFITS.map((item) => (
                         <li key={item} className="flex items-start gap-3">

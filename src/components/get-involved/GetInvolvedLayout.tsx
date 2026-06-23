@@ -200,7 +200,5 @@ export function GetInvolvedContentWidth({
       : size === "content"
         ? "max-w-4xl"
         : "max-w-6xl";
-  return (
-    <div className={cn("mx-auto", widthClass, className)}>{children}</div>
-  );
+  return <div className={cn("mx-auto", widthClass, className)}>{children}</div>;
 }

@@ -28,12 +28,7 @@ import {
   Linkedin,
   Heart,
 } from "lucide-react";
-import {
-  SiFacebook,
-  SiX,
-  SiInstagram,
-  SiYoutube,
-} from "react-icons/si";
+import { SiFacebook, SiX, SiInstagram, SiYoutube } from "react-icons/si";
 import {
   aboutIcons,
   programIcons,
@@ -1532,7 +1527,9 @@ export function Layout() {
             </div>
 
             <div className="lg:col-span-2">
-              <h3 className="font-semibold mb-4 text-foreground">Quick Links</h3>
+              <h3 className="font-semibold mb-4 text-foreground">
+                Quick Links
+              </h3>
               <ul className="space-y-2.5 text-sm">
                 <li>
                   <Link
@@ -1570,7 +1567,9 @@ export function Layout() {
             </div>
 
             <div className="lg:col-span-2">
-              <h3 className="font-semibold mb-4 text-foreground">Get Involved</h3>
+              <h3 className="font-semibold mb-4 text-foreground">
+                Get Involved
+              </h3>
               <ul className="space-y-2.5 text-sm">
                 <li>
                   <Link

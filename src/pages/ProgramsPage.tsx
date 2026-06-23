@@ -169,9 +169,7 @@ function ProgramBlock({
         <div className="space-y-8">
           <ScrollReveal delay={100}>
             <GetInvolvedIntroCard>
-              <h3 className="c2r-card-title">
-                A Story of {program.chapter}
-              </h3>
+              <h3 className="c2r-card-title">A Story of {program.chapter}</h3>
               <p className="c2r-prose italic">{program.story}</p>
             </GetInvolvedIntroCard>
           </ScrollReveal>
@@ -333,7 +331,9 @@ export default function ProgramsPage() {
                 >
                   <Card className="h-full cursor-pointer border border-border/60 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
                     <CardContent className="flex h-full flex-col items-center gap-4 pt-8 pb-8 text-center">
-                      <program.icon className={`${ICON.nav} text-c2r-primary`} />
+                      <program.icon
+                        className={`${ICON.nav} text-c2r-primary`}
+                      />
                       <h3 className="c2r-card-title leading-snug">
                         {program.shortTitle}
                       </h3>

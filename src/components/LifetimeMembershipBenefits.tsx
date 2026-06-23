@@ -20,7 +20,9 @@ export function LifetimeMembershipBenefits() {
               delay={index * 60}
               direction="up"
               className={`w-full sm:w-[calc(50%-0.5rem)] ${
-                isLastOdd ? "sm:max-w-md lg:max-w-[calc(50%-0.5rem)]" : "lg:max-w-[calc(50%-0.5rem)]"
+                isLastOdd
+                  ? "sm:max-w-md lg:max-w-[calc(50%-0.5rem)]"
+                  : "lg:max-w-[calc(50%-0.5rem)]"
               }`}
             >
               <Card className="h-full border border-border/60 shadow-sm transition-all duration-300 hover:border-c2r-primary/30 hover:shadow-md">

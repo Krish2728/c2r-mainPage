@@ -55,9 +55,7 @@ const milestones: Milestone[] = [
     description:
       "We developed our core mentorship curriculum and established partnerships with educational institutions.",
     icon: MdGroups,
-    image: getImageUrl(
-      "/assets/generated/team-collaboration.dim_800x500.jpg",
-    ),
+    image: getImageUrl("/assets/generated/team-collaboration.dim_800x500.jpg"),
     highlights: [
       "Structured mentorship curriculum created",
       "Partnership with first 3 colleges",
@@ -70,9 +68,7 @@ const milestones: Milestone[] = [
     description:
       "Despite pandemic challenges, we pivoted to virtual mentorship and expanded our reach across multiple states.",
     icon: MdTrendingUp,
-    image: getImageUrl(
-      "/assets/generated/mentorship-workshop.dim_800x600.jpg",
-    ),
+    image: getImageUrl("/assets/generated/mentorship-workshop.dim_800x600.jpg"),
     highlights: [
       "Transitioned to virtual mentorship platform",
       "Expanded to 8 states",
@@ -98,9 +94,7 @@ const milestones: Milestone[] = [
     description:
       "We strengthened our programs, expanded partnerships, and achieved significant milestones in student outcomes.",
     icon: MdVerified,
-    image: getImageUrl(
-      "/assets/generated/volunteer-mentoring.dim_800x500.jpg",
-    ),
+    image: getImageUrl("/assets/generated/volunteer-mentoring.dim_800x500.jpg"),
     highlights: [
       "Crossed 2,000 students mentored",
       "50+ volunteer mentors",

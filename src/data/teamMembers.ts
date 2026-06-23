@@ -8,6 +8,8 @@ export type TeamMember = {
   photoUrl?: string;
   /** Optional class for photo (e.g. zoom out) */
   photoClass?: string;
+  /** Two-line summary shown on avatar hover; falls back to first two sentences of bio */
+  summary?: [string, string?];
 };
 
 export type TeamCategory = {
