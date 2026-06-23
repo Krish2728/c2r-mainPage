@@ -1,36 +1,42 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "@tanstack/react-router";
-import {
-  HandHelping,
-  ArrowRight,
-  Award,
-  BadgeCheck,
-  Users,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { MdEmojiEvents, MdVerified, MdGroups } from "react-icons/md";
+import { getInvolvedIcons, ICON } from "@/lib/siteIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { ParallaxSection } from "@/components/ParallaxSection";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import { VolunteerRoleCategories } from "@/components/VolunteerRoleCategories";
 import { YouthUnemploymentStats } from "@/components/YouthUnemploymentStats";
 import { VolunteerClosingCTA } from "@/components/VolunteerClosingCTA";
 import { getImageUrl } from "@/lib/images";
+import {
+  GI_PAGE,
+  GI_BTN_HERO,
+  GetInvolvedHero,
+  GetInvolvedSection,
+  GetInvolvedIntroCard,
+  GetInvolvedBenefitGrid,
+  GetInvolvedSectionCta,
+  GetInvolvedContentWidth,
+} from "@/components/get-involved/GetInvolvedLayout";
+
+const VolunteerIcon = getInvolvedIcons.volunteer;
 
 const volunteerBenefits = [
   {
-    icon: Award,
+    icon: MdEmojiEvents,
     title: "Certificate of Volunteering",
     description:
       "Official recognition from Connect2Roots for your time and contribution.",
   },
   {
-    icon: BadgeCheck,
+    icon: MdVerified,
     title: "Platform recognition",
     description:
       "Acknowledgement across our community for the impact you help create.",
   },
   {
-    icon: Users,
+    icon: MdGroups,
     title: "Changemaker network",
     description:
       "Access to an exclusive network of professionals giving back across India.",
@@ -41,47 +47,33 @@ export default function GetInvolvedOtherVolunteeringPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col overflow-hidden">
-      <section className="relative min-h-[50vh] flex items-center overflow-hidden">
-        <ParallaxSection speed={0.3} className="absolute inset-0">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${getImageUrl("/assets/generated/team-collaboration.dim_800x500.jpg")})`,
-            }}
-          />
-          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
-        </ParallaxSection>
-        <div className="container relative z-10 py-20">
-          <div className="mx-auto max-w-3xl text-white">
-            <ChapterHeader
-              variant="hero"
-              chapter="Volunteer"
-              title="Why Volunteer at Connect2Roots"
-              subtitle="Your expertise can open doors that talent alone cannot."
-              icon={<HandHelping className="h-8 w-8" />}
-            />
-            <div className="mt-8 flex justify-center">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="text-lg px-8 py-6"
-                onClick={() => navigate({ to: "/contact", hash: "volunteer" })}
-              >
-                Apply as a Volunteer
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div className={GI_PAGE}>
+      <GetInvolvedHero
+        backgroundImage={getImageUrl(
+          "/assets/generated/team-collaboration.dim_800x500.jpg",
+        )}
+        chapter="Volunteer"
+        title="Why Volunteer at Connect2Roots"
+        subtitle="Your expertise can open doors that talent alone cannot."
+        icon={<VolunteerIcon className={ICON.hero} />}
+      >
+        <Button
+          size="lg"
+          variant="secondary"
+          className={GI_BTN_HERO}
+          onClick={() => navigate({ to: "/contact", hash: "volunteer" })}
+        >
+          Apply as a Volunteer
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
+      </GetInvolvedHero>
 
-      <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/30">
-        <div className="container">
-          <div className="max-w-4xl mx-auto space-y-10">
+      <GetInvolvedSection variant="gradient">
+        <GetInvolvedContentWidth size="content">
+          <div className="space-y-8">
             <ScrollReveal delay={100}>
-              <div className="rounded-2xl border border-border bg-gradient-to-br from-muted/40 to-background p-6 md:p-8 shadow-sm space-y-5">
-                <p className="text-base font-medium text-foreground leading-relaxed">
+              <GetInvolvedIntroCard>
+                <p className="text-base font-medium leading-relaxed text-foreground">
                   Volunteering with Connect2Roots goes far beyond one-on-one
                   mentoring. Whether you&apos;re a designer, a data analyst, a
                   corporate professional, or simply someone with a skill worth
@@ -100,61 +92,34 @@ export default function GetInvolvedOtherVolunteeringPage() {
                   helped them prepare. You invest a few hours; a student gains a
                   future.
                 </p>
-              </div>
+              </GetInvolvedIntroCard>
             </ScrollReveal>
-
-            <ScrollReveal delay={150}>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
-                {volunteerBenefits.map((item, index) => (
-                  <Card
-                    key={index}
-                    className="h-full border border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300"
-                  >
-                    <CardContent className="p-4">
-                      <item.icon className="h-8 w-8 mb-3 text-c2r-primary" />
-                      <h3 className="text-sm font-semibold text-foreground mb-2 leading-snug">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs leading-relaxed text-muted-foreground m-0">
-                        {item.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </ScrollReveal>
+            <GetInvolvedBenefitGrid
+              items={volunteerBenefits}
+              columns="grid-cols-1 sm:grid-cols-3"
+              delay={150}
+            />
           </div>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      <section className="py-12 md:py-16">
-        <div className="container">
-          <ChapterHeader
-            chapter="Ways to Contribute"
-            title="Here's how you can contribute"
-            subtitle="Find a role that fits your skills, schedule, and passion."
-            icon={<HandHelping className="h-8 w-8" />}
-          />
-
+      <GetInvolvedSection>
+        <ChapterHeader
+          chapter="Ways to Contribute"
+          title="Here's how you can contribute"
+          subtitle="Find a role that fits your skills, schedule, and passion."
+          icon={<VolunteerIcon className={ICON.hero} />}
+        />
+        <GetInvolvedContentWidth size="wide">
           <VolunteerRoleCategories />
-
-          <ScrollReveal delay={200}>
-            <div className="text-center mt-12">
-              <Button
-                size="lg"
-                className="text-lg px-8 py-6"
-                onClick={() => navigate({ to: "/contact", hash: "volunteer" })}
-              >
-                Apply as a Volunteer
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+          <GetInvolvedSectionCta
+            label="Apply as a Volunteer"
+            onClick={() => navigate({ to: "/contact", hash: "volunteer" })}
+          />
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
       <YouthUnemploymentStats />
-
       <VolunteerClosingCTA />
     </div>
   );

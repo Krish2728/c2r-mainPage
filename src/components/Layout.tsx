@@ -17,27 +17,16 @@ import {
   ChevronDown,
   ChevronRight,
   Users,
-  Target,
-  Briefcase,
-  Award,
   MapPin,
-  Compass,
   BookOpen,
   UserCircle,
   LogOut,
-  GraduationCap,
-  TrendingUp,
-  Lightbulb,
-  Globe,
-  Mail,
-  Heart,
   LayoutGrid,
   Video,
   FileText,
   Calendar,
-  Handshake,
-  HandHelping,
   Linkedin,
+  Heart,
 } from "lucide-react";
 import {
   SiFacebook,
@@ -45,8 +34,59 @@ import {
   SiInstagram,
   SiYoutube,
 } from "react-icons/si";
+import {
+  aboutIcons,
+  programIcons,
+  mentorshipIcons,
+  sepfIcons,
+  contactIcons,
+  getInvolvedIcons,
+} from "@/lib/siteIcons";
 import { useState, useEffect, useRef } from "react";
 import { Toaster } from "@/components/ui/sonner";
+
+const FOOTER_CONTACT_EMAILS = [
+  {
+    label: "General",
+    addresses: ["info@connect2roots.org", "connect2rootsindia@gmail.com"],
+  },
+  {
+    label: "Volunteering",
+    addresses: ["volunteer@connect2roots.org"],
+  },
+  {
+    label: "CSR & Partnerships",
+    addresses: ["csr@connect2roots.org"],
+  },
+] as const;
+
+const FOOTER_SOCIAL_LINKS = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/share/1DwzSkCk6U/",
+    Icon: SiFacebook,
+  },
+  {
+    label: "X (Twitter)",
+    href: "https://twitter.com",
+    Icon: SiX,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/connect2roots/",
+    Icon: Linkedin,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/connect2rootsfoundation/",
+    Icon: SiInstagram,
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@connect2rootsacademy",
+    Icon: SiYoutube,
+  },
+] as const;
 
 const COURSE_ACCESS_KEY = "c2r_free_course_access";
 
@@ -277,21 +317,21 @@ export function Layout() {
       description: "Career guidance and mentorship",
       path: "/programs",
       hash: "career-catalyst",
-      icon: GraduationCap,
+      icon: programIcons.career,
     },
     {
       label: "C2R Skill Development Program",
       description: "Industry-relevant training and certifications",
       path: "/programs",
       hash: "skill-development",
-      icon: Briefcase,
+      icon: programIcons.skills,
     },
     {
       label: "C2R Livelihoods & Entrepreneurship Support",
       description: "Entrepreneurship and sustainable ventures",
       path: "/programs",
       hash: "livelihoods",
-      icon: TrendingUp,
+      icon: programIcons.livelihoods,
     },
   ];
 
@@ -301,21 +341,21 @@ export function Layout() {
       description: "The power of connection",
       path: "/mentorship",
       hash: "why-mentorship",
-      icon: Target,
+      icon: mentorshipIcons.why,
     },
     {
       label: "Become a Mentee",
       description: "Your journey begins here",
       path: "/mentorship",
       hash: "mentee",
-      icon: UserCircle,
+      icon: mentorshipIcons.mentee,
     },
     {
       label: "Become a Mentor",
       description: "Share your light",
       path: "/mentorship",
       hash: "mentor",
-      icon: Users,
+      icon: mentorshipIcons.mentor,
     },
   ];
 
@@ -325,28 +365,28 @@ export function Layout() {
       description: "Our mission and what we do",
       path: "/sepf",
       hash: "our-mission",
-      icon: Lightbulb,
+      icon: sepfIcons.mission,
     },
     {
       label: "UN Sustainable Development Goals",
       description: "Global impact alignment",
       path: "/sepf",
       hash: "sdgs",
-      icon: Globe,
+      icon: sepfIcons.sdgs,
     },
     {
       label: "Five Core Skill Clusters",
       description: "Future-ready skills",
       path: "/sepf",
       hash: "focus-areas",
-      icon: Briefcase,
+      icon: sepfIcons.skills,
     },
     {
       label: "Join Us in Shaping the Future",
       description: "Collaborate with SEPF",
       path: "/sepf",
       hash: "join-sepf",
-      icon: Target,
+      icon: sepfIcons.join,
     },
   ];
 
@@ -408,21 +448,21 @@ export function Layout() {
       description: "Send us a message",
       path: "/contact",
       hash: "general",
-      icon: Mail,
+      icon: contactIcons.general,
     },
     {
       label: "CSR / Partnership",
       description: "Partner with us",
       path: "/get-involved/corporate-partnerships",
       hash: undefined,
-      icon: Briefcase,
+      icon: contactIcons.partnership,
     },
     {
       label: "Volunteer",
       description: "Join as a volunteer",
       path: "/contact",
       hash: "volunteer",
-      icon: Heart,
+      icon: contactIcons.volunteer,
     },
   ];
 
@@ -464,37 +504,37 @@ export function Layout() {
     {
       label: "Who We Are",
       path: "/about/who-we-are",
-      icon: Users,
+      icon: aboutIcons.whoWeAre,
       description: "Our mission and founding story",
     },
     {
       label: "Vision & Mission",
       path: "/about/vision-mission",
-      icon: Target,
+      icon: aboutIcons.visionMission,
       description: "Our guiding principles",
     },
     {
       label: "Our Team",
       path: "/about/our-team",
-      icon: Briefcase,
+      icon: aboutIcons.team,
       description: "Meet the people behind C2R",
     },
     {
       label: "Our Working Model",
       path: "/about/working-model",
-      icon: Award,
+      icon: aboutIcons.workingModel,
       description: "How we create impact",
     },
     {
       label: "Our Values",
       path: "/about/our-values",
-      icon: Compass,
+      icon: aboutIcons.values,
       description: "What drives us forward",
     },
     {
       label: "Journey",
       path: "/about/journey",
-      icon: MapPin,
+      icon: aboutIcons.journey,
       description: "Our story and milestones",
     },
   ];
@@ -503,31 +543,31 @@ export function Layout() {
     {
       label: "Mentor",
       path: "/get-involved/volunteer",
-      icon: Users,
+      icon: getInvolvedIcons.mentor,
       description: "Become a mentor",
     },
     {
       label: "Volunteer",
       path: "/get-involved/other-volunteering-roles",
-      icon: HandHelping,
+      icon: getInvolvedIcons.volunteer,
       description: "Workshops, design, outreach & more",
     },
     {
       label: "Corporate Partnerships",
       path: "/get-involved/corporate-partnerships",
-      icon: Briefcase,
+      icon: getInvolvedIcons.corporate,
       description: "Partner for impact",
     },
     {
       label: "Other Alliances",
       path: "/get-involved/other-alliances",
-      icon: Handshake,
+      icon: getInvolvedIcons.alliances,
       description: "Universities & NGOs",
     },
     {
       label: "Lifetime Membership",
       path: "/get-involved/lifetime-membership",
-      icon: UserCircle,
+      icon: getInvolvedIcons.membership,
       description: "Join our professional community",
     },
   ];
@@ -1458,24 +1498,42 @@ export function Layout() {
       </main>
 
       <footer className="border-t bg-muted/30">
-        <div className="container py-12">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            <div>
+        <div className="container py-12 md:py-14">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+            <div className="sm:col-span-2 lg:col-span-3">
               <div className="flex flex-col gap-2 items-start">
                 <img
                   src="/logo.png"
                   alt="Connect2Roots Logo"
                   className="h-11 w-auto max-w-[180px] object-contain object-left"
                 />
-                <p className="text-sm font-medium text-foreground leading-tight">
+                <p className="text-sm font-medium text-foreground leading-relaxed max-w-xs">
                   Empowering Communities for a Brighter Future
                 </p>
               </div>
+              <div className="mt-5 max-w-xs border-t border-border/60 pt-5">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground/70">
+                  Office
+                </p>
+                <address className="not-italic text-sm text-muted-foreground leading-relaxed">
+                  <div className="mb-2 flex items-center gap-2">
+                    <MapPin className="h-4 w-4 shrink-0 text-c2r-primary" />
+                    <span className="font-medium text-foreground">
+                      Connect2Roots Foundation
+                    </span>
+                  </div>
+                  <p className="pl-6">
+                    Yemalur, Kariammana Agrahara Road
+                    <br />
+                    Bengaluru 560037, Karnataka
+                  </p>
+                </address>
+              </div>
             </div>
 
-            <div>
-              <h3 className="font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-sm">
+            <div className="lg:col-span-2">
+              <h3 className="font-semibold mb-4 text-foreground">Quick Links</h3>
+              <ul className="space-y-2.5 text-sm">
                 <li>
                   <Link
                     to="/about/who-we-are"
@@ -1511,9 +1569,9 @@ export function Layout() {
               </ul>
             </div>
 
-            <div>
-              <h3 className="font-semibold mb-4">Get Involved</h3>
-              <ul className="space-y-2 text-sm">
+            <div className="lg:col-span-2">
+              <h3 className="font-semibold mb-4 text-foreground">Get Involved</h3>
+              <ul className="space-y-2.5 text-sm">
                 <li>
                   <Link
                     to="/get-involved"
@@ -1565,71 +1623,56 @@ export function Layout() {
               </ul>
             </div>
 
-            <div>
-              <h3 className="font-semibold mb-4">Find Us On</h3>
-              <div className="flex gap-3 mb-4">
-                <a
-                  href="https://www.facebook.com/share/1DwzSkCk6U/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="Facebook"
-                >
-                  <SiFacebook className="h-6 w-6" />
-                </a>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="X (Twitter)"
-                >
-                  <SiX className="h-6 w-6" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/connect2roots/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="h-6 w-6" />
-                </a>
-                <a
-                  href="https://www.instagram.com/connect2rootsfoundation/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="Instagram"
-                >
-                  <SiInstagram className="h-6 w-6" />
-                </a>
-                <a
-                  href="https://www.youtube.com/@connect2rootsacademy"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="YouTube"
-                >
-                  <SiYoutube className="h-6 w-6" />
-                </a>
+            <div className="sm:col-span-2 lg:col-span-2">
+              <h3 className="font-semibold mb-4 text-foreground">Contact</h3>
+              <ul className="space-y-4">
+                {FOOTER_CONTACT_EMAILS.map((group) => (
+                  <li key={group.label} className="space-y-1.5">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-foreground/70">
+                      {group.label}
+                    </p>
+                    <ul className="space-y-1">
+                      {group.addresses.map((email) => (
+                        <li key={email}>
+                          <a
+                            href={`mailto:${email}`}
+                            className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
+                          >
+                            {email}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="sm:col-span-2 lg:col-span-3">
+              <h3 className="font-semibold mb-4 text-foreground">Follow Us</h3>
+              <p className="mb-4 text-sm text-muted-foreground leading-relaxed max-w-xs lg:max-w-sm">
+                Connect with us on social media for updates and stories from the
+                community.
+              </p>
+              <div className="grid grid-cols-5 gap-1.5 w-fit max-w-full">
+                {FOOTER_SOCIAL_LINKS.map(({ label, href, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-background text-muted-foreground transition-colors hover:border-c2r-primary/40 hover:text-primary sm:h-10 sm:w-10"
+                  >
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </a>
+                ))}
               </div>
-              <p className="text-sm text-muted-foreground">
-                General: info@connect2roots.org, connect2rootsindia@gmail.com ·
-                Volunteer: volunteer@connect2roots.org · CSR:
-                csr@connect2roots.org
-              </p>
-              <p className="text-sm text-muted-foreground mt-2">
-                Connect2Roots Foundation, Yemalur, Kariammana Agrahara Road,
-                Bengaluru- 560037, Karnataka
-              </p>
             </div>
           </div>
 
-          <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-            <p className="flex items-center justify-center gap-1 flex-wrap">
-              All Rights Reserved © 2026.
-            </p>
+          <div className="mt-10 pt-8 border-t text-center text-sm text-muted-foreground">
+            <p>All Rights Reserved © 2026.</p>
           </div>
         </div>
       </footer>

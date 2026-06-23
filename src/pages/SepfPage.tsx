@@ -1,5 +1,18 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
+import type { IconType } from "react-icons";
+import {
+  MdEco,
+  MdFavorite,
+  MdRocketLaunch,
+  MdLocationOn,
+  MdTrackChanges,
+  MdCampaign,
+  MdGroups,
+  MdLightbulb,
+} from "react-icons/md";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { sepfIcons, ICON } from "@/lib/siteIcons";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { getImageUrl } from "@/lib/images";
@@ -15,178 +28,263 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import {
-  Lightbulb,
-  Target,
-  Users,
-  TrendingUp,
-  Globe,
-  Briefcase,
-  Leaf,
-  Heart,
-  Rocket,
-  MapPin,
-} from "lucide-react";
-import { ParallaxSection } from "@/components/ParallaxSection";
+  GI_PAGE,
+  GI_BTN_HERO,
+  GI_BTN_PRIMARY,
+  GetInvolvedHero,
+  GetInvolvedSection,
+  GetInvolvedIntroCard,
+  GetInvolvedContentWidth,
+} from "@/components/get-involved/GetInvolvedLayout";
 
-const SEPF_SECTION_IDS = ["our-mission", "sdgs", "focus-areas", "join-sepf"];
+const SEPF_SECTION_IDS = [
+  "our-mission",
+  "sdgs",
+  "focus-areas",
+  "join-sepf",
+] as const;
+
+const navItems: {
+  slug: (typeof SEPF_SECTION_IDS)[number];
+  title: string;
+  description: string;
+  icon: IconType;
+}[] = [
+  {
+    slug: "our-mission",
+    title: "Shaping the Future of Work",
+    description: "Our mission and what we do",
+    icon: sepfIcons.mission,
+  },
+  {
+    slug: "sdgs",
+    title: "UN Sustainable Development Goals",
+    description: "Global impact alignment",
+    icon: sepfIcons.sdgs,
+  },
+  {
+    slug: "focus-areas",
+    title: "Five Core Skill Clusters",
+    description: "Future-ready skills",
+    icon: sepfIcons.skills,
+  },
+  {
+    slug: "join-sepf",
+    title: "Join Us in Shaping the Future",
+    description: "Collaborate with SEPF",
+    icon: sepfIcons.join,
+  },
+];
+
+const sdgs = [
+  {
+    number: 4,
+    title: "Quality Education",
+    description:
+      "Ensuring inclusive and equitable quality education and promoting lifelong learning opportunities for all.",
+    image: getImageUrl("/assets/generated/sdg-4-education.dim_200x200.png"),
+  },
+  {
+    number: 8,
+    title: "Decent Work and Economic Growth",
+    description:
+      "Promoting sustained, inclusive, and sustainable economic growth, full and productive employment, and decent work for all.",
+    image: getImageUrl("/assets/generated/sdg-8-work.dim_200x200.png"),
+  },
+  {
+    number: 9,
+    title: "Industry, Innovation, and Infrastructure",
+    description:
+      "Building resilient infrastructure, promoting inclusive and sustainable industrialization, and fostering innovation.",
+    image: getImageUrl("/assets/generated/sdg-9-innovation.dim_200x200.png"),
+  },
+  {
+    number: 10,
+    title: "Reduced Inequalities",
+    description:
+      "Reducing inequality within and among countries through equitable access to opportunities.",
+    image: getImageUrl("/assets/generated/sdg-10-equality.dim_200x200.png"),
+  },
+  {
+    number: 17,
+    title: "Partnerships for the Goals",
+    description:
+      "Strengthening the means of implementation and revitalizing global partnerships for sustainable development.",
+    image: getImageUrl(
+      "/assets/generated/sdg-17-partnerships.dim_200x200.png",
+    ),
+  },
+];
+
+const skillClusters = [
+  {
+    title: "Digital Skills",
+    description:
+      "Empowering youth with coding, data analytics, AI literacy, and digital marketing capabilities for the tech-driven future.",
+    icon: MdTrackChanges,
+    image: getImageUrl("/assets/generated/digital-skills.dim_400x300.jpg"),
+  },
+  {
+    title: "Sustainability Skills",
+    description:
+      "Building awareness and competencies in green technologies, circular economy, and climate-conscious practices.",
+    icon: MdEco,
+    image: getImageUrl(
+      "/assets/generated/sustainability-skills.dim_400x300.jpg",
+    ),
+  },
+  {
+    title: "Human Skills",
+    description:
+      "Cultivating critical thinking, emotional intelligence, communication, and adaptability for collaborative work environments.",
+    icon: MdFavorite,
+    image: getImageUrl("/assets/generated/human-skills.dim_400x300.jpg"),
+  },
+  {
+    title: "Entrepreneurship Skills",
+    description:
+      "Fostering innovation mindset, business acumen, and self-employment capabilities for creating sustainable livelihoods.",
+    icon: MdRocketLaunch,
+    image: getImageUrl(
+      "/assets/generated/entrepreneurship-skills.dim_400x300.jpg",
+    ),
+  },
+  {
+    title: "Local Livelihood Skills",
+    description:
+      "Strengthening traditional crafts, agriculture tech, and community-based enterprises rooted in local contexts.",
+    icon: MdLocationOn,
+    image: getImageUrl("/assets/generated/livelihood-skills.dim_400x300.jpg"),
+  },
+];
+
+const contributionAreas = [
+  {
+    icon: MdCampaign,
+    title: "Policy Advocacy",
+    description:
+      "We engage with government bodies, educational institutions, and industry leaders to advocate for policies that expand access to quality career guidance and skill development. Our research briefs inform policy decisions at state and national levels, ensuring the voices of first-generation learners are heard in corridors of power.",
+  },
+  {
+    icon: MdLightbulb,
+    title: "Research & Insights",
+    description:
+      "Our research team conducts longitudinal studies tracking career outcomes, analyzes labor market trends, and publishes white papers on emerging skill demands. We translate complex data into actionable insights that inform curriculum design, mentor training, and student guidance across the Connect2Roots ecosystem.",
+  },
+  {
+    icon: MdGroups,
+    title: "Strategic Partnerships",
+    description:
+      "SEPF convenes industry leaders, academic institutions, and civil society organizations to co-create solutions for youth employability. Through multi-stakeholder forums, we facilitate knowledge exchange, pilot innovative programs, and scale proven interventions that bridge the gap between education and employment.",
+  },
+];
+
+function scrollToSection(slug: string) {
+  document.getElementById(slug)?.scrollIntoView({ behavior: "smooth" });
+}
+
+function BulletList({ items }: { items: { label: string; text: string }[] }) {
+  return (
+    <ul className="space-y-3">
+      {items.map((item) => (
+        <li key={item.label} className="flex items-start gap-2">
+          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-c2r-primary" />
+          <p className="text-sm text-muted-foreground sm:text-base">
+            <strong className="text-foreground">{item.label}:</strong>{" "}
+            {item.text}
+          </p>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function SepfPage() {
   const location = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const hash = (location.hash ?? window.location.hash ?? "").replace(
       /^#/,
       "",
     );
-    if (!SEPF_SECTION_IDS.includes(hash)) return;
-    const timeoutId = setTimeout(() => {
-      const el = document.getElementById(hash);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
+    if (!SEPF_SECTION_IDS.includes(hash as (typeof SEPF_SECTION_IDS)[number]))
+      return;
+    const timeoutId = setTimeout(() => scrollToSection(hash), 100);
     return () => clearTimeout(timeoutId);
   }, [location.hash, location.pathname]);
 
-  const sdgs = [
-    {
-      number: 4,
-      title: "Quality Education",
-      description:
-        "Ensuring inclusive and equitable quality education and promoting lifelong learning opportunities for all.",
-      image: getImageUrl("/assets/generated/sdg-4-education.dim_200x200.png"),
-    },
-    {
-      number: 8,
-      title: "Decent Work and Economic Growth",
-      description:
-        "Promoting sustained, inclusive, and sustainable economic growth, full and productive employment, and decent work for all.",
-      image: getImageUrl("/assets/generated/sdg-8-work.dim_200x200.png"),
-    },
-    {
-      number: 9,
-      title: "Industry, Innovation, and Infrastructure",
-      description:
-        "Building resilient infrastructure, promoting inclusive and sustainable industrialization, and fostering innovation.",
-      image: getImageUrl("/assets/generated/sdg-9-innovation.dim_200x200.png"),
-    },
-    {
-      number: 10,
-      title: "Reduced Inequalities",
-      description:
-        "Reducing inequality within and among countries through equitable access to opportunities.",
-      image: getImageUrl("/assets/generated/sdg-10-equality.dim_200x200.png"),
-    },
-    {
-      number: 17,
-      title: "Partnerships for the Goals",
-      description:
-        "Strengthening the means of implementation and revitalizing global partnerships for sustainable development.",
-      image: getImageUrl(
-        "/assets/generated/sdg-17-partnerships.dim_200x200.png",
-      ),
-    },
-  ];
-
-  const skillClusters = [
-    {
-      title: "Digital Skills",
-      description:
-        "Empowering youth with coding, data analytics, AI literacy, and digital marketing capabilities for the tech-driven future.",
-      icon: <Target className="h-8 w-8 text-c2r-primary flex-shrink-0" />,
-      image: getImageUrl("/assets/generated/digital-skills.dim_400x300.jpg"),
-    },
-    {
-      title: "Sustainability Skills",
-      description:
-        "Building awareness and competencies in green technologies, circular economy, and climate-conscious practices.",
-      icon: <Leaf className="h-8 w-8 text-green-600 flex-shrink-0" />,
-      image: getImageUrl(
-        "/assets/generated/sustainability-skills.dim_400x300.jpg",
-      ),
-    },
-    {
-      title: "Human Skills",
-      description:
-        "Cultivating critical thinking, emotional intelligence, communication, and adaptability for collaborative work environments.",
-      icon: <Heart className="h-8 w-8 text-c2r-accent flex-shrink-0" />,
-      image: getImageUrl("/assets/generated/human-skills.dim_400x300.jpg"),
-    },
-    {
-      title: "Entrepreneurship Skills",
-      description:
-        "Fostering innovation mindset, business acumen, and self-employment capabilities for creating sustainable livelihoods.",
-      icon: <Rocket className="h-8 w-8 text-c2r-secondary flex-shrink-0" />,
-      image: getImageUrl(
-        "/assets/generated/entrepreneurship-skills.dim_400x300.jpg",
-      ),
-    },
-    {
-      title: "Local Livelihood Skills",
-      description:
-        "Strengthening traditional crafts, agriculture tech, and community-based enterprises rooted in local contexts.",
-      icon: <MapPin className="h-8 w-8 text-amber-600 flex-shrink-0" />,
-      image: getImageUrl("/assets/generated/livelihood-skills.dim_400x300.jpg"),
-    },
-  ];
-
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <ParallaxSection speed={0.3} className="absolute inset-0">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${getImageUrl("/assets/generated/policy-research.dim_600x400.jpg")})`,
-            }}
-          />
-          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
-        </ParallaxSection>
-        <div className="container relative z-10 py-20">
-          <ScrollReveal direction="fade">
-            <div className="text-center max-w-4xl mx-auto text-white">
-              <div className="inline-block mb-6 px-6 py-2 bg-white/20 backdrop-blur-sm rounded-full">
-                <span className="text-sm font-semibold text-white uppercase tracking-wider">
-                  Policy & Research
-                </span>
-              </div>
-              <h1 className="heading-descender-safe text-4xl md:text-6xl font-bold mb-6">
-                C2R SEPF
-              </h1>
-              <p className="c2r-hero-subtitle font-semibold mb-4">
-                Skills & Entrepreneurship Policy Forum
-              </p>
-              <p className="c2r-hero-subtitle">
-                The foresight, research, and policy arm of Connect2Roots —
-                bridging aspirations with opportunities through evidence-based
-                insights and collaborative action.
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+    <div className={GI_PAGE}>
+      <GetInvolvedHero
+        backgroundImage={getImageUrl(
+          "/assets/generated/policy-research.dim_600x400.jpg",
+        )}
+        chapter="Policy & Research"
+        title="C2R SEPF"
+        subtitle="Skills & Entrepreneurship Policy Forum — the foresight, research, and policy arm of Connect2Roots, bridging aspirations with opportunities through evidence-based insights and collaborative action."
+        icon={<sepfIcons.hub className={ICON.hero} />}
+      >
+        <Button
+          size="lg"
+          variant="secondary"
+          className={GI_BTN_HERO}
+          onClick={() => scrollToSection("our-mission")}
+        >
+          Explore SEPF
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
+      </GetInvolvedHero>
 
-      {/* Overview Section */}
-      <section id="our-mission" className="py-20 bg-background">
-        <div className="container">
-          <ChapterHeader
-            chapter="Our Mission"
-            title="Shaping the Future of Work"
-            subtitle="SEPF serves as the strategic intelligence hub, analyzing emerging career pathways and advocating for policies that create sustainable opportunities for first-generation learners."
-            icon={<Lightbulb className="h-16 w-16 text-c2r-primary" />}
-          />
+      <GetInvolvedSection variant="gradient">
+        <GetInvolvedContentWidth size="wide">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {navItems.map((item, index) => (
+              <ScrollReveal key={item.slug} delay={index * 100}>
+                <button
+                  type="button"
+                  onClick={() => scrollToSection(item.slug)}
+                  className="block h-full w-full rounded-lg text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-c2r-primary focus-visible:ring-offset-2"
+                >
+                  <Card className="h-full cursor-pointer border border-border/60 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
+                    <CardContent className="flex h-full flex-col items-center gap-4 pt-8 pb-8 text-center">
+                      <item.icon className={`${ICON.nav} text-c2r-primary`} />
+                      <h3 className="c2r-card-title leading-snug">
+                        {item.title}
+                      </h3>
+                      <p className="c2r-prose-sm">{item.description}</p>
+                      <span className="inline-flex items-center gap-2 text-sm font-medium text-c2r-primary">
+                        Learn more
+                        <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </button>
+              </ScrollReveal>
+            ))}
+          </div>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-            <ScrollReveal direction="left" delay={100}>
-              <div>
-                <h3 className="heading-descender-safe text-3xl font-bold mb-6">
-                  What We Do
-                </h3>
-                <div className="space-y-4 c2r-prose">
+      <GetInvolvedSection id="our-mission">
+        <ChapterHeader
+          chapter="Our Mission"
+          title="Shaping the Future of Work"
+          subtitle="SEPF serves as the strategic intelligence hub, analyzing emerging career pathways and advocating for policies that create sustainable opportunities for first-generation learners."
+          icon={<sepfIcons.mission className={ICON.section} />}
+        />
+        <GetInvolvedContentWidth size="wide">
+          <div className="grid items-center gap-8 md:grid-cols-2">
+            <ScrollReveal delay={100}>
+              <div className="space-y-5">
+                <h3 className="c2r-card-title">What We Do</h3>
+                <GetInvolvedIntroCard>
                   <p className="c2r-prose">
                     SEPF conducts deep research into the evolving landscape of
                     skills, entrepreneurship, and employment. We identify
                     future-ready career pathways and translate complex labor
-                    market trends into actionable guidance for youth, educators,
-                    and policymakers.
+                    market trends into actionable guidance for youth,
+                    educators, and policymakers.
                   </p>
                   <p className="c2r-prose">
                     Through partnerships with industry, academia, and
@@ -195,129 +293,104 @@ export default function SepfPage() {
                     information or opportunity.
                   </p>
                   <p className="c2r-prose">
-                    Our work informs Connect2Roots' mentorship curriculum,
+                    Our work informs Connect2Roots&apos; mentorship curriculum,
                     ensuring every conversation between mentor and mentee is
                     grounded in real-world relevance and forward-looking
                     insights.
                   </p>
-                </div>
+                </GetInvolvedIntroCard>
               </div>
             </ScrollReveal>
-
-            <ScrollReveal direction="right" delay={200}>
-              <div className="relative">
-                <img
-                  src={getImageUrl(
-                    "/assets/generated/policy-research.dim_600x400.jpg",
-                  )}
-                  alt="Policy Research"
-                  className="rounded-lg shadow-2xl w-full"
-                />
-                <div className="absolute -bottom-6 -right-6 bg-c2r-accent text-white p-6 rounded-lg shadow-xl max-w-xs">
-                  <p className="font-semibold text-lg">
-                    Evidence-based insights driving real impact
-                  </p>
-                </div>
-              </div>
+            <ScrollReveal delay={150}>
+              <img
+                src={getImageUrl(
+                  "/assets/generated/policy-research.dim_600x400.jpg",
+                )}
+                alt="Policy Research"
+                className="w-full rounded-xl border border-border/60 object-cover shadow-md"
+              />
             </ScrollReveal>
           </div>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      {/* UN SDGs Alignment Section */}
-      <section id="sdgs" className="py-20 bg-muted/30">
-        <div className="container">
-          <ChapterHeader
-            chapter="Global Impact"
-            title="Aligned with UN Sustainable Development Goals"
-            subtitle="Our work directly contributes to achieving the United Nations' vision for a more equitable and sustainable world."
-            icon={<Globe className="h-16 w-16 text-c2r-secondary" />}
-          />
-
-          <ScrollReveal direction="fade" delay={100}>
-            <div className="max-w-5xl mx-auto">
-              <Carousel
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-                className="w-full"
-              >
-                <CarouselContent>
-                  {sdgs.map((sdg) => (
-                    <CarouselItem
-                      key={sdg.number}
-                      className="md:basis-1/2 lg:basis-1/3"
-                    >
-                      <Card className="h-full hover:shadow-xl transition-shadow duration-300">
-                        <CardHeader>
-                          <div className="flex items-center gap-4 mb-4">
-                            <img
-                              src={sdg.image}
-                              alt={`SDG ${sdg.number}`}
-                              className="h-20 w-20"
-                            />
-                            <div>
-                              <div className="text-sm font-semibold text-c2r-accent mb-1">
-                                SDG {sdg.number}
-                              </div>
-                              <CardTitle className="text-xl">
-                                {sdg.title}
-                              </CardTitle>
+      <GetInvolvedSection id="sdgs" variant="muted">
+        <ChapterHeader
+          chapter="Global Impact"
+          title="Aligned with UN Sustainable Development Goals"
+          subtitle="Our work directly contributes to achieving the United Nations' vision for a more equitable and sustainable world."
+          icon={<sepfIcons.sdgs className={ICON.section} />}
+        />
+        <GetInvolvedContentWidth size="wide">
+          <ScrollReveal delay={100}>
+            <Carousel opts={{ align: "start", loop: true }} className="w-full">
+              <CarouselContent>
+                {sdgs.map((sdg) => (
+                  <CarouselItem
+                    key={sdg.number}
+                    className="md:basis-1/2 lg:basis-1/3"
+                  >
+                    <Card className="h-full border border-border/60 shadow-sm transition-shadow duration-300 hover:shadow-md">
+                      <CardHeader>
+                        <div className="mb-4 flex items-center gap-4">
+                          <img
+                            src={sdg.image}
+                            alt={`SDG ${sdg.number}`}
+                            className="h-20 w-20"
+                          />
+                          <div>
+                            <div className="mb-1 text-sm font-semibold text-c2r-accent">
+                              SDG {sdg.number}
                             </div>
+                            <CardTitle className="text-xl">
+                              {sdg.title}
+                            </CardTitle>
                           </div>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-muted-foreground">
-                            {sdg.description}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-              </Carousel>
-            </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground">
+                          {sdg.description}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </ScrollReveal>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      {/* Core Focus Areas Section - Five Core Skill Clusters (aligned under Shaping the Future of Work) */}
-      <section id="focus-areas" className="py-20 bg-background">
-        <div className="container max-w-7xl mx-auto">
-          <ChapterHeader
-            chapter="Future-Ready Skills"
-            title="Five Core Skill Clusters"
-            subtitle="Preparing youth for the multi-dimensional demands of tomorrow's workforce through comprehensive skill development."
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-3 items-stretch">
+      <GetInvolvedSection id="focus-areas">
+        <ChapterHeader
+          chapter="Future-Ready Skills"
+          title="Five Core Skill Clusters"
+          subtitle="Preparing youth for the multi-dimensional demands of tomorrow's workforce through comprehensive skill development."
+          icon={<sepfIcons.skills className={ICON.section} />}
+        />
+        <GetInvolvedContentWidth size="wide">
+          <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:gap-3">
             {skillClusters.map((cluster, index) => (
-              <ScrollReveal
-                key={cluster.title}
-                direction="up"
-                delay={index * 80}
-              >
-                <Card className="h-full flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-t-c2r-accent">
+              <ScrollReveal key={cluster.title} delay={index * 80}>
+                <Card className="flex h-full flex-col border border-border/60 shadow-sm transition-shadow duration-300 hover:shadow-md">
                   <CardHeader className="p-4 pb-2">
-                    <div className="flex justify-center mb-2">
-                      {cluster.icon}
-                    </div>
+                    <cluster.icon className="mx-auto mb-2 h-8 w-8 text-c2r-primary" />
                     <CardTitle className="text-center text-base font-semibold leading-tight">
                       {cluster.title}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="p-4 pt-0 flex-1 flex flex-col">
-                    <div className="mb-3 overflow-hidden rounded-md flex-shrink-0">
+                  <CardContent className="flex flex-1 flex-col p-4 pt-0">
+                    <div className="mb-3 flex-shrink-0 overflow-hidden rounded-md border border-border/40">
                       <img
                         src={cluster.image}
                         alt={cluster.title}
-                        className="w-full h-28 object-cover transform transition-transform duration-500 hover:scale-105"
+                        className="h-28 w-full object-cover transition-transform duration-500 hover:scale-105"
                       />
                     </div>
-                    <p className="text-muted-foreground text-center text-xs leading-snug flex-1">
+                    <p className="flex-1 text-center text-xs leading-snug text-muted-foreground">
                       {cluster.description}
                     </p>
                   </CardContent>
@@ -325,110 +398,91 @@ export default function SepfPage() {
               </ScrollReveal>
             ))}
           </div>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      {/* Youth & Future of Work Section */}
-      <section className="py-20 bg-gradient-to-br from-c2r-primary/5 to-c2r-secondary/5">
-        <div className="container">
-          <ChapterHeader
-            chapter="The Challenge"
-            title="Youth & the Future of Work"
-            subtitle="Understanding the seismic shifts reshaping careers and the unique challenges facing first-generation learners."
-            icon={<TrendingUp className="h-16 w-16 text-c2r-primary" />}
-          />
-
-          <div className="max-w-6xl mx-auto">
-            <ScrollReveal direction="fade" delay={100}>
-              <div className="relative mb-12">
-                <img
-                  src={getImageUrl(
-                    "/assets/generated/future-of-work.dim_800x500.jpg",
-                  )}
-                  alt="Future of Work"
-                  className="rounded-lg shadow-2xl w-full"
-                />
-              </div>
+      <GetInvolvedSection variant="muted">
+        <ChapterHeader
+          chapter="The Challenge"
+          title="Youth & the Future of Work"
+          subtitle="Understanding the seismic shifts reshaping careers and the unique challenges facing first-generation learners."
+          icon={<sepfIcons.future className={ICON.section} />}
+        />
+        <GetInvolvedContentWidth size="wide">
+          <ScrollReveal delay={100}>
+            <img
+              src={getImageUrl(
+                "/assets/generated/future-of-work.dim_800x500.jpg",
+              )}
+              alt="Future of Work"
+              className="mb-8 w-full rounded-xl border border-border/60 object-cover shadow-md"
+            />
+          </ScrollReveal>
+          <div className="grid gap-8 md:grid-cols-2">
+            <ScrollReveal delay={150}>
+              <Card className="h-full border border-border/60 shadow-sm">
+                <CardHeader>
+                  <CardTitle className="c2r-card-title">Global Shifts</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <BulletList
+                    items={[
+                      {
+                        label: "Automation & AI",
+                        text: "Routine jobs are disappearing while demand for creative, analytical, and interpersonal skills is surging.",
+                      },
+                      {
+                        label: "Gig Economy",
+                        text: "Traditional employment models are giving way to flexible, project-based work requiring entrepreneurial mindsets.",
+                      },
+                      {
+                        label: "Green Transition",
+                        text: "Climate action is creating millions of new jobs in renewable energy, sustainable agriculture, and circular economy.",
+                      },
+                    ]}
+                  />
+                </CardContent>
+              </Card>
             </ScrollReveal>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              <ScrollReveal direction="left" delay={200}>
-                <Card className="bg-gradient-to-br from-background to-muted/30">
-                  <CardHeader>
-                    <CardTitle className="text-2xl">Global Shifts</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4 text-muted-foreground">
-                    <p className="c2r-prose">
-                      <strong className="text-foreground">
-                        Automation & AI:
-                      </strong>{" "}
-                      Routine jobs are disappearing while demand for creative,
-                      analytical, and interpersonal skills is surging.
-                    </p>
-                    <p className="c2r-prose">
-                      <strong className="text-foreground">Gig Economy:</strong>{" "}
-                      Traditional employment models are giving way to flexible,
-                      project-based work requiring entrepreneurial mindsets.
-                    </p>
-                    <p className="c2r-prose">
-                      <strong className="text-foreground">
-                        Green Transition:
-                      </strong>{" "}
-                      Climate action is creating millions of new jobs in
-                      renewable energy, sustainable agriculture, and circular
-                      economy.
-                    </p>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-
-              <ScrollReveal direction="right" delay={300}>
-                <Card className="bg-gradient-to-br from-background to-muted/30">
-                  <CardHeader>
-                    <CardTitle className="text-2xl">
-                      First-Generation Challenges
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4 text-muted-foreground">
-                    <p className="c2r-prose">
-                      <strong className="text-foreground">
-                        Information Gap:
-                      </strong>{" "}
-                      Limited access to career guidance and awareness of
-                      emerging opportunities beyond traditional paths.
-                    </p>
-                    <p className="c2r-prose">
-                      <strong className="text-foreground">
-                        Network Deficit:
-                      </strong>{" "}
-                      Lack of professional connections and mentors who can open
-                      doors and provide insider knowledge.
-                    </p>
-                    <p className="c2r-prose">
-                      <strong className="text-foreground">
-                        Skill Mismatch:
-                      </strong>{" "}
-                      Educational systems often lag behind industry needs,
-                      leaving youth unprepared for real-world demands.
-                    </p>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-            </div>
+            <ScrollReveal delay={200}>
+              <Card className="h-full border border-border/60 shadow-sm">
+                <CardHeader>
+                  <CardTitle className="c2r-card-title">
+                    First-Generation Challenges
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <BulletList
+                    items={[
+                      {
+                        label: "Information Gap",
+                        text: "Limited access to career guidance and awareness of emerging opportunities beyond traditional paths.",
+                      },
+                      {
+                        label: "Network Deficit",
+                        text: "Lack of professional connections and mentors who can open doors and provide insider knowledge.",
+                      },
+                      {
+                        label: "Skill Mismatch",
+                        text: "Educational systems often lag behind industry needs, leaving youth unprepared for real-world demands.",
+                      },
+                    ]}
+                  />
+                </CardContent>
+              </Card>
+            </ScrollReveal>
           </div>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      {/* Key Themes Section */}
-      <section className="py-20 bg-background">
-        <div className="container">
-          <ChapterHeader
-            chapter="Critical Insights"
-            title="Key Themes Shaping Careers"
-            subtitle="Three fundamental shifts that every young person must understand and prepare for."
-          />
-
-          <div className="max-w-5xl mx-auto space-y-12">
+      <GetInvolvedSection>
+        <ChapterHeader
+          chapter="Critical Insights"
+          title="Key Themes Shaping Careers"
+          subtitle="Three fundamental shifts that every young person must understand and prepare for."
+        />
+        <GetInvolvedContentWidth size="wide">
+          <div className="space-y-12">
             <StoryCard
               title="Multi-Career Life Paths"
               description="The era of single-career lifetimes is over. Today's youth will navigate 5-7 different careers, requiring continuous reinvention and adaptability. Success belongs to those who embrace lifelong learning and view career transitions as opportunities for growth rather than setbacks."
@@ -437,7 +491,6 @@ export default function SepfPage() {
               )}
               delay={100}
             />
-
             <StoryCard
               title="The Gig Work Evolution"
               description="Freelancing, consulting, and project-based work are becoming mainstream. This shift demands entrepreneurial skills, personal branding, and the ability to manage uncertainty. Young people must learn to be their own CEOs, marketing their skills and building diverse income streams."
@@ -447,7 +500,6 @@ export default function SepfPage() {
               delay={200}
               reverse
             />
-
             <StoryCard
               title="Continuous Learning Imperative"
               description="Skills have a shorter shelf life than ever before. What you learn today may be obsolete in five years. The winners in tomorrow's economy will be those who cultivate curiosity, embrace discomfort, and commit to perpetual skill upgrading through micro-credentials, online courses, and experiential learning."
@@ -457,279 +509,191 @@ export default function SepfPage() {
               delay={300}
             />
           </div>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      {/* Role of Career Mentoring Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container">
-          <ChapterHeader
-            chapter="The Bridge"
-            title="Why Career Mentoring Matters"
-            subtitle="Mentoring is the critical link that transforms skills into sustainable livelihoods and aspirations into achievements."
-            icon={<Users className="h-16 w-16 text-c2r-accent" />}
-          />
-
-          <div className="max-w-6xl mx-auto">
-            <ScrollReveal direction="fade" delay={100}>
-              <div className="bg-gradient-to-br from-c2r-primary/10 to-c2r-secondary/10 rounded-2xl p-8 md:p-12 mb-12">
-                <div className="grid md:grid-cols-3 gap-8 text-center">
+      <GetInvolvedSection variant="muted">
+        <ChapterHeader
+          chapter="The Bridge"
+          title="Why Career Mentoring Matters"
+          subtitle="Mentoring is the critical link that transforms skills into sustainable livelihoods and aspirations into achievements."
+          icon={<sepfIcons.mentoring className={ICON.section} />}
+        />
+        <GetInvolvedContentWidth size="wide">
+          <ScrollReveal delay={100}>
+            <Card className="mb-8 border border-border/60 shadow-sm">
+              <CardContent className="pt-8">
+                <div className="grid gap-8 text-center md:grid-cols-3">
                   <div>
-                    <div className="mb-4">
-                      <AnimatedCounter
-                        end={73}
-                        duration={2000}
-                        suffix="%"
-                        className="text-5xl font-bold text-c2r-primary"
-                      />
-                    </div>
-                    <p className="c2r-prose-emphasis mb-2">Career Clarity</p>
-                    <p className="text-muted-foreground">
+                    <AnimatedCounter
+                      end={73}
+                      duration={2000}
+                      suffix="%"
+                      className="text-5xl font-bold text-c2r-primary"
+                    />
+                    <p className="c2r-prose-emphasis mb-2 mt-4">Career Clarity</p>
+                    <p className="text-sm text-muted-foreground">
                       of mentored youth report clearer career goals
                     </p>
                   </div>
                   <div>
-                    <div className="mb-4">
-                      <AnimatedCounter
-                        end={2.5}
-                        duration={2000}
-                        suffix="x"
-                        decimals={1}
-                        className="text-5xl font-bold text-c2r-secondary"
-                      />
-                    </div>
-                    <p className="c2r-prose-emphasis mb-2">Higher Earnings</p>
-                    <p className="text-muted-foreground">
+                    <AnimatedCounter
+                      end={2.5}
+                      duration={2000}
+                      suffix="x"
+                      decimals={1}
+                      className="text-5xl font-bold text-c2r-secondary"
+                    />
+                    <p className="c2r-prose-emphasis mb-2 mt-4">
+                      Higher Earnings
+                    </p>
+                    <p className="text-sm text-muted-foreground">
                       average income increase with mentorship
                     </p>
                   </div>
                   <div>
-                    <div className="mb-4">
-                      <AnimatedCounter
-                        end={85}
-                        duration={2000}
-                        suffix="%"
-                        className="text-5xl font-bold text-c2r-accent"
-                      />
-                    </div>
-                    <p className="c2r-prose-emphasis mb-2">Job Placement</p>
-                    <p className="text-muted-foreground">
+                    <AnimatedCounter
+                      end={85}
+                      duration={2000}
+                      suffix="%"
+                      className="text-5xl font-bold text-c2r-accent"
+                    />
+                    <p className="c2r-prose-emphasis mb-2 mt-4">
+                      Job Placement
+                    </p>
+                    <p className="text-sm text-muted-foreground">
                       success rate within 6 months of program completion
                     </p>
                   </div>
                 </div>
-              </div>
-            </ScrollReveal>
+              </CardContent>
+            </Card>
+          </ScrollReveal>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <ScrollReveal direction="left" delay={200}>
-                <Card className="h-full">
-                  <CardHeader>
-                    <CardTitle className="text-2xl">
-                      What Mentors Provide
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="h-2 w-2 rounded-full bg-c2r-primary mt-2 flex-shrink-0" />
-                      <p className="text-muted-foreground">
-                        <strong className="text-foreground">
-                          Insider Knowledge:
-                        </strong>{" "}
-                        Real-world insights that textbooks can't teach
-                      </p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="h-2 w-2 rounded-full bg-c2r-primary mt-2 flex-shrink-0" />
-                      <p className="text-muted-foreground">
-                        <strong className="text-foreground">
-                          Network Access:
-                        </strong>{" "}
-                        Introductions to opportunities and key contacts
-                      </p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="h-2 w-2 rounded-full bg-c2r-primary mt-2 flex-shrink-0" />
-                      <p className="text-muted-foreground">
-                        <strong className="text-foreground">
-                          Confidence Building:
-                        </strong>{" "}
-                        Encouragement to pursue ambitious goals
-                      </p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="h-2 w-2 rounded-full bg-c2r-primary mt-2 flex-shrink-0" />
-                      <p className="text-muted-foreground">
-                        <strong className="text-foreground">
-                          Course Correction:
-                        </strong>{" "}
-                        Timely feedback to avoid costly mistakes
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-
-              <ScrollReveal direction="right" delay={300}>
-                <Card className="h-full">
-                  <CardHeader>
-                    <CardTitle className="text-2xl">
-                      SEPF's Role in Mentoring
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="h-2 w-2 rounded-full bg-c2r-secondary mt-2 flex-shrink-0" />
-                      <p className="text-muted-foreground">
-                        <strong className="text-foreground">
-                          Curriculum Design:
-                        </strong>{" "}
-                        Evidence-based mentoring frameworks
-                      </p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="h-2 w-2 rounded-full bg-c2r-secondary mt-2 flex-shrink-0" />
-                      <p className="text-muted-foreground">
-                        <strong className="text-foreground">
-                          Trend Analysis:
-                        </strong>{" "}
-                        Identifying emerging career pathways
-                      </p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="h-2 w-2 rounded-full bg-c2r-secondary mt-2 flex-shrink-0" />
-                      <p className="text-muted-foreground">
-                        <strong className="text-foreground">
-                          Mentor Training:
-                        </strong>{" "}
-                        Equipping mentors with latest insights
-                      </p>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="h-2 w-2 rounded-full bg-c2r-secondary mt-2 flex-shrink-0" />
-                      <p className="text-muted-foreground">
-                        <strong className="text-foreground">
-                          Impact Measurement:
-                        </strong>{" "}
-                        Tracking outcomes and refining approaches
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SEPF's Contribution Section */}
-      <section
-        id="join-sepf"
-        className="py-20 bg-gradient-to-br from-c2r-primary/10 via-background to-c2r-secondary/10"
-      >
-        <div className="container">
-          <ChapterHeader
-            chapter="Our Impact"
-            title="SEPF's Contribution to the Ecosystem"
-            subtitle="Driving systemic change through research, advocacy, and strategic partnerships."
-            icon={<Briefcase className="h-16 w-16 text-c2r-primary" />}
-          />
-
-          <div className="max-w-5xl mx-auto space-y-8">
-            <ScrollReveal direction="up" delay={100}>
-              <Card className="border-l-4 border-l-c2r-primary">
+          <div className="grid gap-8 md:grid-cols-2">
+            <ScrollReveal delay={150}>
+              <Card className="h-full border border-border/60 shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-2xl flex items-center gap-3">
-                    <Target className="h-8 w-8 text-c2r-primary" />
-                    Policy Advocacy
+                  <CardTitle className="c2r-card-title">
+                    What Mentors Provide
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="c2r-prose">
-                    We engage with government bodies, educational institutions,
-                    and industry leaders to advocate for policies that expand
-                    access to quality career guidance and skill development. Our
-                    research briefs inform policy decisions at state and
-                    national levels, ensuring the voices of first-generation
-                    learners are heard in corridors of power.
-                  </p>
+                  <BulletList
+                    items={[
+                      {
+                        label: "Insider Knowledge",
+                        text: "Real-world insights that textbooks can't teach",
+                      },
+                      {
+                        label: "Network Access",
+                        text: "Introductions to opportunities and key contacts",
+                      },
+                      {
+                        label: "Confidence Building",
+                        text: "Encouragement to pursue ambitious goals",
+                      },
+                      {
+                        label: "Course Correction",
+                        text: "Timely feedback to avoid costly mistakes",
+                      },
+                    ]}
+                  />
                 </CardContent>
               </Card>
             </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={200}>
-              <Card className="border-l-4 border-l-c2r-secondary">
+            <ScrollReveal delay={200}>
+              <Card className="h-full border border-border/60 shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-2xl flex items-center gap-3">
-                    <Lightbulb className="h-8 w-8 text-c2r-secondary" />
-                    Research & Insights
+                  <CardTitle className="c2r-card-title">
+                    SEPF&apos;s Role in Mentoring
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="c2r-prose">
-                    Our research team conducts longitudinal studies tracking
-                    career outcomes, analyzes labor market trends, and publishes
-                    white papers on emerging skill demands. We translate complex
-                    data into actionable insights that inform curriculum design,
-                    mentor training, and student guidance across the
-                    Connect2Roots ecosystem.
-                  </p>
-                </CardContent>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={300}>
-              <Card className="border-l-4 border-l-c2r-accent">
-                <CardHeader>
-                  <CardTitle className="text-2xl flex items-center gap-3">
-                    <Users className="h-8 w-8 text-c2r-accent" />
-                    Strategic Partnerships
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="c2r-prose">
-                    SEPF convenes industry leaders, academic institutions, and
-                    civil society organizations to co-create solutions for youth
-                    employability. Through multi-stakeholder forums, we
-                    facilitate knowledge exchange, pilot innovative programs,
-                    and scale proven interventions that bridge the gap between
-                    education and employment.
-                  </p>
+                  <BulletList
+                    items={[
+                      {
+                        label: "Curriculum Design",
+                        text: "Evidence-based mentoring frameworks",
+                      },
+                      {
+                        label: "Trend Analysis",
+                        text: "Identifying emerging career pathways",
+                      },
+                      {
+                        label: "Mentor Training",
+                        text: "Equipping mentors with latest insights",
+                      },
+                      {
+                        label: "Impact Measurement",
+                        text: "Tracking outcomes and refining approaches",
+                      },
+                    ]}
+                  />
                 </CardContent>
               </Card>
             </ScrollReveal>
           </div>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-          <ScrollReveal direction="fade" delay={400}>
-            <div className="text-center mt-16">
-              <h3 className="heading-descender-safe text-3xl font-bold mb-6">
-                Join Us in Shaping the Future
-              </h3>
-              <p className="c2r-prose mb-8 max-w-3xl mx-auto">
-                Whether you're a researcher, policymaker, industry leader, or
-                passionate advocate for youth empowerment, there's a place for
-                you in the SEPF community.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button
-                  size="lg"
-                  className="text-lg px-8 py-6 bg-c2r-primary hover:bg-c2r-primary/90"
-                >
-                  Collaborate With Us
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="text-lg px-8 py-6"
-                  asChild
-                >
-                  <Link to="/resources">Access Resources</Link>
-                </Button>
-              </div>
+      <GetInvolvedSection id="join-sepf">
+        <ChapterHeader
+          chapter="Our Impact"
+          title="SEPF's Contribution to the Ecosystem"
+          subtitle="Driving systemic change through research, advocacy, and strategic partnerships."
+          icon={<sepfIcons.skills className={ICON.section} />}
+        />
+        <GetInvolvedContentWidth size="content">
+          <div className="space-y-6">
+            {contributionAreas.map((area, index) => (
+              <ScrollReveal key={area.title} delay={100 + index * 50}>
+                <Card className="border border-border/60 shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 c2r-card-title">
+                      <area.icon className="h-8 w-8 text-c2r-primary" />
+                      {area.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="c2r-prose">{area.description}</p>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
+            ))}
+          </div>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
+
+      <GetInvolvedSection variant="muted">
+        <ChapterHeader
+          chapter="Next Step"
+          title="Join Us in Shaping the Future"
+          subtitle="Whether you're a researcher, policymaker, industry leader, or passionate advocate for youth empowerment, there's a place for you in the SEPF community."
+        />
+        <GetInvolvedContentWidth size="narrow">
+          <ScrollReveal>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button
+                size="lg"
+                className={GI_BTN_PRIMARY}
+                onClick={() => navigate({ to: "/contact" })}
+              >
+                Collaborate With Us
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className={GI_BTN_PRIMARY}
+                asChild
+              >
+                <Link to="/resources">Access Resources</Link>
+              </Button>
             </div>
           </ScrollReveal>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
     </div>
   );
 }

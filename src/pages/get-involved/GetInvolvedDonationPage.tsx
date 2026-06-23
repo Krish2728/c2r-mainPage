@@ -1,11 +1,21 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "@tanstack/react-router";
-import { Heart, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { getInvolvedIcons, ICON } from "@/lib/siteIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { ParallaxSection } from "@/components/ParallaxSection";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import { getImageUrl } from "@/lib/images";
+import {
+  GI_PAGE,
+  GI_BTN_HERO,
+  GetInvolvedHero,
+  GetInvolvedSection,
+  GetInvolvedSectionCta,
+  GetInvolvedContentWidth,
+} from "@/components/get-involved/GetInvolvedLayout";
+
+const DonationIcon = getInvolvedIcons.donation;
 
 const packages = [
   { name: "Job Readiness Package", amount: "₹15,000", per: "per student" },
@@ -20,61 +30,50 @@ export default function GetInvolvedDonationPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col overflow-hidden">
-      <section className="relative min-h-[50vh] flex items-center overflow-hidden">
-        <ParallaxSection speed={0.3} className="absolute inset-0">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${getImageUrl("/assets/generated/donation-impact.dim_600x400.jpg")})`,
-            }}
-          />
-          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
-        </ParallaxSection>
-        <div className="container relative z-10 py-20">
-          <ScrollReveal direction="fade">
-            <div className="mx-auto max-w-3xl text-center text-white">
-              <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
-                Donation
-              </h1>
-              <p className="c2r-hero-subtitle">
-                Every contribution directly supports mentoring, skilling, and
-                job readiness — with transparent impact tracking.
-              </p>
-            </div>
+    <div className={GI_PAGE}>
+      <GetInvolvedHero
+        backgroundImage={getImageUrl(
+          "/assets/generated/donation-impact.dim_600x400.jpg",
+        )}
+        chapter="Donation"
+        title="Why Donate?"
+        subtitle="Every contribution directly supports mentoring, skilling, and job readiness — with transparent impact tracking."
+        icon={<DonationIcon className={ICON.hero} />}
+      >
+        <Button
+          size="lg"
+          variant="secondary"
+          className={GI_BTN_HERO}
+          onClick={() => navigate({ to: "/donate" })}
+        >
+          Donate Now
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
+      </GetInvolvedHero>
+
+      <GetInvolvedSection variant="gradient">
+        <GetInvolvedContentWidth size="narrow">
+          <ScrollReveal>
+            <p className="c2r-prose text-center">
+              Your contribution ensures that career mentoring and skill pathway
+              guidance remain free for youth who need it most.
+            </p>
           </ScrollReveal>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/30">
-        <div className="container">
-          <ChapterHeader
-            chapter="Donation"
-            title="Why Donate?"
-            icon={<Heart className="h-8 w-8" />}
-          />
-          <div className="max-w-3xl mx-auto">
-            <ScrollReveal>
-              <p className="c2r-prose">
-                Your contribution ensures that career mentoring and skill
-                pathway guidance remain free for youth who need it most.
-              </p>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16">
-        <div className="container">
-          <ChapterHeader
-            chapter="Donation Packages"
-            title="Donation Packages"
-            subtitle=""
-          />
-          <div className="max-w-2xl mx-auto grid gap-6 sm:grid-cols-2">
+      <GetInvolvedSection>
+        <ChapterHeader
+          chapter="Packages"
+          title="Donation Packages"
+          subtitle="Choose a package that matches the impact you want to create."
+          icon={<DonationIcon className={ICON.hero} />}
+        />
+        <GetInvolvedContentWidth size="narrow">
+          <div className="grid gap-6 sm:grid-cols-2">
             {packages.map((pkg, i) => (
               <ScrollReveal key={i} delay={i * 100}>
-                <Card className="border-t-4 border-t-c2r-accent">
+                <Card className="h-full border border-border/60 shadow-sm transition-shadow duration-300 hover:shadow-md">
                   <CardContent className="pt-8 text-center">
                     <h3 className="c2r-card-title mb-2">{pkg.name}</h3>
                     <p className="text-3xl font-bold text-c2r-primary">
@@ -86,18 +85,12 @@ export default function GetInvolvedDonationPage() {
               </ScrollReveal>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <Button
-              size="lg"
-              className="text-lg px-8 py-6"
-              onClick={() => navigate({ to: "/donate" })}
-            >
-              Donate Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-      </section>
+          <GetInvolvedSectionCta
+            label="Donate Now"
+            onClick={() => navigate({ to: "/donate" })}
+          />
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
     </div>
   );
 }

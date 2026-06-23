@@ -2,10 +2,19 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "@tanstack/react-router";
-import { Users, Linkedin, Heart, Sparkles } from "lucide-react";
+import { Linkedin, ArrowRight } from "lucide-react";
+import { aboutIcons, ICON } from "@/lib/siteIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { ParallaxSection } from "@/components/ParallaxSection";
 import { ChapterHeader } from "@/components/ChapterHeader";
+import {
+  GI_PAGE,
+  GI_BTN_HERO,
+  GI_BTN_PRIMARY,
+  GetInvolvedHero,
+  GetInvolvedSection,
+  GetInvolvedIntroCard,
+  GetInvolvedContentWidth,
+} from "@/components/get-involved/GetInvolvedLayout";
 import {
   Sheet,
   SheetContent,
@@ -190,7 +199,6 @@ function AdvisoryCategoryRow({
 function TeamMemberCard({
   member,
   index,
-  variant,
   onSelect,
 }: {
   member: TeamMember;
@@ -198,8 +206,6 @@ function TeamMemberCard({
   variant: "core" | "advisor";
   onSelect: () => void;
 }) {
-  const borderClass =
-    variant === "advisor" ? "border-l-4 border-l-c2r-accent" : "";
   const bioPreview =
     member.bio.length > BIO_PREVIEW_LENGTH
       ? member.bio.slice(0, BIO_PREVIEW_LENGTH).trim() + "…"
@@ -207,7 +213,7 @@ function TeamMemberCard({
   return (
     <ScrollReveal key={member.name} delay={index * 50}>
       <Card
-        className={`h-full cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${borderClass}`}
+        className="h-full cursor-pointer border border-border/60 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
         onClick={onSelect}
       >
         <CardContent className="pt-6 pb-5 text-center flex flex-col items-center gap-3">
@@ -344,86 +350,73 @@ export default function OurTeamPage() {
   })();
 
   return (
-    <div className="flex flex-col overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <ParallaxSection speed={0.3} className="absolute inset-0">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${getImageUrl("/assets/generated/team-collaboration.dim_800x500.jpg")})`,
-            }}
-          />
-          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
-        </ParallaxSection>
-        <div className="container relative z-10 py-20">
-          <ScrollReveal direction="fade">
-            <div className="mx-auto max-w-3xl text-center text-white">
-              <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl">
-                Our Team
-              </h1>
-              <p className="c2r-hero-subtitle">
-                The passionate individuals driving our mission forward
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+    <div className={GI_PAGE}>
+      <GetInvolvedHero
+        backgroundImage={getImageUrl(
+          "/assets/generated/team-collaboration.dim_800x500.jpg",
+        )}
+        chapter="About Us"
+        title="Our Team"
+        subtitle="The passionate individuals driving our mission forward."
+        icon={<aboutIcons.team className={ICON.hero} />}
+      >
+        <Button
+          size="lg"
+          variant="secondary"
+          className={GI_BTN_HERO}
+          onClick={() => {
+            document
+              .getElementById("advisory-panel")
+              ?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          Meet the Team
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
+      </GetInvolvedHero>
 
-      {/* Team Introduction */}
-      <section className="pt-24 md:pt-32 pb-12 md:pb-16 bg-gradient-to-b from-background to-muted/30">
-        <div className="container">
-          <ChapterHeader
-            chapter="Our People"
-            title="The People Behind the Movement"
-            subtitle="United by purpose, driven by passion, committed to impact"
-          />
-
+      <GetInvolvedSection variant="gradient">
+        <ChapterHeader
+          chapter="Our People"
+          title="The People Behind the Movement"
+          subtitle="United by purpose, driven by passion, committed to impact."
+        />
+        <GetInvolvedContentWidth size="content">
           <ScrollReveal delay={100}>
-            <div className="max-w-4xl mx-auto mb-12">
-              <div className="space-y-6 text-center">
-                <p className="c2r-prose-emphasis">
-                  Behind every success story, every transformed life, and every
-                  empowered community is a team of dedicated individuals who
-                  believe in the power of mentorship and the potential in every
-                  person.
-                </p>
-
-                <p className="c2r-prose">
-                  Our team brings together diverse expertise from education,
-                  technology, social impact, and business—all united by a shared
-                  commitment to creating opportunities for underserved
-                  communities.
-                </p>
-              </div>
-            </div>
+            <GetInvolvedIntroCard>
+              <p className="c2r-prose-emphasis text-center">
+                Behind every success story is a team of dedicated individuals who
+                believe in the power of mentorship and the potential in every
+                person.
+              </p>
+              <p className="c2r-prose text-center">
+                Our team brings together diverse expertise from education,
+                technology, social impact, and business—all united by a shared
+                commitment to creating opportunities for underserved communities.
+              </p>
+            </GetInvolvedIntroCard>
           </ScrollReveal>
-
-          <ScrollReveal delay={200}>
-            <div className="max-w-3xl mx-auto">
-              <img
-                src={getImageUrl(
-                  "/assets/generated/team-collaboration.dim_800x500.jpg",
-                )}
-                alt="Team Collaboration"
-                className="rounded-lg shadow-2xl w-full transform transition-transform duration-700 hover:scale-105"
-              />
-            </div>
+          <ScrollReveal delay={150}>
+            <img
+              src={getImageUrl(
+                "/assets/generated/team-collaboration.dim_800x500.jpg",
+              )}
+              alt="Team Collaboration"
+              className="mt-8 w-full rounded-xl border border-border/60 object-cover shadow-md"
+            />
           </ScrollReveal>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      {/* Advisory Panel — updated advisors shown first */}
-      <section className="pt-12 md:pt-16 pb-8 md:pb-12">
-        <div className="container">
-          <ChapterHeader
-            chapter="Advisory Panel"
-            title="Connect2Roots Advisory Panel"
-            subtitle="Our Domain Advisors provide strategic guidance and industry insights, ensuring that Connect2Roots programs remain aligned with evolving market realities and future workforce requirements."
-            icon={<Sparkles className="h-8 w-8" />}
-          />
-
-          <div className="max-w-7xl mx-auto space-y-8 px-1 sm:px-0">
+      <GetInvolvedSection id="advisory-panel">
+        <ChapterHeader
+          chapter="Advisory Panel"
+          title="Connect2Roots Advisory Panel"
+          subtitle="Our Domain Advisors provide strategic guidance and industry insights, ensuring that Connect2Roots programs remain aligned with evolving market realities and future workforce requirements."
+          icon={<aboutIcons.advisory className={ICON.section} />}
+        />
+        <GetInvolvedContentWidth size="wide" className="max-w-7xl">
+          <div className="space-y-8 px-1 sm:px-0">
             {advisoryRowsWithOffsets.map(({ row, offset }) => (
               <AdvisoryCategoryRow
                 key={
@@ -439,7 +432,7 @@ export default function OurTeamPage() {
 
             {additionalAdvisors.length > 0 && (
               <div>
-                <h3 className="text-center text-sm font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">
+                <h3 className="mb-4 text-center text-sm font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                   Additional Domain Advisors
                 </h3>
                 <div className={membersGridClass(additionalAdvisors.length)}>
@@ -456,21 +449,19 @@ export default function OurTeamPage() {
               </div>
             )}
           </div>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      {/* Core Team */}
       {coreTeam.length > 0 && (
-        <section className="pt-8 md:pt-12 pb-16 md:pb-20 bg-muted/30">
-          <div className="container">
-            <ChapterHeader
-              chapter="Core Team"
-              title="The Heart of Our Operations"
-              subtitle="Dedicated professionals making it all happen"
-              icon={<Users className="h-8 w-8" />}
-            />
-
-            <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-4">
+        <GetInvolvedSection variant="muted">
+          <ChapterHeader
+            chapter="Core Team"
+            title="The Heart of Our Operations"
+            subtitle="Dedicated professionals making it all happen."
+            icon={<aboutIcons.team className={ICON.section} />}
+          />
+          <GetInvolvedContentWidth size="wide" className="max-w-7xl">
+            <div className="flex flex-wrap justify-center gap-4">
               {coreTeam.map((member, index) => (
                 <div
                   key={member.name}
@@ -485,8 +476,8 @@ export default function OurTeamPage() {
                 </div>
               ))}
             </div>
-          </div>
-        </section>
+          </GetInvolvedContentWidth>
+        </GetInvolvedSection>
       )}
 
       <MemberDetailPanel
@@ -496,73 +487,66 @@ export default function OurTeamPage() {
         variant={panelVariant}
       />
 
-      {/* Community Contributors Note */}
-      <section className="py-24 md:py-32 bg-gradient-to-br from-c2r-primary/5 to-c2r-secondary/5">
-        <div className="container">
+      <GetInvolvedSection>
+        <ChapterHeader
+          chapter="Community"
+          title="Our Community of Contributors"
+          subtitle="Beyond our core team, Connect2Roots is powered by mentors, partners, and supporters."
+          icon={<aboutIcons.community className={ICON.section} />}
+        />
+        <GetInvolvedContentWidth size="content">
           <ScrollReveal>
-            <div className="max-w-4xl mx-auto text-center">
-              <Heart className="mx-auto mb-6 h-16 w-16 text-c2r-accent" />
-              <h2 className="heading-descender-safe text-3xl font-bold mb-6">
-                Our Community of Contributors
-              </h2>
-              <p className="c2r-prose mb-8">
-                Beyond our core team, Connect2Roots is powered by a vibrant
-                community of volunteer mentors, partner organizations, and
-                supporters who contribute their time, expertise, and resources
+            <GetInvolvedIntroCard>
+              <p className="c2r-prose text-center">
+                A vibrant community of volunteer mentors, partner organizations,
+                and supporters contribute their time, expertise, and resources
                 to make our mission possible.
               </p>
-              <p className="c2r-prose">
+              <p className="c2r-prose text-center">
                 <span className="font-bold text-foreground">
                   50+ volunteer mentors
                 </span>{" "}
-                from diverse industries,
+                from diverse industries,{" "}
                 <span className="font-bold text-foreground">
-                  {" "}
                   10+ partner colleges
                 </span>
-                , and countless supporters who believe in the power of
-                mentorship to transform lives.
+                , and countless supporters who believe in the power of mentorship
+                to transform lives.
               </p>
-            </div>
+            </GetInvolvedIntroCard>
           </ScrollReveal>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      {/* CTA Section */}
-      <section className="relative py-20 overflow-hidden">
-        <ParallaxSection speed={0.4} className="absolute inset-0">
-          <div className="absolute inset-0 c2r-gradient-section" />
-        </ParallaxSection>
-        <div className="container relative z-10 text-center text-white">
-          <ScrollReveal direction="fade">
-            <h2 className="heading-descender-safe text-4xl font-bold mb-4">
-              Join Our Team
-            </h2>
-            <p className="c2r-hero-subtitle mb-8 max-w-2xl mx-auto">
-              Whether as a mentor, volunteer, or team member—there's a place for
-              you in our movement
-            </p>
+      <GetInvolvedSection variant="muted">
+        <ChapterHeader
+          chapter="Next Step"
+          title="Join Our Team"
+          subtitle="Whether as a mentor, volunteer, or team member—there's a place for you in our movement."
+        />
+        <GetInvolvedContentWidth size="narrow">
+          <ScrollReveal>
             <div className="flex flex-wrap justify-center gap-4">
               <Button
                 size="lg"
-                variant="secondary"
-                className="text-lg px-8 py-6"
+                className={GI_BTN_PRIMARY}
                 onClick={() => navigate({ to: "/get-involved" })}
               >
                 Get Involved
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-white/10 text-white border-white/30 hover:bg-white/20 text-lg px-8 py-6 backdrop-blur-sm"
+                className={GI_BTN_PRIMARY}
                 onClick={() => navigate({ to: "/contact" })}
               >
                 Contact Us
               </Button>
             </div>
           </ScrollReveal>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
     </div>
   );
 }

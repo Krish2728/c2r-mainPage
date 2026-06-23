@@ -27,23 +27,23 @@ export function StoryCard({
       >
         {image && (
           <div className="lg:w-1/2">
-            <div className="relative overflow-hidden rounded-lg shadow-2xl">
+            <div className="relative overflow-hidden rounded-lg border border-border/60 shadow-md">
               <img
                 src={image}
                 alt={title}
-                className="w-full h-auto transform transition-transform duration-700 hover:scale-105"
+                className="h-auto w-full transform transition-transform duration-700 hover:scale-105"
               />
             </div>
           </div>
         )}
         <div className={`lg:w-1/2 ${image ? "" : "w-full"}`}>
-          <Card className="border-l-4 border-l-c2r-accent bg-gradient-to-br from-background to-muted/30">
+          <Card className="border border-border/60 shadow-sm">
             <CardContent className="pt-6">
-              <h3 className="mb-4 text-2xl font-bold">{title}</h3>
+              <h3 className="c2r-card-title mb-4">{title}</h3>
               <p className="mb-6 c2r-prose">{description}</p>
               {quote && (
-                <blockquote className="border-l-4 border-c2r-primary pl-4 italic text-muted-foreground">
-                  <p className="mb-2">"{quote}"</p>
+                <blockquote className="border-l-2 border-c2r-primary pl-4 italic text-muted-foreground">
+                  <p className="mb-2">&ldquo;{quote}&rdquo;</p>
                   {author && (
                     <footer className="text-sm font-semibold">
                       — {author}

@@ -1,163 +1,196 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Briefcase, ArrowRight, CheckCircle2, Quote } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  MdBusinessCenter,
+  MdPayments,
+  MdGroups,
+  MdMenuBook,
+  MdTrackChanges,
+  MdSchool,
+  MdPersonSearch,
+  MdEmojiEvents,
+  MdShield,
+  MdTrendingUp,
+  MdEco,
+  MdForum,
+  MdBuild,
+  MdBusiness,
+  MdSync,
+  MdBarChart,
+  MdSchedule,
+  MdEvent,
+  MdRepeat,
+  MdFormatQuote,
+} from "react-icons/md";
+import { getInvolvedIcons, ICON } from "@/lib/siteIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { ParallaxSection } from "@/components/ParallaxSection";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import { LogoSlider } from "@/components/ui/logo-slider";
 import { getImageUrl } from "@/lib/images";
+import {
+  GI_PAGE,
+  GI_BTN_HERO,
+  GetInvolvedHero,
+  GetInvolvedSection,
+  GetInvolvedBenefitGrid,
+  GetInvolvedSectionCta,
+  GetInvolvedContentWidth,
+} from "@/components/get-involved/GetInvolvedLayout";
 
-const partnershipModelsCards = [
+const CorporateIcon = getInvolvedIcons.corporate;
+
+const partnershipModels = [
   {
+    icon: MdBusinessCenter,
     title: "Hiring partnerships",
     description:
       "Internships and jobs with structured onboarding and mentor support for both employer and candidate.",
-    iconBg: "bg-c2r-primary",
   },
   {
+    icon: MdPayments,
     title: "CSR-funded cohorts",
     description:
       "CSR-funded skill and mentoring cohorts tailored to your impact goals and talent needs.",
-    iconBg: "bg-c2r-secondary",
   },
   {
+    icon: MdGroups,
     title: "Employee volunteering",
     description:
       "Employee volunteering as mentors—building leadership and empathy while creating impact.",
-    iconBg: "bg-c2r-accent",
   },
   {
+    icon: MdMenuBook,
     title: "Curriculum co-creation",
     description:
       "Curriculum co-creation aligned to hiring needs so training matches your roles and culture.",
-    iconBg: "bg-c2r-black",
   },
   {
+    icon: MdTrackChanges,
     title: "Targeted programs",
     description:
       "Targeted programs for women, rural youth, or underserved regions to broaden your pipeline.",
-    iconBg: "bg-c2r-primary",
   },
 ];
 
-const corporatesCanCards = [
+const corporatesCan = [
   {
+    icon: MdGroups,
     title: "Employee volunteering",
     description:
       "Engage your people as mentor volunteers. Connect2Roots enables employees to give back through structured mentoring—building leadership and empathy while creating real impact for youth.",
-    iconBg: "bg-c2r-black",
   },
   {
+    icon: MdPayments,
     title: "CSR & funding",
     description:
       "Fund mentoring or skill-readiness programs through CSR. Partner with us to run cohorts that prepare underprivileged youth for jobs and align with your ESG and social impact goals.",
-    iconBg: "bg-c2r-primary",
   },
   {
+    icon: MdSchool,
     title: "Internships",
     description:
       "Provide internships to targeted youth cohorts. We help you connect with pre-screened, mentor-supported candidates ready to contribute and grow within your organization.",
-    iconBg: "bg-c2r-secondary",
   },
   {
+    icon: MdPersonSearch,
     title: "Hire job-ready talent",
     description:
       "Hire job-ready candidates from our pipeline. Access motivated, role-aligned talent who have gone through career mentoring and skill readiness—reducing hiring risk and ramp-up time.",
-    iconBg: "bg-c2r-accent",
   },
 ];
 
-const whyEmployersCards = [
+const whyEmployers = [
   {
+    icon: MdGroups,
     title: "Mentor-supported candidates",
     description:
       "Motivated, mentor-supported candidates who bring clarity and commitment to the role from day one.",
-    iconBg: "bg-c2r-primary",
   },
   {
+    icon: MdEmojiEvents,
     title: "Pre-trained talent",
     description:
       "Role-aligned, pre-trained talent so you spend less time on basics and more on performance.",
-    iconBg: "bg-c2r-secondary",
   },
   {
+    icon: MdShield,
     title: "Lower hiring risk",
     description:
       "Lower hiring risk and faster ramp-up through structured readiness and employer feedback loops.",
-    iconBg: "bg-c2r-accent",
   },
   {
+    icon: MdTrendingUp,
     title: "Strong retention",
     description:
       "Strong retention through post-placement mentoring and career clarity built in from the start.",
-    iconBg: "bg-c2r-black",
   },
   {
+    icon: MdEco,
     title: "CSR & ESG outcomes",
     description:
       "Measurable CSR and ESG outcomes that align with your sustainability and social impact goals.",
-    iconBg: "bg-c2r-primary",
   },
 ];
 
-const whatWeDoCards = [
+const whatWeDo = [
   {
+    icon: MdForum,
     title: "Career mentoring first",
     description:
       "Career mentoring before training begins—so candidates choose the right path and stay motivated.",
-    iconBg: "bg-c2r-primary",
   },
   {
+    icon: MdBuild,
     title: "Role-based readiness",
     description:
       "Role-based skill readiness (technical + behavioral) aligned to your hiring needs.",
-    iconBg: "bg-c2r-secondary",
   },
   {
+    icon: MdBusiness,
     title: "Workplace readiness",
     description:
       "Workplace communication and professional etiquette so new hires integrate smoothly.",
-    iconBg: "bg-c2r-accent",
   },
   {
+    icon: MdSync,
     title: "Ongoing mentoring",
     description:
       "Ongoing mentoring during early employment to support retention and performance.",
-    iconBg: "bg-c2r-black",
   },
   {
+    icon: MdBarChart,
     title: "Outcome tracking",
     description:
       "Outcome tracking and employer feedback loops to continuously improve the pipeline.",
-    iconBg: "bg-c2r-primary",
   },
 ];
 
-const impactCards = [
+const impact = [
   {
+    icon: MdSchedule,
     title: "Job-ready in 8–12 weeks",
     description:
       "Candidates become job-ready within 8–12 weeks through mentor-supported, role-aligned preparation.",
-    iconBg: "bg-c2r-primary",
   },
   {
+    icon: MdEvent,
     title: "Placed within 3 months",
     description:
       "Candidates placed within 3 months of completing our skill development and specialization program.",
-    iconBg: "bg-c2r-secondary",
   },
   {
+    icon: MdRepeat,
     title: "High repeat hiring intent",
     description:
       "High repeat hiring intent from partner employers who see strong on-the-job performance.",
-    iconBg: "bg-c2r-accent",
   },
   {
+    icon: MdTrendingUp,
     title: "Performance-driven results",
     description:
       "Strong on-the-job performance driven by mentoring and soft-skills readiness.",
-    iconBg: "bg-c2r-black",
   },
 ];
 
@@ -209,7 +242,6 @@ const employmentChallenges = [
   },
 ];
 
-// Company logos from public/company logo/ (tata strive.png, Mc donalds.png, sican.png).
 const corporatePartners = [
   {
     name: "TATA Strive",
@@ -232,130 +264,92 @@ export default function GetInvolvedCorporatePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col overflow-x-hidden">
-      <section className="relative min-h-[50vh] flex items-center overflow-hidden">
-        <ParallaxSection speed={0.3} className="absolute inset-0">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${getImageUrl("/assets/generated/corporate-handshake.dim_600x400.jpg")})`,
-            }}
+    <div className={GI_PAGE}>
+      <GetInvolvedHero
+        backgroundImage={getImageUrl(
+          "/assets/generated/corporate-handshake.dim_600x400.jpg",
+        )}
+        chapter="Corporate Partnerships"
+        title="Build your future-ready workforce—with purpose."
+        subtitle="Find motivated, job-ready talent while creating social impact."
+        icon={<CorporateIcon className={ICON.hero} />}
+      >
+        <Button
+          size="lg"
+          variant="secondary"
+          className={GI_BTN_HERO}
+          onClick={() => navigate({ to: "/contact" })}
+        >
+          Partner With Us
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
+      </GetInvolvedHero>
+
+      <GetInvolvedSection variant="gradient">
+        <ChapterHeader
+          chapter="Partnership Models"
+          title="Employers Can Engage Through"
+          icon={<CorporateIcon className={ICON.hero} />}
+        />
+        <GetInvolvedContentWidth size="wide">
+          <GetInvolvedBenefitGrid
+            items={partnershipModels}
+            columns="grid-cols-1 sm:grid-cols-2 lg:grid-cols-5"
           />
-          <div className="absolute inset-0 c2r-gradient-hero-overlay" />
-        </ParallaxSection>
-        <div className="container relative z-10 py-20">
-          <div className="mx-auto max-w-3xl text-center text-white">
-            <h1 className="heading-descender-safe mb-6 text-5xl font-bold md:text-6xl animate-hero-line">
-              Corporate Partnerships
-            </h1>
-            <p className="c2r-hero-subtitle animate-hero-line animate-hero-line-delay">
-              Build your future-ready workforce—with purpose.
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
+
+      <GetInvolvedSection>
+        <ChapterHeader
+          chapter="Engagement"
+          title="Corporates Can"
+          subtitle="Multiple ways to partner with Connect2Roots."
+          icon={<CorporateIcon className={ICON.hero} />}
+        />
+        <GetInvolvedContentWidth size="content">
+          <GetInvolvedBenefitGrid
+            items={corporatesCan}
+            columns="grid-cols-1 sm:grid-cols-2"
+          />
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
+
+      <GetInvolvedSection variant="muted">
+        <ChapterHeader
+          chapter="As an employer"
+          title="Build Your Future-Ready Workforce—With Purpose"
+          subtitle="Find motivated, job-ready talent—while creating social impact."
+        />
+        <GetInvolvedContentWidth size="content">
+          <ScrollReveal>
+            <p className="c2r-prose text-center">
+              Connect2Roots works closely with employers to identify talent
+              needs, co-design training pathways, and prepare underprivileged
+              youth for meaningful entry-level roles. Our mentor-first approach
+              ensures candidates are not just trained—but career-aware,
+              motivated, and prepared to contribute from Day One.
             </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/30">
-        <div className="container">
-          <ChapterHeader
-            chapter="Partnership Models"
-            title="Employers Can Engage Through:"
-            icon={<Briefcase className="h-8 w-8" />}
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
-            {partnershipModelsCards.map((card, i) => (
-              <ScrollReveal key={i} delay={80 + i * 50} direction="up">
-                <Card className="h-full rounded-2xl border-0 bg-[#F7F5F2] shadow-md hover:shadow-xl transition-all duration-300 overflow-visible card-hover-lift">
-                  <CardContent className="relative pt-10 pb-6 px-6 text-left">
-                    <div
-                      className={`absolute -top-3 -left-3 w-14 h-14 rounded-full ${card.iconBg} shadow-lg`}
-                    />
-                    <h3 className="relative c2r-card-title font-bold mb-3">
-                      {card.title}
-                    </h3>
-                    <p className="relative text-sm text-muted-foreground leading-relaxed">
-                      {card.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16">
-        <div className="container">
-          <ScrollReveal direction="up" delay={40}>
-            <h2 className="heading-descender-safe text-3xl md:text-4xl font-bold text-center text-foreground mb-10">
-              Corporates can
-            </h2>
           </ScrollReveal>
-          <div className="max-w-4xl mx-auto flex flex-col gap-1">
-            {corporatesCanCards.map((card, i) => (
-              <ScrollReveal key={i} delay={60 + i * 40} direction="left">
-                <div className="group flex items-start gap-4 py-4 px-5 rounded-xl border border-transparent hover:border-c2r-primary/20 hover:bg-muted/30 transition-colors">
-                  <div
-                    className={`mt-0.5 w-3 h-3 rounded-full shrink-0 ${card.iconBg}`}
-                  />
-                  <div>
-                    <h3 className="c2r-card-title mb-0.5">{card.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {card.description}
-                    </p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      <section className="py-12 md:py-16 bg-muted/30">
-        <div className="container">
-          <ChapterHeader
-            chapter="As an employer"
-            title="Build Your Future-Ready Workforce—With Purpose"
-            subtitle="Find motivated, job-ready talent—while creating social impact."
-          />
-          <div className="max-w-4xl mx-auto">
-            <ScrollReveal>
-              <p className="c2r-prose">
-                Connect2Roots works closely with employers to identify talent
-                needs, co-design training pathways, and prepare underprivileged
-                youth for meaningful entry-level roles. Our mentor-first
-                approach ensures candidates are not just trained—but
-                career-aware, motivated, and prepared to contribute from Day
-                One.
-              </p>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16">
-        <div className="container">
-          <ChapterHeader
-            chapter="Quick Links"
-            title="Quick Links (With Forms)"
-            subtitle=""
-          />
-          <div className="max-w-2xl mx-auto space-y-4">
+      <GetInvolvedSection>
+        <ChapterHeader chapter="Quick Links" title="Quick Links" />
+        <GetInvolvedContentWidth size="narrow">
+          <div className="space-y-4">
             {quickLinks.map((link, i) => (
-              <ScrollReveal key={i} delay={i * 80} direction="right">
+              <ScrollReveal key={i} delay={i * 80}>
                 <Link
                   to={link.path}
-                  className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-c2r-primary rounded-lg"
+                  className="group block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-c2r-primary"
                 >
-                  <Card className="card-hover-lift cursor-pointer border-border hover:border-c2r-primary/30">
-                    <CardContent className="pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                      <span className="text-muted-foreground">
-                        {link.label}
-                      </span>
+                  <Card className="cursor-pointer border border-border/60 shadow-sm transition-shadow duration-300 hover:border-c2r-primary/30 hover:shadow-md">
+                    <CardContent className="flex flex-col gap-2 pt-6 sm:flex-row sm:items-center sm:justify-between">
+                      <span className="text-muted-foreground">{link.label}</span>
                       <Button
                         variant="outline"
                         size="sm"
-                        className="shrink-0 gap-1 pointer-events-none"
+                        className="pointer-events-none shrink-0 gap-1"
                       >
                         {link.cta}
                         <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -366,241 +360,187 @@ export default function GetInvolvedCorporatePage() {
               </ScrollReveal>
             ))}
           </div>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      <section className="py-12 md:py-16 bg-muted/30">
-        <div className="container">
-          <ChapterHeader
-            chapter="Why Employers Choose Connect2Roots"
-            title="Purpose-Led Hiring Meets Business Outcomes"
-            subtitle="We help organizations address entry-level talent challenges while advancing inclusive growth and workforce resilience."
-          />
-          <ScrollReveal direction="up">
-            <p className="text-muted-foreground mb-10 text-center max-w-2xl mx-auto">
+      <GetInvolvedSection variant="muted">
+        <ChapterHeader
+          chapter="Why Employers Choose Connect2Roots"
+          title="Purpose-Led Hiring Meets Business Outcomes"
+          subtitle="We help organizations address entry-level talent challenges while advancing inclusive growth and workforce resilience."
+        />
+        <GetInvolvedContentWidth size="content">
+          <ScrollReveal>
+            <p className="mb-8 text-center text-muted-foreground">
               Our employer partners value Connect2Roots because we deliver:
             </p>
           </ScrollReveal>
-          <div className="max-w-3xl mx-auto space-y-0">
-            {whyEmployersCards.map((card, i) => (
-              <ScrollReveal key={i} delay={50 + i * 45} direction="up">
-                <div className="flex gap-5 py-5 border-b border-border/60 last:border-0">
-                  <div
-                    className={`w-1 shrink-0 self-stretch min-h-[3rem] rounded-full ${card.iconBg} opacity-80`}
-                  />
-                  <div>
-                    <h3 className="c2r-card-title mb-1">{card.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {card.description}
-                    </p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16">
-        <div className="container">
-          <ChapterHeader
-            chapter="Impact"
-            title="Impact at a Glance (Illustrative – update as data grows)"
-            subtitle="These outcomes reflect mentor-supported, role-aligned preparation rather than short-term training alone."
+          <GetInvolvedBenefitGrid
+            items={whyEmployers}
+            columns="grid-cols-1 sm:grid-cols-2"
+            delay={100}
           />
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-            {impactCards.map((card, i) => (
-              <ScrollReveal key={i} delay={60 + i * 50} direction="up">
-                <div className="text-center p-6 rounded-xl bg-muted/50 border border-border/50">
-                  <p className="c2r-card-title text-c2r-primary mb-1">
-                    {card.title}
-                  </p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {card.description}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      <section className="py-12 md:py-16 bg-muted/30">
-        <div className="container">
-          <ChapterHeader
-            chapter="What We Do for Employers"
-            title="We Identify, Prepare, and Support Talent"
-            subtitle="Connect2Roots works as an extended workforce partner, not just a sourcing channel. Our support includes:"
+      <GetInvolvedSection>
+        <ChapterHeader
+          chapter="Impact"
+          title="Impact at a Glance"
+          subtitle="These outcomes reflect mentor-supported, role-aligned preparation rather than short-term training alone."
+        />
+        <GetInvolvedContentWidth size="wide">
+          <GetInvolvedBenefitGrid
+            items={impact}
+            columns="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
           />
-          <div className="max-w-2xl mx-auto">
-            {whatWeDoCards.map((card, i) => (
-              <ScrollReveal key={i} delay={40 + i * 55} direction="left">
-                <div className="flex gap-4 pb-8 last:pb-0">
-                  <div className="flex flex-col items-center shrink-0">
-                    <div
-                      className={`w-3 h-3 rounded-full border-2 border-background shrink-0 ${card.iconBg}`}
-                    />
-                    {i < whatWeDoCards.length - 1 && (
-                      <div className="w-px flex-1 min-h-[2rem] mt-1 bg-gradient-to-b from-c2r-primary/50 to-c2r-secondary/40" />
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0 pt-0.5">
-                    <h3 className="c2r-card-title mb-1">{card.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {card.description}
-                    </p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-          <ScrollReveal direction="up" delay={200}>
-            <p className="max-w-2xl mx-auto mt-10 text-center text-muted-foreground">
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
+
+      <GetInvolvedSection variant="muted">
+        <ChapterHeader
+          chapter="What We Do for Employers"
+          title="We Identify, Prepare, and Support Talent"
+          subtitle="Connect2Roots works as an extended workforce partner, not just a sourcing channel."
+        />
+        <GetInvolvedContentWidth size="content">
+          <GetInvolvedBenefitGrid
+            items={whatWeDo}
+            columns="grid-cols-1 sm:grid-cols-2"
+            delay={100}
+          />
+          <ScrollReveal delay={200}>
+            <p className="mt-10 text-center text-muted-foreground">
               This creates business value for employers and long-term career
               stability for youth.
             </p>
           </ScrollReveal>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      <section className="py-12 md:py-16">
-        <div className="container">
-          <ScrollReveal direction="up">
-            <Button
-              variant="outline"
-              size="lg"
-              className="mb-12 transition-all duration-300 hover:border-c2r-primary/50 hover:shadow-lg"
-              onClick={() => navigate({ to: "/get-involved/how-it-works" })}
-            >
-              How It Works – In 3 Simple Steps
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+      <GetInvolvedSection>
+        <GetInvolvedContentWidth size="content">
+          <ScrollReveal>
+            <div className="mb-12 text-center">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => navigate({ to: "/get-involved/how-it-works" })}
+              >
+                How It Works – In 3 Simple Steps
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
           </ScrollReveal>
           <ChapterHeader
-            chapter="Challenges We Help Solve"
+            chapter="Challenges"
             title="Employment Challenges We Help Solve"
-            subtitle=""
           />
-          <div className="max-w-4xl mx-auto space-y-8">
+          <div className="space-y-6">
             {employmentChallenges.map((ch, i) => (
-              <ScrollReveal key={i} delay={i * 100} direction="left">
-                <Card className="challenge-card border-l-4 border-l-c2r-accent/80">
+              <ScrollReveal key={i} delay={i * 100}>
+                <Card className="border border-border/60 shadow-sm">
                   <CardContent className="pt-6">
-                    <h3 className="c2r-card-title mb-2">🔹 {ch.title}</h3>
-                    <p className="text-muted-foreground mb-2">{ch.problem}</p>
-                    <p className="text-muted-foreground mb-1">
-                      <strong>Our solution:</strong>
+                    <h3 className="c2r-card-title mb-2">{ch.title}</h3>
+                    <p className="mb-3 text-sm text-muted-foreground">
+                      {ch.problem}
                     </p>
-                    <p className="text-muted-foreground">{ch.solution}</p>
+                    <p className="mb-1 text-sm font-medium text-foreground">
+                      Our solution:
+                    </p>
+                    <p className="text-sm text-muted-foreground">{ch.solution}</p>
                   </CardContent>
                 </Card>
               </ScrollReveal>
             ))}
           </div>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      <section className="py-12 md:py-16 bg-muted/30">
-        <div className="container">
-          <ChapterHeader
-            chapter="What Makes Connect2Roots Different"
-            title="Mentor-First. Career-Aware. Outcome-Focused."
-            subtitle=""
-          />
-          <ScrollReveal direction="up" delay={60}>
-            <div className="max-w-3xl mx-auto space-y-4 text-muted-foreground">
-              <p className="c2r-prose">
+      <GetInvolvedSection variant="muted">
+        <ChapterHeader
+          chapter="What Makes Connect2Roots Different"
+          title="Mentor-First. Career-Aware. Outcome-Focused."
+        />
+        <GetInvolvedContentWidth size="narrow">
+          <ScrollReveal delay={60}>
+            <div className="space-y-4 text-muted-foreground">
+              <p className="c2r-prose text-center">
                 Unlike models that begin with training alone, Connect2Roots
                 begins with the individual. We believe sustainable employment
                 requires:
               </p>
-              <ul className="stagger-children space-y-2">
-                <li className="flex gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-c2r-primary shrink-0" />{" "}
-                  Career clarity before skill training
-                </li>
-                <li className="flex gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-c2r-primary shrink-0" />{" "}
-                  Human mentoring alongside technology
-                </li>
-                <li className="flex gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-c2r-primary shrink-0" />{" "}
-                  Long-term thinking beyond the first job
-                </li>
+              <ul className="space-y-2">
+                {[
+                  "Career clarity before skill training",
+                  "Human mentoring alongside technology",
+                  "Long-term thinking beyond the first job",
+                ].map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <CheckCircle2 className="h-5 w-5 shrink-0 text-c2r-primary" />
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
           </ScrollReveal>
-        </div>
-      </section>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
 
-      <section className="py-12 md:py-16">
-        <div className="container">
-          <ChapterHeader
-            chapter="Voices from Our Ecosystem"
-            title="Voices from Our Ecosystem (Placeholder)"
-            subtitle=""
-          />
-          <div className="max-w-2xl mx-auto">
-            <ScrollReveal direction="fade" delay={80}>
-              <Card className="animate-quote-reveal border border-c2r-accent/20 shadow-lg">
-                <CardContent className="pt-8">
-                  <Quote className="h-10 w-10 text-c2r-accent/50 mb-4 transition-transform duration-300 hover:scale-110" />
-                  <p className="text-muted-foreground italic leading-relaxed">
-                    “Connect2Roots candidates come with clarity, humility, and
-                    readiness—qualities that make onboarding smoother and
-                    performance stronger.”
-                  </p>
-                  <p className="mt-4 font-medium">
-                    — Corporate Partner (HR / Hiring Manager)
-                  </p>
-                </CardContent>
-              </Card>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16 bg-muted/30">
-        <div className="container">
-          <ChapterHeader
-            chapter="Partners"
-            title="Let’s Build the Workforce of 2047—Together"
-            subtitle="Whether you are: Hiring entry-level talent · Building future skill pipelines · Advancing CSR & ESG goals"
-          />
-          <p className="text-center font-semibold text-muted-foreground mb-6">
-            Corporate Partners
-          </p>
-          <div className="flex justify-center mb-10">
-            <LogoSlider
-              logos={corporatePartners.map((partner, i) => (
-                <img
-                  key={i}
-                  src={partner.localLogo}
-                  alt={partner.name}
-                  className="object-contain"
-                />
-              ))}
-              speed={40}
-              direction="right"
-              pauseOnHover
-            />
-          </div>
-          <ScrollReveal direction="up" delay={60}>
-            <div className="text-center">
-              <Button
-                size="lg"
-                className="text-lg px-8 py-6 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
-                onClick={() =>
-                  navigate({ to: "/get-involved/corporate-partnerships" })
-                }
-              >
-                Partner with Us
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
+      <GetInvolvedSection>
+        <ChapterHeader
+          chapter="Voices"
+          title="Voices from Our Ecosystem"
+          subtitle="What partners say about working with Connect2Roots."
+        />
+        <GetInvolvedContentWidth size="narrow">
+          <ScrollReveal delay={80}>
+            <Card className="border border-border/60 shadow-lg">
+              <CardContent className="pt-8">
+                <MdFormatQuote className="mb-4 h-10 w-10 text-c2r-accent/50" />
+                <p className="italic leading-relaxed text-muted-foreground">
+                  "Connect2Roots candidates come with clarity, humility, and
+                  readiness—qualities that make onboarding smoother and
+                  performance stronger."
+                </p>
+                <p className="mt-4 font-medium">
+                  — Corporate Partner (HR / Hiring Manager)
+                </p>
+              </CardContent>
+            </Card>
           </ScrollReveal>
+        </GetInvolvedContentWidth>
+      </GetInvolvedSection>
+
+      <GetInvolvedSection variant="muted">
+        <ChapterHeader
+          chapter="Partners"
+          title="Let's Build the Workforce of 2047—Together"
+          subtitle="Whether you are hiring entry-level talent, building future skill pipelines, or advancing CSR & ESG goals."
+        />
+        <p className="mb-6 text-center font-semibold text-muted-foreground">
+          Corporate Partners
+        </p>
+        <div className="mb-10 flex justify-center">
+          <LogoSlider
+            logos={corporatePartners.map((partner, i) => (
+              <img
+                key={i}
+                src={partner.localLogo}
+                alt={partner.name}
+                className="object-contain"
+              />
+            ))}
+            speed={40}
+            direction="right"
+            pauseOnHover
+          />
         </div>
-      </section>
+        <GetInvolvedSectionCta
+          label="Partner with Us"
+          onClick={() => navigate({ to: "/contact" })}
+        />
+      </GetInvolvedSection>
     </div>
   );
 }
