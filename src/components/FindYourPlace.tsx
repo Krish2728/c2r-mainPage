@@ -98,7 +98,7 @@ function AudienceCardItem({
           ? undefined
           : { y: -5, transition: { duration: 0.22, ease: "easeOut" } }
       }
-      className="group relative flex h-full w-[min(260px,82vw)] shrink-0 flex-col overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-4 shadow-lg shadow-black/10 backdrop-blur-md transition-[border-color,box-shadow] duration-300 hover:border-white/35 hover:bg-white/[0.14] hover:shadow-xl hover:shadow-black/15 xl:w-auto xl:p-5"
+      className="group relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-4 shadow-lg shadow-black/10 backdrop-blur-md transition-[border-color,box-shadow] duration-300 hover:border-white/35 hover:bg-white/[0.14] hover:shadow-xl hover:shadow-black/15 xl:p-5"
     >
       <div
         aria-hidden
@@ -157,7 +157,7 @@ export function FindYourPlace() {
       </motion.div>
 
       <motion.div
-        className="-mx-4 flex w-max gap-3 overflow-x-auto px-4 pb-2 scrollbar-hide md:-mx-6 md:px-6 xl:mx-0 xl:grid xl:w-full xl:grid-cols-5 xl:gap-4 xl:overflow-visible xl:px-0"
+        className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:gap-4"
         variants={gridVariants}
         initial="hidden"
         whileInView="visible"
