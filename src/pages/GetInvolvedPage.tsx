@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { getInvolvedIcons, ICON } from "@/lib/siteIcons";
 import type { SiteIconType } from "@/lib/siteIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import {
   GI_PAGE,
   GetInvolvedHero,
@@ -61,9 +61,7 @@ export default function GetInvolvedPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/volunteer-mentoring.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("getInvolved")}
         chapter="Ways to Engage"
         title="Get Involved"
         subtitle="Mentor, volunteer, partner, or collaborate—choose how you want to make an impact."

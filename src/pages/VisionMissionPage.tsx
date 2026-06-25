@@ -12,7 +12,7 @@ import {
 } from "react-icons/md";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ChapterHeader } from "@/components/ChapterHeader";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import { aboutIcons, ICON } from "@/lib/siteIcons";
 import {
   GI_PAGE,
@@ -73,9 +73,7 @@ export default function VisionMissionPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/future-of-work.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("visionMission")}
         chapter="About Us"
         title="Vision & Mission"
         subtitle="Guided by vision, driven by mission, united by purpose."

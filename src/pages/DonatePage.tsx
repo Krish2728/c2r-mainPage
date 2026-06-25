@@ -21,7 +21,8 @@ import {
   Shield,
   Check,
 } from "lucide-react";
-import { getImageUrl } from "@/lib/images";
+import { getImageUrl, getHeroImageUrl } from "@/lib/images";
+import { PhotoPageHero } from "@/components/get-involved/GetInvolvedLayout";
 
 const donationTiers = [
   {
@@ -123,31 +124,21 @@ export default function DonatePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={getImageUrl(
-              "/assets/generated/donation-impact.dim_600x400.jpg",
-            )}
-            alt="Donation Impact"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-background" />
-        </div>
-        <div className="relative z-10 container text-center text-white px-4">
-          <ScrollReveal>
-            <h1 className="heading-descender-safe text-4xl md:text-6xl font-bold mb-6">
-              Your Support Creates Lasting Change
-            </h1>
-          </ScrollReveal>
-          <ScrollReveal delay={0.2}>
-            <p className="c2r-hero-subtitle max-w-3xl mx-auto">
-              Every donation helps bridge the gap between talent and
-              opportunity, empowering young minds to build brighter futures.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
+      <PhotoPageHero
+        backgroundImage={getHeroImageUrl("donation")}
+      >
+        <ScrollReveal>
+          <h1 className="heading-descender-safe mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">
+            Your Support Creates Lasting Change
+          </h1>
+        </ScrollReveal>
+        <ScrollReveal delay={0.2}>
+          <p className="c2r-hero-subtitle max-w-xl pb-0.5">
+            Every donation helps bridge the gap between talent and
+            opportunity, empowering young minds to build brighter futures.
+          </p>
+        </ScrollReveal>
+      </PhotoPageHero>
 
       {/* Impact Stories Section */}
       <section className="py-20 bg-muted/30">
@@ -197,7 +188,7 @@ export default function DonatePage() {
             </ScrollReveal>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="hidden gap-8 md:grid md:grid-cols-2">
             <ScrollReveal delay={0.2}>
               <div className="relative h-64 rounded-lg overflow-hidden">
                 <img

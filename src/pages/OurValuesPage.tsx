@@ -15,7 +15,7 @@ import {
 import { ArrowRight } from "lucide-react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ChapterHeader } from "@/components/ChapterHeader";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import { aboutIcons, ICON } from "@/lib/siteIcons";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -113,9 +113,7 @@ export default function OurValuesPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/hero-banner.dim_1200x600.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("ourValues")}
         chapter="About Us"
         title="Our Values"
         subtitle="The principles that guide our mission and shape every decision we make."

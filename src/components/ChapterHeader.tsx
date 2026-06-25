@@ -1,13 +1,16 @@
 import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 import { ScrollReveal } from "./ScrollReveal";
 
 interface ChapterHeaderProps {
-  chapter: string;
+  chapter?: string;
   title: string;
   subtitle?: string;
   icon?: ReactNode;
   /** White text styling for green hero banners */
   variant?: "default" | "hero";
+  /** Hero text alignment — charity-style heroes use left */
+  align?: "left" | "center";
 }
 
 export function ChapterHeader({
@@ -16,38 +19,54 @@ export function ChapterHeader({
   subtitle,
   icon,
   variant = "default",
+  align: alignProp,
 }: ChapterHeaderProps) {
   const isHero = variant === "hero";
+  const align = alignProp ?? (variant === "default" ? "center" : "left");
+  const isLeft = align === "left";
 
   return (
     <ScrollReveal direction="fade" className="overflow-visible">
       <div
-        className={`text-center overflow-visible ${isHero ? "mb-0" : "mb-16"}`}
+        className={cn(
+          "overflow-visible",
+          isHero ? "mb-0" : "mb-16 text-center",
+          isLeft && isHero && "text-left",
+        )}
       >
         {icon && (
           <div
-            className={`flex justify-center mb-6 ${isHero ? "text-white" : ""}`}
+            className={cn(
+              "mb-6",
+              isHero ? "text-white" : "",
+              isLeft ? "flex justify-start" : "flex justify-center",
+            )}
           >
             {icon}
           </div>
         )}
-        <div
-          className={`inline-block mb-4 px-6 py-2.5 rounded-full leading-normal ${
-            isHero ? "border border-white/25 bg-white/15" : "bg-c2r-accent/10"
-          }`}
-        >
-          <span
-            className={`text-sm font-semibold uppercase tracking-wider ${
-              isHero ? "text-[oklch(0.88_0.1_68)]" : "text-c2r-accent"
-            }`}
+        {chapter && (
+          <div
+            className={cn(
+              "mb-4 inline-block rounded-full px-6 py-2.5 leading-normal",
+              isHero ? "border border-white/25 bg-white/15" : "bg-c2r-accent/10",
+            )}
           >
-            {chapter}
-          </span>
-        </div>
+            <span
+              className={cn(
+                "text-sm font-semibold uppercase tracking-wider",
+                isHero ? "text-[oklch(0.88_0.1_68)]" : "text-c2r-accent",
+              )}
+            >
+              {chapter}
+            </span>
+          </div>
+        )}
         <h2
-          className={`heading-descender-safe text-4xl font-bold mb-4 md:text-5xl ${
-            isHero ? "text-white" : ""
-          }`}
+          className={cn(
+            "heading-descender-safe mb-4 text-4xl font-bold md:text-5xl lg:text-6xl",
+            isHero && "text-white",
+          )}
         >
           {isHero ? (
             title
@@ -62,11 +81,10 @@ export function ChapterHeader({
         </h2>
         {subtitle && (
           <p
-            className={
-              isHero
-                ? "c2r-hero-subtitle max-w-3xl mx-auto pb-0.5"
-                : "c2r-section-subtitle pb-0.5"
-            }
+            className={cn(
+              isHero ? "c2r-hero-subtitle pb-0.5" : "c2r-section-subtitle pb-0.5",
+              isLeft && isHero ? "mx-0 max-w-xl" : isHero && "mx-auto max-w-3xl",
+            )}
           >
             {subtitle}
           </p>

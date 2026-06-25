@@ -5,7 +5,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import { LogoSlider } from "@/components/ui/logo-slider";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import {
   GI_PAGE,
   GI_BTN_HERO,
@@ -48,9 +48,7 @@ export default function GetInvolvedOtherAlliancesPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/team-collaboration.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("alliances")}
         chapter="Other Alliances"
         title="University & Academic Institutional Alliances"
         subtitle="University, NGO, and institutional partnerships."

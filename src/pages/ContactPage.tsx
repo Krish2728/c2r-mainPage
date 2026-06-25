@@ -20,15 +20,15 @@ import {
   useContactForm,
   usePartnershipInquiry,
   useVolunteerForm,
-  useLifetimeMembershipForm,
   type VolunteerFormData,
 } from "@/hooks/useQueries";
 import {
   VolunteerRegistrationForm,
   INITIAL_VOLUNTEER_FORM,
 } from "@/components/VolunteerRegistrationForm";
+import { LifetimeMembershipFlow } from "@/components/LifetimeMembershipFlow";
 import { toast } from "sonner";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import {
@@ -133,9 +133,6 @@ export default function ContactPage() {
   const [volunteerForm, setVolunteerForm] = useState<VolunteerFormData>(
     INITIAL_VOLUNTEER_FORM,
   );
-  const [lifetimeForm, setLifetimeForm] = useState<VolunteerFormData>(
-    INITIAL_VOLUNTEER_FORM,
-  );
 
   useEffect(() => {
     const hash = (location.hash ?? window.location.hash ?? "").replace(
@@ -151,7 +148,6 @@ export default function ContactPage() {
   const contactMutation = useContactForm();
   const partnershipMutation = usePartnershipInquiry();
   const volunteerMutation = useVolunteerForm();
-  const lifetimeMembershipMutation = useLifetimeMembershipForm();
 
   const selectTab = (tab: ContactTab) => {
     setActiveTab(tab);
@@ -209,32 +205,10 @@ export default function ContactPage() {
   const updateVolunteer = (updates: Partial<VolunteerFormData>) =>
     setVolunteerForm((prev) => ({ ...prev, ...updates }));
 
-  const handleLifetimeMembershipSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!lifetimeForm.preferredDays || !lifetimeForm.preferredTimings) {
-      toast.error("Please select your preferred days and timings.");
-      return;
-    }
-    try {
-      await lifetimeMembershipMutation.mutateAsync(lifetimeForm);
-      toast.success(
-        "Thank you! Your lifetime membership application has been submitted. Our team will contact you within 2–3 working days.",
-      );
-      setLifetimeForm(INITIAL_VOLUNTEER_FORM);
-    } catch {
-      toast.error("Failed to submit application. Please try again.");
-    }
-  };
-
-  const updateLifetimeForm = (updates: Partial<VolunteerFormData>) =>
-    setLifetimeForm((prev) => ({ ...prev, ...updates }));
-
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/team-collaboration.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("contact")}
         chapter="Contact"
         title="Contact Us"
         subtitle="We'd love to hear from you. Reach out with questions, partnership inquiries, or to learn more about our work."
@@ -537,45 +511,7 @@ export default function ContactPage() {
             </TabsContent>
 
             <TabsContent value="lifetime-membership" id="lifetime-membership">
-              <Card className="overflow-hidden border border-border/60 shadow-lg">
-                <div className="border-b border-border/60 bg-gradient-to-r from-c2r-primary/5 via-background to-c2r-secondary/5 px-6 py-5 md:px-8">
-                  <CardTitle className="flex items-center gap-2 text-xl">
-                    <contactIcons.membership className="h-5 w-5 text-c2r-accent" />
-                    Lifetime Membership Application
-                  </CardTitle>
-                  <CardDescription className="mt-2 text-base">
-                    Apply to join our professional community.
-                  </CardDescription>
-                </div>
-                <CardHeader className="pb-0">
-                  <CardDescription className="space-y-4 text-left">
-                    <p className="font-medium text-foreground">Namaste,</p>
-                    <p className="c2r-prose">
-                      Thank you for your interest in Lifetime Membership with
-                      Connect2Roots Foundation. Our team will contact you within
-                      2–3 working days with payment and onboarding details.
-                    </p>
-                    <div className="rounded-xl border border-amber-200/80 bg-amber-50/80 p-4 dark:border-amber-800/50 dark:bg-amber-950/30">
-                      <p className="text-sm leading-relaxed text-muted-foreground">
-                        {CONSENT_NOTICE}
-                      </p>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      * Indicates required field
-                    </p>
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <VolunteerRegistrationForm
-                    idPrefix="lm-contact"
-                    form={lifetimeForm}
-                    onChange={updateLifetimeForm}
-                    onSubmit={handleLifetimeMembershipSubmit}
-                    isPending={lifetimeMembershipMutation.isPending}
-                    submitLabel="Submit Application"
-                  />
-                </CardContent>
-              </Card>
+              <LifetimeMembershipFlow idPrefix="lm-contact" />
             </TabsContent>
           </Tabs>
         </GetInvolvedContentWidth>

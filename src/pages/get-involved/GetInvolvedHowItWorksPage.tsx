@@ -4,7 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { getInvolvedIcons, ICON } from "@/lib/siteIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import {
   GI_PAGE,
   GI_BTN_HERO,
@@ -43,9 +43,7 @@ export default function GetInvolvedHowItWorksPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/corporate-handshake.dim_600x400.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("howItWorks")}
         chapter="Partnership Process"
         title="How It Works — In 3 Simple Steps"
         subtitle="A clear path from alignment to equipped, job-ready talent."

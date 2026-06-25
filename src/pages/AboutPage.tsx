@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import { aboutIcons, ICON } from "@/lib/siteIcons";
 import type { SiteIconType } from "@/lib/siteIcons";
 import {
@@ -60,9 +60,7 @@ export default function AboutPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/team-collaboration.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("about")}
         chapter="About Us"
         title="Our Story, Our People, Our Purpose"
         subtitle="Learn who we are, how we work, and the values that guide everything we do."

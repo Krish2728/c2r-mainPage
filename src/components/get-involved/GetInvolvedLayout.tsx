@@ -11,11 +11,59 @@ import { cn } from "@/lib/utils";
 
 export const GI_PAGE = "flex flex-col overflow-hidden";
 export const GI_BTN_PRIMARY = "text-lg px-8 py-6";
-export const GI_BTN_HERO = "text-lg px-8 py-6";
+export const GI_BTN_HERO =
+  "text-lg rounded-full border-white/35 bg-white/10 px-8 py-6 text-white backdrop-blur-sm hover:bg-white/20 hover:text-white";
+export const GI_SECTION_IMAGE =
+  "aspect-[4/3] w-full max-h-72 object-cover rounded-xl border border-border/60 shadow-md";
+
+type PhotoPageHeroProps = {
+  backgroundImage: string;
+  children: ReactNode;
+  className?: string;
+  contentClassName?: string;
+  id?: string;
+};
+
+/** Full-bleed photo hero shell — left-aligned content, charity-style overlay */
+export function PhotoPageHero({
+  backgroundImage,
+  children,
+  className,
+  contentClassName,
+  id,
+}: PhotoPageHeroProps) {
+  return (
+    <section
+      id={id}
+      className={cn(
+        "relative flex min-h-[min(85vh,820px)] items-center overflow-hidden",
+        className,
+      )}
+    >
+      <ParallaxSection speed={0.3} className="absolute inset-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        />
+        <div className="absolute inset-0 c2r-hero-photo-overlay" />
+      </ParallaxSection>
+      <div className="container relative z-10 flex min-h-[min(85vh,820px)] flex-col justify-center py-16 md:py-20">
+        <div
+          className={cn(
+            "max-w-2xl text-left text-white lg:max-w-3xl",
+            contentClassName,
+          )}
+        >
+          {children}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 type GetInvolvedHeroProps = {
   backgroundImage: string;
-  chapter: string;
+  chapter?: string;
   title: string;
   subtitle?: string;
   icon?: ReactNode;
@@ -31,31 +79,57 @@ export function GetInvolvedHero({
   children,
 }: GetInvolvedHeroProps) {
   return (
-    <section className="relative min-h-[50vh] flex items-center overflow-hidden">
-      <ParallaxSection speed={0.3} className="absolute inset-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        />
-        <div className="absolute inset-0 c2r-gradient-hero-overlay" />
-      </ParallaxSection>
-      <div className="container relative z-10 py-20">
-        <div className="mx-auto max-w-3xl text-white">
-          <ChapterHeader
-            variant="hero"
-            chapter={chapter}
-            title={title}
-            subtitle={subtitle}
-            icon={icon}
-          />
-          {children && (
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              {children}
-            </div>
-          )}
-        </div>
+    <PhotoPageHero backgroundImage={backgroundImage}>
+      <ChapterHeader
+        variant="hero"
+        align="left"
+        chapter={chapter}
+        title={title}
+        subtitle={subtitle}
+        icon={icon}
+      />
+      {children && (
+        <div className="mt-8 flex flex-wrap justify-start gap-4">{children}</div>
+      )}
+    </PhotoPageHero>
+  );
+}
+
+type ContentWithImageProps = {
+  children: ReactNode;
+  imageSrc: string;
+  imageAlt: string;
+  imagePosition?: "left" | "right";
+  className?: string;
+};
+
+/** Content first on small screens; image beside content on lg+ only */
+export function ContentWithImage({
+  children,
+  imageSrc,
+  imageAlt,
+  imagePosition = "right",
+  className,
+}: ContentWithImageProps) {
+  return (
+    <div
+      className={cn(
+        "grid items-center gap-8 lg:grid-cols-2 lg:gap-10",
+        className,
+      )}
+    >
+      <div className={cn(imagePosition === "left" && "lg:order-2")}>
+        {children}
       </div>
-    </section>
+      <div
+        className={cn(
+          "hidden lg:block",
+          imagePosition === "left" && "lg:order-1",
+        )}
+      >
+        <img src={imageSrc} alt={imageAlt} className={GI_SECTION_IMAGE} />
+      </div>
+    </div>
   );
 }
 

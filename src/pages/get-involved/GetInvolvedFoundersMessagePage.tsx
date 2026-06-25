@@ -1,6 +1,6 @@
 import { aboutIcons, ICON } from "@/lib/siteIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import {
   GI_PAGE,
   GetInvolvedHero,
@@ -24,9 +24,7 @@ export default function GetInvolvedFoundersMessagePage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/founder-headshot.dim_300x300.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("founders")}
         chapter="Founder's Message"
         title="From the Founder's Desk"
         subtitle="A note on why Connect2Roots exists and where we are headed."

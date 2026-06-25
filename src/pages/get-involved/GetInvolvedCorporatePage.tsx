@@ -28,7 +28,7 @@ import { getInvolvedIcons, ICON } from "@/lib/siteIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import { LogoSlider } from "@/components/ui/logo-slider";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import {
   GI_PAGE,
   GI_BTN_HERO,
@@ -266,9 +266,7 @@ export default function GetInvolvedCorporatePage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/corporate-handshake.dim_600x400.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("corporate")}
         chapter="Corporate Partnerships"
         title="Build your future-ready workforce—with purpose."
         subtitle="Find motivated, job-ready talent while creating social impact."

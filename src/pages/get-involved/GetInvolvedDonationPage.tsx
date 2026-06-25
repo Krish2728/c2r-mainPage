@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { getInvolvedIcons, ICON } from "@/lib/siteIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ChapterHeader } from "@/components/ChapterHeader";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import {
   GI_PAGE,
   GI_BTN_HERO,
@@ -32,9 +32,7 @@ export default function GetInvolvedDonationPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/donation-impact.dim_600x400.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("donation")}
         chapter="Donation"
         title="Why Donate?"
         subtitle="Every contribution directly supports mentoring, skilling, and job readiness — with transparent impact tracking."

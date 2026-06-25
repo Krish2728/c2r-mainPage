@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useNavigate } from "@tanstack/react-router";
-import { ArrowRight, Users, Target, TrendingUp, Heart } from "lucide-react";
+import { Users, Target, TrendingUp, Heart } from "lucide-react";
 import { useTestimonials } from "@/hooks/useQueries";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { HomeHero } from "@/components/home/HomeHero";
 import { RealityOnGround } from "@/components/RealityOnGround";
 import { Vision2047 } from "@/components/Vision2047";
 import { FindYourPlace } from "@/components/FindYourPlace";
 import { getImageUrl } from "@/lib/images";
+import { ContentWithImage } from "@/components/get-involved/GetInvolvedLayout";
 import {
   Carousel,
   CarouselContent,
@@ -17,58 +17,23 @@ import {
 } from "@/components/ui/carousel";
 
 export default function HomePage() {
-  const navigate = useNavigate();
   const { data: testimonials = [] } = useTestimonials();
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section
-        className="relative min-h-[85vh] flex items-center bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${getImageUrl("/assets/generated/hero-banner.dim_1200x600.jpg")})`,
-        }}
-      >
-        <div className="absolute inset-0 c2r-gradient-hero-overlay" />
-
-        <div className="container relative z-10 py-20">
-          <div className="mx-auto max-w-4xl text-center text-white">
-            <h1 className="heading-descender-safe mb-6 text-5xl font-bold tracking-tight md:text-7xl leading-tight">
-              Empowering Communities for a Brighter Future
-            </h1>
-            <p className="mb-10 c2r-hero-subtitle">
-              Career guidance, skill development, and livelihood support with
-              free resources available, enabling young people to grow and
-              citizens to give back to their roots and society.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="text-lg px-8 py-6"
-                onClick={() => navigate({ to: "/get-involved" })}
-              >
-                Partner With Us
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-white/10 text-white border-white/30 hover:bg-white/20 text-lg px-8 py-6 backdrop-blur-sm"
-                onClick={() => navigate({ to: "/get-involved" })}
-              >
-                Support the Mission
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeHero />
 
       {/* Intro Section */}
       <section className="py-20 md:py-28 bg-background">
         <div className="container">
-          <div className="grid gap-12 md:grid-cols-2 items-center max-w-6xl mx-auto">
-            <ScrollReveal direction="left">
+          <ScrollReveal direction="left">
+            <ContentWithImage
+              className="max-w-6xl mx-auto"
+              imageSrc={getImageUrl(
+                "/assets/generated/team-collaboration.dim_800x500.jpg",
+              )}
+              imageAlt="Indian students collaborating and learning together"
+            >
               <div className="space-y-6">
                 <h2 className="heading-descender-safe text-4xl font-bold mb-6">
                   Welcome to Connect2Roots
@@ -91,17 +56,8 @@ export default function HomePage() {
                   imagined.
                 </p>
               </div>
-            </ScrollReveal>
-            <ScrollReveal direction="right" delay={100}>
-              <img
-                src={getImageUrl(
-                  "/assets/generated/team-collaboration.dim_800x500.jpg",
-                )}
-                alt="Team Collaboration"
-                className="rounded-lg shadow-xl w-full"
-              />
-            </ScrollReveal>
-          </div>
+            </ContentWithImage>
+          </ScrollReveal>
         </div>
       </section>
 

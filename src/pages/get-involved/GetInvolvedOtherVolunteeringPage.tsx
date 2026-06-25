@@ -8,7 +8,7 @@ import { ChapterHeader } from "@/components/ChapterHeader";
 import { VolunteerRoleCategories } from "@/components/VolunteerRoleCategories";
 import { YouthUnemploymentStats } from "@/components/YouthUnemploymentStats";
 import { VolunteerClosingCTA } from "@/components/VolunteerClosingCTA";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import {
   GI_PAGE,
   GI_BTN_HERO,
@@ -49,9 +49,7 @@ export default function GetInvolvedOtherVolunteeringPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/team-collaboration.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("volunteering")}
         chapter="Volunteer"
         title="Why Volunteer at Connect2Roots"
         subtitle="Your expertise can open doors that talent alone cannot."

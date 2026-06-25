@@ -12,7 +12,7 @@ import { ChapterHeader } from "@/components/ChapterHeader";
 import { RoleCategories } from "@/components/RoleCategories";
 import { MentorClosingCTA } from "@/components/MentorClosingCTA";
 import { mentorRoleCategories } from "@/data/mentorRoles";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import {
   GI_PAGE,
   GI_BTN_HERO,
@@ -58,9 +58,7 @@ export default function GetInvolvedVolunteerPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/volunteer-mentoring.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("volunteer")}
         chapter="Mentor"
         title="Why Mentor with Connect2Roots"
         subtitle="Your experience can become someone else's turning point."

@@ -13,7 +13,7 @@ import { ArrowRight } from "lucide-react";
 import { CheckCircle2 } from "lucide-react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ChapterHeader } from "@/components/ChapterHeader";
-import { getImageUrl } from "@/lib/images";
+import { getImageUrl, getHeroImageUrl } from "@/lib/images";
 import { aboutIcons, ICON } from "@/lib/siteIcons";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -122,9 +122,7 @@ export default function JourneyPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/team-collaboration.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("journey")}
         chapter="About Us"
         title="Our Journey"
         subtitle="From a small idea to a growing movement—the story of Connect2Roots."
@@ -203,7 +201,7 @@ export default function JourneyPage() {
                       <img
                         src={milestone.image}
                         alt={milestone.title}
-                        className="w-full rounded-lg border border-border/60 object-cover shadow-sm lg:mt-2"
+                        className="hidden w-full rounded-lg border border-border/60 object-cover shadow-sm lg:mt-2 lg:block lg:max-h-48"
                       />
                     </div>
                   </CardContent>

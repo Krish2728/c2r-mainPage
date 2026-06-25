@@ -6,7 +6,7 @@ import type { IconType } from "react-icons";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { mentorshipIcons, ICON } from "@/lib/siteIcons";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { getImageUrl } from "@/lib/images";
+import { getImageUrl, getHeroImageUrl } from "@/lib/images";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import {
   GI_PAGE,
@@ -16,6 +16,7 @@ import {
   GetInvolvedSection,
   GetInvolvedIntroCard,
   GetInvolvedContentWidth,
+  GI_SECTION_IMAGE,
 } from "@/components/get-involved/GetInvolvedLayout";
 
 const MENTOR_PLATFORM_BASE =
@@ -171,9 +172,7 @@ export default function MentorshipPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/mentorship-workshop.dim_800x600.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("mentorship")}
         chapter="Mentorship"
         title="Where Paths Cross, Lives Change"
         subtitle="The story of mentorship is the story of human connection—where experience meets aspiration, and guidance transforms into possibility."
@@ -228,17 +227,8 @@ export default function MentorshipPage() {
           icon={<mentorshipIcons.why className={ICON.section} />}
         />
         <GetInvolvedContentWidth size="wide">
-          <div className="grid items-center gap-8 md:grid-cols-2">
-            <ScrollReveal delay={100}>
-              <img
-                src={getImageUrl(
-                  "/assets/generated/mentorship-workshop.dim_800x600.jpg",
-                )}
-                alt="Mentoring session"
-                className="aspect-[4/3] w-full rounded-xl border border-border/60 object-cover shadow-md"
-              />
-            </ScrollReveal>
-            <ScrollReveal delay={150}>
+          <div className="grid items-center gap-8 lg:grid-cols-2">
+            <ScrollReveal delay={150} className="lg:order-2">
               <GetInvolvedIntroCard>
                 <h3 className="c2r-card-title">The Ripple Effect</h3>
                 <p className="c2r-prose">
@@ -257,6 +247,15 @@ export default function MentorshipPage() {
                   — Former Mentee, Now a Mentor
                 </p>
               </GetInvolvedIntroCard>
+            </ScrollReveal>
+            <ScrollReveal delay={100} className="hidden lg:block lg:order-1">
+              <img
+                src={getImageUrl(
+                  "/assets/generated/mentorship-workshop.dim_800x600.jpg",
+                )}
+                alt="Mentoring session"
+                className={GI_SECTION_IMAGE}
+              />
             </ScrollReveal>
           </div>
         </GetInvolvedContentWidth>

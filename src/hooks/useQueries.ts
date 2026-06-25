@@ -286,15 +286,42 @@ export function useVolunteerForm() {
   });
 }
 
+export type LifetimeMembershipFormData = {
+  fullName: string;
+  designation: string;
+  organization: string;
+  mobileNo: string;
+  email: string;
+  linkedinProfile: string;
+  currentCityState: string;
+  industryExpertise: string[];
+  industryOther: string;
+  yearsOfExperience: string;
+  nativeVillageTown: string;
+  districtState: string;
+  supportNativeRegion: string;
+  contributionAreas: string[];
+  contributionOther: string;
+  areasOfInterest: string[];
+  interestOther: string;
+  additionalSupport: string[];
+  professionalBio: string;
+  declarationAccepted: boolean;
+  consentContact: boolean;
+};
+
 export function useLifetimeMembershipForm() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: VolunteerFormData) => {
+    mutationFn: async (data: LifetimeMembershipFormData) => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/lifetime-membership`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+          body: JSON.stringify({
+            ...data,
+            formType: "leadership-circle-lifetime-membership",
+          }),
         });
         if (res.status === 404) {
           console.warn(
@@ -311,6 +338,7 @@ export function useLifetimeMembershipForm() {
         return res.json();
       }
       console.log("Lifetime membership form submission:", data);
+      return { ok: true };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["lifetimeMembershipForms"] });

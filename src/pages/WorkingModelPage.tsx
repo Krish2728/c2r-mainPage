@@ -22,7 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import { aboutIcons, featureIcons, ICON } from "@/lib/siteIcons";
 import {
   GI_PAGE,
@@ -131,9 +131,7 @@ export default function WorkingModelPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/future-of-work.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("workingModel")}
         chapter="About Us"
         title="Our Working Model"
         subtitle="A proven framework for transforming aspirations into achievements."

@@ -8,7 +8,7 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 import { programIcons, ICON } from "@/lib/siteIcons";
 import { usePrograms } from "@/hooks/useQueries";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { getImageUrl } from "@/lib/images";
+import { getImageUrl, getHeroImageUrl } from "@/lib/images";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import {
   GI_PAGE,
@@ -300,9 +300,7 @@ export default function ProgramsPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/career-catalyst.dim_600x400.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("programs")}
         chapter="Our Programs"
         title="Three Chapters of Transformation"
         subtitle="Dream, Learn, Thrive—these are the chapters we write together."

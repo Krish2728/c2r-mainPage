@@ -15,7 +15,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { sepfIcons, ICON } from "@/lib/siteIcons";
 import { ChapterHeader } from "@/components/ChapterHeader";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { getImageUrl } from "@/lib/images";
+import { getImageUrl, getHeroImageUrl } from "@/lib/images";
 import { StoryCard } from "@/components/StoryCard";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,6 +35,7 @@ import {
   GetInvolvedSection,
   GetInvolvedIntroCard,
   GetInvolvedContentWidth,
+  GI_SECTION_IMAGE,
 } from "@/components/get-involved/GetInvolvedLayout";
 
 const SEPF_SECTION_IDS = [
@@ -215,9 +216,7 @@ export default function SepfPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/policy-research.dim_600x400.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("sepf")}
         chapter="Policy & Research"
         title="C2R SEPF"
         subtitle="Skills & Entrepreneurship Policy Forum — the foresight, research, and policy arm of Connect2Roots, bridging aspirations with opportunities through evidence-based insights and collaborative action."
@@ -272,7 +271,7 @@ export default function SepfPage() {
           icon={<sepfIcons.mission className={ICON.section} />}
         />
         <GetInvolvedContentWidth size="wide">
-          <div className="grid items-center gap-8 md:grid-cols-2">
+          <div className="grid items-center gap-8 lg:grid-cols-2">
             <ScrollReveal delay={100}>
               <div className="space-y-5">
                 <h3 className="c2r-card-title">What We Do</h3>
@@ -299,13 +298,13 @@ export default function SepfPage() {
                 </GetInvolvedIntroCard>
               </div>
             </ScrollReveal>
-            <ScrollReveal delay={150}>
+            <ScrollReveal delay={150} className="hidden lg:block">
               <img
                 src={getImageUrl(
                   "/assets/generated/policy-research.dim_600x400.jpg",
                 )}
                 alt="Policy Research"
-                className="w-full rounded-xl border border-border/60 object-cover shadow-md"
+                className={GI_SECTION_IMAGE}
               />
             </ScrollReveal>
           </div>
@@ -407,15 +406,6 @@ export default function SepfPage() {
           icon={<sepfIcons.future className={ICON.section} />}
         />
         <GetInvolvedContentWidth size="wide">
-          <ScrollReveal delay={100}>
-            <img
-              src={getImageUrl(
-                "/assets/generated/future-of-work.dim_800x500.jpg",
-              )}
-              alt="Future of Work"
-              className="mb-8 w-full rounded-xl border border-border/60 object-cover shadow-md"
-            />
-          </ScrollReveal>
           <div className="grid gap-8 md:grid-cols-2">
             <ScrollReveal delay={150}>
               <Card className="h-full border border-border/60 shadow-sm">

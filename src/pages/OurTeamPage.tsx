@@ -15,7 +15,7 @@ import {
 import { TeamSectionHeader } from "@/components/team/TeamSectionHeader";
 import { TeamMemberGrid } from "@/components/team/TeamMemberGrid";
 import { TeamMemberDetailSheet } from "@/components/team/TeamMemberDetailSheet";
-import { getImageUrl } from "@/lib/images";
+import { getHeroImageUrl } from "@/lib/images";
 import {
   coreTeam,
   advisoryCategories,
@@ -38,9 +38,7 @@ export default function OurTeamPage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/team-collaboration.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("ourTeam")}
         chapter="About Us"
         title="Our Team"
         subtitle="Behind every success story is a dedicated group of professionals united by a shared belief in mentorship, opportunity, and community impact."

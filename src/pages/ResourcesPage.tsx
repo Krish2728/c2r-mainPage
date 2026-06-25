@@ -30,7 +30,8 @@ import {
   useMentorResources,
 } from "@/hooks/useQueries";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { getImageUrl } from "@/lib/images";
+import { getImageUrl, getHeroImageUrl } from "@/lib/images";
+import { GetInvolvedHero } from "@/components/get-involved/GetInvolvedLayout";
 import {
   getYouTubeVideoId,
   getYouTubeThumbnailUrlSafe,
@@ -331,29 +332,11 @@ export default function ResourcesPage() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${getImageUrl("/assets/generated/mentorship-workshop.dim_800x600.jpg")})`,
-          }}
-        />
-        <div className="absolute inset-0 c2r-gradient-hero-overlay" />
-        <div className="container relative z-10 py-20">
-          <ScrollReveal>
-            <div className="mx-auto max-w-3xl text-center text-white">
-              <h1 className="heading-descender-safe mb-6 text-4xl font-bold md:text-5xl">
-                Resources
-              </h1>
-              <p className="c2r-hero-subtitle">
-                Access our library of guides, tools, and materials to support
-                your career journey
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      <GetInvolvedHero
+        backgroundImage={getHeroImageUrl("resources")}
+        title="Resources"
+        subtitle="Access our library of guides, tools, and materials to support your career journey"
+      />
 
       {/* Main Content */}
       <section id="resources-content" className="py-16 md:py-24">

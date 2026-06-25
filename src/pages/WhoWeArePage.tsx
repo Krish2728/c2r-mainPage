@@ -4,7 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { ChapterHeader } from "@/components/ChapterHeader";
-import { getImageUrl } from "@/lib/images";
+import { getImageUrl, getHeroImageUrl } from "@/lib/images";
 import { aboutIcons, featureIcons, ICON } from "@/lib/siteIcons";
 import {
   GI_PAGE,
@@ -12,6 +12,7 @@ import {
   GI_BTN_PRIMARY,
   GetInvolvedHero,
   GetInvolvedSection,
+  ContentWithImage,
   GetInvolvedIntroCard,
   GetInvolvedBenefitGrid,
   GetInvolvedContentWidth,
@@ -50,9 +51,7 @@ export default function WhoWeArePage() {
   return (
     <div className={GI_PAGE}>
       <GetInvolvedHero
-        backgroundImage={getImageUrl(
-          "/assets/generated/team-collaboration.dim_800x500.jpg",
-        )}
+        backgroundImage={getHeroImageUrl("whoWeAre")}
         chapter="About Us"
         title="Who We Are"
         subtitle="A movement dedicated to empowering communities through mentorship, skills, and opportunity."
@@ -75,41 +74,39 @@ export default function WhoWeArePage() {
           title="More Than an Organization"
           subtitle="We are a community of changemakers, united by a shared vision."
         />
-        <GetInvolvedContentWidth size="content">
+        <GetInvolvedContentWidth size="wide">
           <ScrollReveal delay={100}>
-            <GetInvolvedIntroCard>
-              <p className="c2r-prose-emphasis">
-                Connect2Roots Foundation is a social impact organization that
-                bridges the gap between aspiration and achievement. We believe
-                that{" "}
-                <span className="font-bold text-foreground">
-                  talent is everywhere, but opportunity is not
-                </span>
-                .
-              </p>
-              <p className="c2r-prose">
-                Founded on the principle that every individual deserves access
-                to quality mentorship and career guidance, we&apos;ve built a
-                platform that connects aspiring professionals from underserved
-                communities with experienced mentors who can guide them toward
-                meaningful careers.
-              </p>
-              <p className="c2r-prose">
-                Our work goes beyond traditional career counseling. We provide
-                comprehensive support through mentorship programs, skill
-                development initiatives, and entrepreneurship pathways—creating
-                a holistic ecosystem that nurtures talent and transforms lives.
-              </p>
-            </GetInvolvedIntroCard>
-          </ScrollReveal>
-          <ScrollReveal delay={150}>
-            <img
-              src={getImageUrl(
+            <ContentWithImage
+              imageSrc={getImageUrl(
                 "/assets/generated/team-collaboration.dim_800x500.jpg",
               )}
-              alt="Team Collaboration"
-              className="mt-8 w-full rounded-xl border border-border/60 object-cover shadow-md"
-            />
+              imageAlt="Students learning together in India"
+            >
+              <GetInvolvedIntroCard>
+                <p className="c2r-prose-emphasis">
+                  Connect2Roots Foundation is a social impact organization that
+                  bridges the gap between aspiration and achievement. We believe
+                  that{" "}
+                  <span className="font-bold text-foreground">
+                    talent is everywhere, but opportunity is not
+                  </span>
+                  .
+                </p>
+                <p className="c2r-prose">
+                  Founded on the principle that every individual deserves access
+                  to quality mentorship and career guidance, we&apos;ve built a
+                  platform that connects aspiring professionals from underserved
+                  communities with experienced mentors who can guide them toward
+                  meaningful careers.
+                </p>
+                <p className="c2r-prose">
+                  Our work goes beyond traditional career counseling. We provide
+                  comprehensive support through mentorship programs, skill
+                  development initiatives, and entrepreneurship pathways—creating
+                  a holistic ecosystem that nurtures talent and transforms lives.
+                </p>
+              </GetInvolvedIntroCard>
+            </ContentWithImage>
           </ScrollReveal>
         </GetInvolvedContentWidth>
       </GetInvolvedSection>

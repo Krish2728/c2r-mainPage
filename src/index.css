@@ -134,6 +134,15 @@
   .c2r-gradient-hero-overlay {
     @apply bg-gradient-to-br from-c2r-primary/90 via-c2r-secondary/85 to-c2r-black/80;
   }
+  /* Photo hero — left-weighted overlay (charity-style readability) */
+  .c2r-hero-photo-overlay {
+    background: linear-gradient(
+      105deg,
+      oklch(0.12 0.02 145 / 0.92) 0%,
+      oklch(0.18 0.05 145 / 0.78) 42%,
+      oklch(0.12 0.02 145 / 0.35) 100%
+    );
+  }
   .c2r-gradient-section {
     @apply bg-gradient-to-br from-c2r-primary via-c2r-secondary to-c2r-secondary;
   }
@@ -323,6 +332,105 @@
     box-shadow:
       0 12px 24px -8px rgb(0 0 0 / 0.12),
       0 0 0 1px oklch(var(--c2r-primary) / 0.08);
+  }
+
+  .hero-mask-heading {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    width: 100%;
+    max-width: 80rem;
+    letter-spacing: 0.05em;
+    line-height: 0.76;
+  }
+
+  /* Single photo spans all lines — like reference text-mask */
+  .hero-mask-block {
+    background-size: cover;
+    background-position: center 42%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Homepage & photo heroes — left-aligned display title on image */
+  .hero-photo-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 0.82;
+  }
+
+  .hero-photo-title-line {
+    display: block;
+    white-space: nowrap;
+    font-size: clamp(2.75rem, 10vw, 5.5rem);
+  }
+
+  .hero-photo-title-line--long {
+    font-size: clamp(2rem, 7vw, 3.75rem);
+    letter-spacing: 0.03em;
+  }
+
+  @media (min-width: 768px) {
+    .hero-photo-title-line {
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+    }
+
+    .hero-photo-title-line--long {
+      font-size: clamp(2.25rem, 5vw, 4.25rem);
+    }
+  }
+
+  .hero-mask-line {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    font-size: clamp(3.5rem, 18vw, 12rem);
+    transform: scaleX(1.06);
+    transform-origin: center center;
+  }
+
+  .hero-mask-line--long {
+    font-size: clamp(2.25rem, 10vw, 7.5rem);
+    letter-spacing: 0.04em;
+    transform: scaleX(1.08);
+  }
+
+  @media (max-width: 767px) {
+    .hero-mask-heading {
+      line-height: 0.84;
+    }
+
+    .hero-mask-line {
+      font-size: clamp(2.85rem, 15vw, 4.75rem);
+      transform: scaleX(1.05);
+      margin-bottom: 0.12em;
+    }
+
+    .hero-mask-line--long {
+      font-size: clamp(1.85rem, 8.25vw, 3.15rem);
+      letter-spacing: 0.035em;
+      transform: scaleX(1.06);
+    }
+
+    .hero-mask-line:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero-mask-line {
+      font-size: clamp(4.5rem, 16vw, 13rem);
+      transform: scaleX(1.12);
+      letter-spacing: 0.06em;
+    }
+
+    .hero-mask-line--long {
+      font-size: clamp(3rem, 11vw, 8.5rem);
+      letter-spacing: 0.05em;
+      transform: scaleX(1.10);
+    }
   }
 
   /* Team grid — 0.5s snappier reveal than default .reveal */
