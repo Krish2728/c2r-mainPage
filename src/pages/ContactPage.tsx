@@ -94,7 +94,7 @@ const SOCIAL_LINKS = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/connect2roots/",
+    href: "https://www.linkedin.com/company/connect2roots-org/",
     Icon: Linkedin,
   },
   {
@@ -585,103 +585,55 @@ export default function ContactPage() {
         <ChapterHeader
           chapter="Reach Us"
           title="Other Ways to Reach Us"
-          subtitle="Email us directly or visit our corporate office in Bengaluru."
-          icon={<contactIcons.location className={ICON.section} />}
+          subtitle="Email us directly for general inquiries, volunteering, and partnership opportunities."
+          icon={<contactIcons.general className={ICON.section} />}
         />
         <GetInvolvedContentWidth size="wide">
-          <div className="grid gap-6 md:grid-cols-2">
-            <ScrollReveal delay={100}>
-              <Card className="h-full border border-border/60 shadow-sm">
-                <CardHeader className="pb-2">
-                  <contactIcons.general className="mb-2 h-8 w-8 text-c2r-primary" />
-                  <CardTitle className="c2r-card-title">Email</CardTitle>
-                  <CardDescription>
-                    Reach out for general inquiries, volunteering, or CSR and
-                    partnership opportunities.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3 text-muted-foreground">
-                  <p className="c2r-prose">
-                    <strong className="text-foreground">General:</strong>{" "}
-                    <a
-                      href="mailto:info@connect2roots.org"
-                      className="text-c2r-primary hover:underline"
-                    >
-                      info@connect2roots.org
-                    </a>
-                    ,{" "}
-                    <a
-                      href="mailto:connect2rootsindia@gmail.com"
-                      className="text-c2r-primary hover:underline"
-                    >
-                      connect2rootsindia@gmail.com
-                    </a>
-                  </p>
-                  <p className="c2r-prose">
-                    <strong className="text-foreground">Volunteer:</strong>{" "}
-                    <a
-                      href="mailto:volunteer@connect2roots.org"
-                      className="text-c2r-primary hover:underline"
-                    >
-                      volunteer@connect2roots.org
-                    </a>
-                  </p>
-                  <p className="c2r-prose">
-                    <strong className="text-foreground">CSR:</strong>{" "}
-                    <a
-                      href="mailto:csr@connect2roots.org"
-                      className="text-c2r-primary hover:underline"
-                    >
-                      csr@connect2roots.org
-                    </a>
-                  </p>
-                </CardContent>
-              </Card>
-            </ScrollReveal>
-
-            <ScrollReveal delay={150}>
-              <Card className="h-full border border-border/60 shadow-sm">
-                <CardHeader className="pb-2">
-                  <contactIcons.location className="mb-2 h-8 w-8 text-c2r-primary" />
-                  <CardTitle className="c2r-card-title">
-                    Corporate Office
-                  </CardTitle>
-                  <CardDescription>
-                    Visit us in Bengaluru. We welcome in-person inquiries by
-                    prior appointment.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-1 text-muted-foreground">
-                  <p className="font-medium text-foreground">
-                    Connect2Roots Foundation
-                  </p>
-                  <p>Yemalur, Kariammana Agrahara Road</p>
-                  <p>Bengaluru- 560037</p>
-                  <p>Karnataka, India</p>
-                </CardContent>
-              </Card>
-            </ScrollReveal>
-          </div>
-
-          <ScrollReveal delay={200}>
-            <Card className="mt-6 border border-border/60 shadow-sm">
-              <CardHeader>
-                <CardTitle className="c2r-card-title">
-                  Visit Our Office
-                </CardTitle>
-                <CardDescription>Find us on the map</CardDescription>
+          <ScrollReveal delay={100}>
+            <Card className="mx-auto h-full max-w-2xl border border-border/60 shadow-sm">
+              <CardHeader className="pb-2">
+                <contactIcons.general className="mb-2 h-8 w-8 text-c2r-primary" />
+                <CardTitle className="c2r-card-title">Email</CardTitle>
+                <CardDescription>
+                  Reach out for general inquiries, volunteering, or CSR and
+                  partnership opportunities.
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="flex aspect-video w-full items-center justify-center rounded-lg border border-border/60 bg-muted/40">
-                  <div className="text-center text-muted-foreground">
-                    <contactIcons.location className="mx-auto mb-2 h-12 w-12" />
-                    <p>Map integration placeholder</p>
-                    <p className="text-sm">
-                      Yemalur, Kariammana Agrahara Road, Bengaluru- 560037,
-                      Karnataka
-                    </p>
-                  </div>
-                </div>
+              <CardContent className="space-y-3 text-muted-foreground">
+                <p className="c2r-prose">
+                  <strong className="text-foreground">General:</strong>{" "}
+                  <a
+                    href="mailto:info@connect2roots.org"
+                    className="text-c2r-primary hover:underline"
+                  >
+                    info@connect2roots.org
+                  </a>
+                  ,{" "}
+                  <a
+                    href="mailto:connect2rootsindia@gmail.com"
+                    className="text-c2r-primary hover:underline"
+                  >
+                    connect2rootsindia@gmail.com
+                  </a>
+                </p>
+                <p className="c2r-prose">
+                  <strong className="text-foreground">Volunteer:</strong>{" "}
+                  <a
+                    href="mailto:volunteer@connect2roots.org"
+                    className="text-c2r-primary hover:underline"
+                  >
+                    volunteer@connect2roots.org
+                  </a>
+                </p>
+                <p className="c2r-prose">
+                  <strong className="text-foreground">CSR:</strong>{" "}
+                  <a
+                    href="mailto:csr@connect2roots.org"
+                    className="text-c2r-primary hover:underline"
+                  >
+                    csr@connect2roots.org
+                  </a>
+                </p>
               </CardContent>
             </Card>
           </ScrollReveal>

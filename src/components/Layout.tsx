@@ -17,7 +17,6 @@ import {
   ChevronDown,
   ChevronRight,
   Users,
-  MapPin,
   BookOpen,
   UserCircle,
   LogOut,
@@ -68,7 +67,7 @@ const FOOTER_SOCIAL_LINKS = [
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/connect2roots/",
+    href: "https://www.linkedin.com/company/connect2roots-org/",
     Icon: Linkedin,
   },
   {
@@ -1505,24 +1504,6 @@ export function Layout() {
                 <p className="text-sm font-medium text-foreground leading-relaxed max-w-xs">
                   Empowering Communities for a Brighter Future
                 </p>
-              </div>
-              <div className="mt-5 max-w-xs border-t border-border/60 pt-5">
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground/70">
-                  Office
-                </p>
-                <address className="not-italic text-sm text-muted-foreground leading-relaxed">
-                  <div className="mb-2 flex items-center gap-2">
-                    <MapPin className="h-4 w-4 shrink-0 text-c2r-primary" />
-                    <span className="font-medium text-foreground">
-                      Connect2Roots Foundation
-                    </span>
-                  </div>
-                  <p className="pl-6">
-                    Yemalur, Kariammana Agrahara Road
-                    <br />
-                    Bengaluru 560037, Karnataka
-                  </p>
-                </address>
               </div>
             </div>
 
