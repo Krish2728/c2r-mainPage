@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, Target, TrendingUp, Heart } from "lucide-react";
 import { useTestimonials } from "@/hooks/useQueries";
@@ -16,6 +17,73 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+const enableItems = [
+  {
+    title: "Career Clarity",
+    description:
+      "Students gain clear direction on career paths, industry insights, and professional development strategies.",
+    icon: Target,
+  },
+  {
+    title: "Skill Development",
+    description:
+      "Access to industry-relevant training programs that bridge the gap between education and employment.",
+    icon: TrendingUp,
+  },
+  {
+    title: "Mentorship Network",
+    description:
+      "Connection with experienced professionals who provide guidance, support, and real-world perspectives.",
+    icon: Users,
+  },
+  {
+    title: "Livelihood Pathways",
+    description:
+      "Support for entrepreneurship and job placement to create sustainable career opportunities.",
+    icon: Heart,
+  },
+] as const;
+
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const gridVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease },
+  },
+};
+
+function EnableFeatureCard({
+  item,
+}: {
+  item: (typeof enableItems)[number];
+}) {
+  const Icon = item.icon;
+
+  return (
+    <motion.div variants={cardVariants}>
+      <Card
+        className="card-hover-lift group h-full border border-border/60 shadow-sm hover:border-c2r-primary/20"
+      >
+        <CardContent className="flex h-full flex-col p-6">
+          <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-c2r-primary/10 text-c2r-primary transition-colors duration-300 group-hover:bg-c2r-primary group-hover:text-white">
+            <Icon className="h-5 w-5" />
+          </div>
+          <h3 className="c2r-card-title mb-3">{item.title}</h3>
+          <p className="c2r-prose-sm flex-1">{item.description}</p>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}
+
 export default function HomePage() {
   const { data: testimonials = [] } = useTestimonials();
 
@@ -24,18 +92,18 @@ export default function HomePage() {
       <HomeHero />
 
       {/* Intro Section */}
-      <section className="py-20 md:py-28 bg-background">
+      <section className="bg-background py-20 md:py-28">
         <div className="container">
           <ScrollReveal direction="left">
             <ContentWithImage
-              className="max-w-6xl mx-auto"
+              className="mx-auto max-w-6xl"
               imageSrc={getImageUrl(
                 "/assets/generated/team-collaboration.dim_800x500.jpg",
               )}
               imageAlt="Indian students collaborating and learning together"
             >
               <div className="space-y-6">
-                <h2 className="heading-descender-safe text-4xl font-bold mb-6">
+                <h2 className="heading-descender-safe mb-6 text-4xl font-bold">
                   Welcome to Connect2Roots
                 </h2>
                 <p className="c2r-prose">
@@ -64,69 +132,51 @@ export default function HomePage() {
       <RealityOnGround />
 
       {/* What We Enable */}
-      <section className="py-20 md:py-28 bg-background">
+      <section className="bg-background py-20 md:py-28">
         <div className="container">
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto max-w-6xl">
             <ScrollReveal>
-              <div className="text-center mb-16">
-                <h2 className="heading-descender-safe text-4xl font-bold mb-6">
+              <div className="mb-16 text-center">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-c2r-primary">
+                  Our Approach
+                </p>
+                <h2 className="heading-descender-safe mb-6 text-4xl font-bold">
                   What We Enable
                 </h2>
-                <p className="c2r-prose max-w-3xl mx-auto">
+                <p className="c2r-prose mx-auto max-w-3xl">
                   Through our comprehensive approach, we empower students to
                   achieve their full potential.
                 </p>
               </div>
             </ScrollReveal>
 
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  title: "Career Clarity",
-                  description:
-                    "Students gain clear direction on career paths, industry insights, and professional development strategies.",
-                  icon: Target,
-                },
-                {
-                  title: "Skill Development",
-                  description:
-                    "Access to industry-relevant training programs that bridge the gap between education and employment.",
-                  icon: TrendingUp,
-                },
-                {
-                  title: "Mentorship Network",
-                  description:
-                    "Connection with experienced professionals who provide guidance, support, and real-world perspectives.",
-                  icon: Users,
-                },
-                {
-                  title: "Livelihood Pathways",
-                  description:
-                    "Support for entrepreneurship and job placement to create sustainable career opportunities.",
-                  icon: Heart,
-                },
-              ].map((item, index) => (
-                <ScrollReveal key={index} delay={index * 100}>
-                  <Card className="h-full border border-border/60 shadow-sm hover:shadow-lg transition-all duration-300">
-                    <CardContent className="pt-6">
-                      <item.icon className="h-10 w-10 mb-4 text-c2r-primary" />
-                      <h3 className="c2r-card-title mb-3">{item.title}</h3>
-                      <p className="c2r-prose-sm">{item.description}</p>
-                    </CardContent>
-                  </Card>
-                </ScrollReveal>
+            <motion.div
+              className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-5"
+              variants={gridVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+            >
+              {enableItems.map((item) => (
+                <EnableFeatureCard key={item.title} item={item} />
               ))}
-            </div>
+            </motion.div>
 
             <ScrollReveal delay={200}>
-              <div className="mt-16 text-center">
-                <Card className="bg-gradient-to-br from-c2r-primary/5 to-c2r-secondary/5 border-none shadow-xl max-w-4xl mx-auto">
+              <motion.div
+                className="mx-auto mt-16 max-w-4xl"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, ease }}
+              >
+                <Card className="border-none bg-gradient-to-br from-c2r-primary/5 to-c2r-secondary/5 shadow-xl">
                   <CardContent className="pt-8">
-                    <h3 className="text-2xl font-bold mb-4">
-                      Impact Snapshot (Extended)
+                    <h3 className="mb-6 text-center text-2xl font-bold">
+                      Impact at a Glance
                     </h3>
-                    <div className="grid gap-6 md:grid-cols-2 text-left">
-                      <div className="space-y-3">
+                    <div className="grid gap-6 text-left md:grid-cols-2">
+                      <div className="space-y-4">
                         <p className="c2r-prose">
                           <strong className="text-c2r-primary">
                             Diverse Reach:
@@ -141,7 +191,7 @@ export default function HomePage() {
                           healthcare, finance, and education
                         </p>
                       </div>
-                      <div className="space-y-3">
+                      <div className="space-y-4">
                         <p className="c2r-prose">
                           <strong className="text-c2r-primary">
                             Success Rate:
@@ -160,7 +210,7 @@ export default function HomePage() {
                     </div>
                   </CardContent>
                 </Card>
-              </div>
+              </motion.div>
             </ScrollReveal>
           </div>
         </div>
@@ -169,34 +219,49 @@ export default function HomePage() {
       <Vision2047 />
 
       {/* Find Your Place & Testimonials */}
-      <section className="py-20 md:py-28 c2r-gradient-section text-white">
+      <section className="c2r-gradient-section py-20 text-white md:py-28">
         <div className="container">
-          <div className="max-w-6xl mx-auto">
+          <div className="mx-auto max-w-6xl">
             <FindYourPlace />
 
-            {/* Testimonials Carousel */}
             {testimonials.length > 0 && (
-              <ScrollReveal delay={200}>
-                <div className="max-w-4xl mx-auto">
-                  <h3 className="heading-descender-safe text-3xl font-bold text-center mb-12">
-                    Mentor Stories
-                  </h3>
-                  <Carousel className="w-full">
-                    <CarouselContent>
-                      {testimonials.map((testimonial, index) => (
-                        <CarouselItem
-                          key={index}
-                          className="md:basis-1/2 lg:basis-1/3"
+              <motion.div
+                className="mx-auto max-w-4xl"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.55, ease }}
+              >
+                <h3 className="heading-descender-safe mb-10 text-center text-3xl font-bold md:mb-12">
+                  Mentor Stories
+                </h3>
+                <Carousel className="w-full">
+                  <CarouselContent className="-ml-3">
+                    {testimonials.map((testimonial, index) => (
+                      <CarouselItem
+                        key={testimonial.name + index}
+                        className="basis-full pl-3 md:basis-1/2 lg:basis-1/3"
+                      >
+                        <motion.div
+                          initial={{ opacity: 0, y: 16 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: index * 0.06, duration: 0.45 }}
+                          className="h-full"
                         >
-                          <Card className="bg-white/10 backdrop-blur-sm border-white/20 h-full">
-                            <CardContent className="pt-6">
-                              <div className="flex items-center gap-4 mb-4">
-                                {testimonial.photoUrl && (
+                          <Card className="flex h-full min-h-[220px] flex-col border-white/20 bg-white/10 backdrop-blur-md transition-[border-color,background-color] duration-300 hover:border-white/35 hover:bg-white/[0.14]">
+                            <CardContent className="flex flex-1 flex-col pt-6">
+                              <div className="mb-4 flex items-center gap-4">
+                                {testimonial.photoUrl ? (
                                   <img
                                     src={testimonial.photoUrl}
                                     alt={testimonial.name}
-                                    className="h-14 w-14 rounded-full object-cover border-2 border-white/30"
+                                    className="h-14 w-14 rounded-full border-2 border-white/30 object-cover"
                                   />
+                                ) : (
+                                  <div className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white/30 bg-white/10 text-lg font-bold text-white">
+                                    {testimonial.name.charAt(0)}
+                                  </div>
                                 )}
                                 <div>
                                   <div className="font-bold text-white">
@@ -207,19 +272,19 @@ export default function HomePage() {
                                   </div>
                                 </div>
                               </div>
-                              <p className="text-white/90 italic leading-relaxed">
-                                "{testimonial.message}"
+                              <p className="flex-1 italic leading-relaxed text-white/90">
+                                &ldquo;{testimonial.message}&rdquo;
                               </p>
                             </CardContent>
                           </Card>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious className="text-white border-white/30 hover:bg-white/20" />
-                    <CarouselNext className="text-white border-white/30 hover:bg-white/20" />
-                  </Carousel>
-                </div>
-              </ScrollReveal>
+                        </motion.div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="border-white/30 text-white hover:bg-white/20" />
+                  <CarouselNext className="border-white/30 text-white hover:bg-white/20" />
+                </Carousel>
+              </motion.div>
             )}
           </div>
         </div>

@@ -11,27 +11,27 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  BookOpen,
   Calendar,
   FileText,
   Download,
   Video,
-  FileDown,
   ExternalLink,
   Play,
   LogIn,
   UserPlus,
+  ArrowRight,
 } from "lucide-react";
 import {
   useGalleryItems,
   useResourceVideos,
-  useCareerGuides,
-  useAnnualReports,
-  useMentorResources,
 } from "@/hooks/useQueries";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { getImageUrl, getHeroImageUrl } from "@/lib/images";
-import { GetInvolvedHero } from "@/components/get-involved/GetInvolvedLayout";
+import {
+  GetInvolvedHero,
+  GI_BTN_HERO,
+} from "@/components/get-involved/GetInvolvedLayout";
+import { ICON, programIcons } from "@/lib/siteIcons";
 import {
   getYouTubeVideoId,
   getYouTubeThumbnailUrlSafe,
@@ -48,11 +48,8 @@ const API_BASE = (
 const COURSE_ACCESS_KEY = "c2r_free_course_access";
 
 const RESOURCE_TAB_VALUES = [
-  "guides",
-  "mentors",
   "gallery",
   "videos",
-  "reports",
   "events",
   "publications",
 ] as const;
@@ -60,7 +57,7 @@ const RESOURCE_TAB_VALUES = [
 export default function ResourcesPage() {
   const location = useLocation();
   const [hasCourseAccess, setHasCourseAccess] = useState(false);
-  const [activeTab, setActiveTab] = useState<string>("guides");
+  const [activeTab, setActiveTab] = useState<string>("gallery");
 
   useEffect(() => {
     setHasCourseAccess(localStorage.getItem(COURSE_ACCESS_KEY) === "true");
@@ -89,9 +86,6 @@ export default function ResourcesPage() {
   }, [location.hash]);
   const { data: galleryItems = [] } = useGalleryItems();
   const { data: apiVideos = [] } = useResourceVideos();
-  const { data: apiCareerGuides = [] } = useCareerGuides();
-  const { data: apiAnnualReports = [] } = useAnnualReports();
-  const { data: apiMentorResources = [] } = useMentorResources();
 
   const defaultGalleryItems = [
     {
@@ -147,70 +141,6 @@ export default function ResourcesPage() {
   const displayGallery =
     galleryItems.length > 0 ? galleryItems : defaultGalleryItems;
 
-  const defaultCareerGuides = [
-    {
-      title: "Resume Writing Guide",
-      description: "Comprehensive guide to creating impactful resumes",
-      category: "Career Prep",
-    },
-    {
-      title: "Interview Success Tips",
-      description: "Master the art of interviewing with confidence",
-      category: "Career Prep",
-    },
-    {
-      title: "Networking Strategies",
-      description: "Build and leverage your professional network",
-      category: "Professional Development",
-    },
-    {
-      title: "Career Transition Guide",
-      description: "Navigate career changes successfully",
-      category: "Career Planning",
-    },
-    {
-      title: "Personal Branding 101",
-      description: "Establish your professional identity",
-      category: "Professional Development",
-    },
-  ];
-  const careerGuides =
-    apiCareerGuides.length > 0
-      ? apiCareerGuides.map((g) => ({
-          title: g.title,
-          description: g.description || "",
-          category: g.category || "Career Prep",
-          pdf_url: g.pdf_url,
-        }))
-      : defaultCareerGuides;
-
-  const defaultMentorResources = [
-    {
-      title: "Mentor Training Manual",
-      description: "Complete guide for effective mentorship",
-    },
-    {
-      title: "Session Planning Toolkit",
-      description: "Templates and frameworks for mentorship sessions",
-    },
-    {
-      title: "Goal Setting Framework",
-      description: "Help mentees set and achieve career goals",
-    },
-    {
-      title: "Communication Best Practices",
-      description: "Build strong mentor-mentee relationships",
-    },
-  ];
-  const mentorResources =
-    apiMentorResources.length > 0
-      ? apiMentorResources.map((r) => ({
-          title: r.title,
-          description: r.description || "",
-          pdf_url: r.pdf_url,
-        }))
-      : defaultMentorResources;
-
   const events = [
     {
       title: "Monthly Mentorship Webinar",
@@ -228,9 +158,9 @@ export default function ResourcesPage() {
 
   const publications = [
     {
-      title: "Annual Impact Report 2024",
-      description: "Our achievements and impact metrics",
-      type: "Annual Report",
+      title: "Community Impact Highlights 2024",
+      description: "Stories and outcomes from our programs nationwide",
+      type: "Impact Summary",
     },
     {
       title: "Skills Gap Analysis",
@@ -248,33 +178,6 @@ export default function ResourcesPage() {
       type: "Research Paper",
     },
   ];
-
-  const defaultAnnualReports = [
-    {
-      year: "2024",
-      title: "Annual Report 2024",
-      description: "Our impact and achievements in 2024",
-    },
-    {
-      year: "2023",
-      title: "Annual Report 2023",
-      description: "Growth and milestones from 2023",
-    },
-    {
-      year: "2022",
-      title: "Annual Report 2022",
-      description: "Foundation year highlights",
-    },
-  ];
-  const annualReports =
-    apiAnnualReports.length > 0
-      ? apiAnnualReports.map((r) => ({
-          year: r.year,
-          title: r.title,
-          description: r.description || "",
-          pdf_url: r.pdf_url,
-        }))
-      : defaultAnnualReports;
 
   // Educational videos: from API when available, else fallback (Connect2Roots Academy)
   const CONNECT2ROOTS_ACADEMY_CHANNEL =
@@ -330,13 +233,32 @@ export default function ResourcesPage() {
   const educationalVideos =
     apiVideos.length > 0 ? apiVideos : defaultEducationalVideos;
 
+  const scrollToResources = () => {
+    const section = document.getElementById("resources-content");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <GetInvolvedHero
         backgroundImage={getHeroImageUrl("resources")}
+        chapter="Resources"
         title="Resources"
-        subtitle="Access our library of guides, tools, and materials to support your career journey"
-      />
+        subtitle="Access our library of courses, events, publications, and community highlights"
+        icon={<programIcons.hub className={ICON.hero} />}
+      >
+        <Button
+          size="lg"
+          variant="secondary"
+          className={GI_BTN_HERO}
+          onClick={scrollToResources}
+        >
+          Explore Resources
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
+      </GetInvolvedHero>
 
       {/* Main Content */}
       <section id="resources-content" className="py-16 md:py-24">
@@ -347,20 +269,11 @@ export default function ResourcesPage() {
             className="w-full"
           >
             <TabsList className="w-full mb-8 flex flex-nowrap overflow-x-auto overflow-y-hidden gap-1 scroll-smooth scrollbar-hide pb-2 md:gap-2">
-              <TabsTrigger value="guides" className="flex-shrink-0">
-                For Students
-              </TabsTrigger>
-              <TabsTrigger value="mentors" className="flex-shrink-0">
-                For Mentors
-              </TabsTrigger>
               <TabsTrigger value="gallery" className="flex-shrink-0">
                 Gallery
               </TabsTrigger>
               <TabsTrigger value="videos" className="flex-shrink-0">
-                Free Courses
-              </TabsTrigger>
-              <TabsTrigger value="reports" className="flex-shrink-0">
-                Annual Reports
+                Courses
               </TabsTrigger>
               <TabsTrigger value="events" className="flex-shrink-0">
                 Events
@@ -403,126 +316,13 @@ export default function ResourcesPage() {
               </div>
             </TabsContent>
 
-            {/* For Students Tab */}
-            <TabsContent value="guides" id="guides">
-              <ScrollReveal>
-                <div className="mb-6">
-                  <h2 className="text-2xl font-bold mb-2">For Students</h2>
-                  <p className="text-muted-foreground">
-                    Practical resources to help you navigate your career journey
-                  </p>
-                </div>
-              </ScrollReveal>
-              <div className="grid gap-6 md:grid-cols-2">
-                {careerGuides.map((guide, index) => (
-                  <ScrollReveal key={index} delay={index * 50}>
-                    <Card className="hover:shadow-lg transition-shadow duration-300">
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <CardTitle className="text-lg mb-2">
-                              {guide.title}
-                            </CardTitle>
-                            <CardDescription>
-                              {guide.description}
-                            </CardDescription>
-                          </div>
-                          <BookOpen className="h-8 w-8 text-c2r-primary flex-shrink-0 ml-4" />
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex items-center justify-between">
-                          <Badge variant="outline">{guide.category}</Badge>
-                          {"pdf_url" in guide && guide.pdf_url ? (
-                            <Button variant="ghost" size="sm" asChild>
-                              <a
-                                href={String(
-                                  (guide as { pdf_url?: string }).pdf_url,
-                                )}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <Download className="mr-2 h-4 w-4" />
-                                Download PDF
-                              </a>
-                            </Button>
-                          ) : (
-                            <Button variant="ghost" size="sm">
-                              Read More
-                            </Button>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </ScrollReveal>
-                ))}
-              </div>
-            </TabsContent>
-
-            {/* For Mentors Tab */}
-            <TabsContent value="mentors" id="mentors">
-              <ScrollReveal>
-                <div className="mb-6">
-                  <h2 className="text-2xl font-bold mb-2">
-                    Resources for Mentors
-                  </h2>
-                  <p className="text-muted-foreground">
-                    Training materials and toolkits to help you be an effective
-                    mentor
-                  </p>
-                </div>
-              </ScrollReveal>
-              <div className="grid gap-6 md:grid-cols-2">
-                {mentorResources.map((resource, index) => (
-                  <ScrollReveal key={index} delay={index * 50}>
-                    <Card className="hover:shadow-lg transition-shadow duration-300">
-                      <CardHeader>
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <CardTitle className="text-lg mb-2">
-                              {resource.title}
-                            </CardTitle>
-                            <CardDescription>
-                              {resource.description}
-                            </CardDescription>
-                          </div>
-                          <FileText className="h-8 w-8 text-c2r-accent flex-shrink-0 ml-4" />
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        {"pdf_url" in resource && resource.pdf_url ? (
-                          <Button variant="outline" size="sm" asChild>
-                            <a
-                              href={String(
-                                (resource as { pdf_url?: string }).pdf_url,
-                              )}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Download className="mr-2 h-4 w-4" />
-                              Download PDF
-                            </a>
-                          </Button>
-                        ) : (
-                          <Button variant="outline" size="sm">
-                            <Download className="mr-2 h-4 w-4" />
-                            Download
-                          </Button>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </ScrollReveal>
-                ))}
-              </div>
-            </TabsContent>
-
-            {/* Videos Tab - Educational content from Connect2Roots Academy */}
+            {/* Courses Tab - Educational content from Connect2Roots Academy */}
             <TabsContent value="videos" id="videos">
               <ScrollReveal>
                 <div className="mb-6">
                   <div className="flex items-center gap-2 mb-2">
                     <Video className="h-7 w-7 text-c2r-primary" />
-                    <h2 className="text-2xl font-bold">Free Courses</h2>
+                    <h2 className="text-2xl font-bold">Courses</h2>
                   </div>
                   <p className="text-muted-foreground">
                     Learn from Connect2Roots Academy — career guidance,
@@ -539,11 +339,11 @@ export default function ResourcesPage() {
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                           <Video className="h-5 w-5 text-c2r-primary" />
-                          Free courses
+                          Courses
                         </CardTitle>
                         <CardDescription>
-                          Sign up or sign in to get access to our free courses
-                          and learning resources.
+                          Sign up or sign in to get access to our courses and
+                          learning resources.
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
@@ -750,78 +550,6 @@ export default function ResourcesPage() {
                   </ScrollReveal>
                 </>
               ) : null}
-            </TabsContent>
-
-            {/* Annual Reports Tab */}
-            <TabsContent value="reports" id="reports">
-              <ScrollReveal>
-                <div className="mb-6">
-                  <h2 className="text-2xl font-bold mb-2">Annual Reports</h2>
-                  <p className="text-muted-foreground">
-                    Download our yearly contribution reports and impact
-                    assessments
-                  </p>
-                </div>
-              </ScrollReveal>
-              <div className="max-w-4xl mx-auto space-y-4">
-                {annualReports.map((report, index) => (
-                  <ScrollReveal key={index} delay={index * 50}>
-                    <Card className="hover:shadow-lg transition-all duration-300 hover:border-c2r-accent cursor-pointer">
-                      <CardHeader>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-4">
-                            <div className="flex h-16 w-16 items-center justify-center rounded-lg c2r-gradient-accent text-white text-2xl font-bold">
-                              {report.year}
-                            </div>
-                            <div>
-                              <CardTitle className="text-lg mb-1">
-                                {report.title}
-                              </CardTitle>
-                              <CardDescription>
-                                {report.description}
-                              </CardDescription>
-                            </div>
-                          </div>
-                          {"pdf_url" in report && report.pdf_url ? (
-                            <Button variant="outline" size="sm" asChild>
-                              <a
-                                href={String(
-                                  (report as { pdf_url?: string }).pdf_url,
-                                )}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <FileDown className="mr-2 h-4 w-4" />
-                                Download PDF
-                              </a>
-                            </Button>
-                          ) : (
-                            <Button variant="outline" size="sm">
-                              <FileDown className="mr-2 h-4 w-4" />
-                              Download PDF
-                            </Button>
-                          )}
-                        </div>
-                      </CardHeader>
-                    </Card>
-                  </ScrollReveal>
-                ))}
-              </div>
-              <ScrollReveal delay={200}>
-                <div className="mt-12 text-center">
-                  <img
-                    src={getImageUrl(
-                      "/assets/generated/annual-report-cover.dim_400x600.jpg",
-                    )}
-                    alt="Annual Report Cover"
-                    className="mx-auto rounded-lg shadow-xl max-w-xs hover:scale-105 transition-transform duration-300"
-                  />
-                  <p className="mt-6 text-muted-foreground">
-                    Our annual reports showcase the impact we've made together
-                    with our community
-                  </p>
-                </div>
-              </ScrollReveal>
             </TabsContent>
 
             {/* Events Tab */}

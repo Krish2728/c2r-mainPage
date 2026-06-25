@@ -85,7 +85,7 @@ function RealityGapCard({ gap, index, reducedMotion }: GapCardProps) {
             damping: 22,
             delay: index * 0.08 + 0.12,
           }}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-[oklch(0.88_0.1_68)] transition-colors duration-300 group-hover:border-white/50 group-hover:bg-white/30"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/30 bg-white/20 text-c2r-gold transition-colors duration-300 group-hover:border-white/50 group-hover:bg-white/30"
         >
           <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </motion.div>
@@ -118,7 +118,7 @@ function RealityGapCard({ gap, index, reducedMotion }: GapCardProps) {
       />
 
       <p className="relative mt-auto text-xs leading-relaxed text-white/75 md:text-sm">
-        <span className="font-semibold text-[oklch(0.82_0.08_68)]">Source:</span>{" "}
+        <span className="font-semibold text-c2r-gold-muted">Source:</span>{" "}
         {gap.source}
       </p>
     </motion.article>
@@ -142,12 +142,12 @@ export function RealityOnGround() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease }}
         >
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[oklch(0.88_0.1_68)] md:text-sm">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-c2r-gold md:text-sm">
             The Reality on the Ground
           </p>
           <h2 className="c2r-heading-dark-lg mb-5">
             Four gaps standing between India&apos;s youth and their{" "}
-            <span className="text-[oklch(0.88_0.1_68)]">future</span>
+            <span className="text-c2r-gold">future</span>
           </h2>
           <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/95 md:text-lg">
             Not lack of talent. Not lack of ambition. Lack of access — to

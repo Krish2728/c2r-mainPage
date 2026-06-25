@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import {
   GraduationCap,
@@ -6,6 +6,7 @@ import {
   HandHelping,
   Briefcase,
   Heart,
+  ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -61,71 +62,91 @@ const audiences: AudienceCard[] = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.45, ease: "easeOut" as const },
-  }),
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const gridVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
-const accentGold = "oklch(0.82_0.11_68)";
+const cardVariants = {
+  hidden: { opacity: 0, y: 24, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease },
+  },
+};
 
-function AudienceCard({ item, index }: { item: AudienceCard; index: number }) {
+function AudienceCardItem({
+  item,
+  index,
+  reducedMotion,
+}: {
+  item: AudienceCard;
+  index: number;
+  reducedMotion: boolean;
+}) {
   const Icon = item.icon;
-  const isLastOdd =
-    index === audiences.length - 1 && audiences.length % 2 !== 0;
 
   return (
     <motion.article
-      custom={index}
       variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-40px" }}
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      className={`group flex h-full flex-col rounded-xl border border-white/25 bg-white/15 p-4 shadow-md backdrop-blur-md transition-all duration-300 hover:border-[oklch(0.82_0.11_68/0.5)] hover:bg-white/20 sm:p-5 ${
-        isLastOdd
-          ? "sm:col-span-2 sm:mx-auto sm:w-full sm:max-w-md lg:col-span-1 lg:mx-0 lg:max-w-none"
-          : ""
-      }`}
+      whileHover={
+        reducedMotion
+          ? undefined
+          : { y: -5, transition: { duration: 0.22, ease: "easeOut" } }
+      }
+      className="group relative flex h-full w-[min(260px,82vw)] shrink-0 flex-col overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-4 shadow-lg shadow-black/10 backdrop-blur-md transition-[border-color,box-shadow] duration-300 hover:border-white/35 hover:bg-white/[0.14] hover:shadow-xl hover:shadow-black/15 xl:w-auto xl:p-5"
     >
       <div
-        className="mb-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/10 transition-colors duration-300 group-hover:bg-white/20"
-        style={{ color: accentGold }}
-      >
-        <Icon className="h-4 w-4" />
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.1] via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+      />
+
+      <div className="relative flex items-center justify-between gap-3">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/25 bg-white/15 text-c2r-gold transition-colors duration-300 group-hover:border-white/40 group-hover:bg-white/25">
+          <Icon className="h-4 w-4" />
+        </div>
+        <span className="text-xs font-semibold tabular-nums tracking-widest text-white/40">
+          {String(index + 1).padStart(2, "0")}
+        </span>
       </div>
 
-      <h3 className="mb-2 text-base font-semibold leading-snug text-white sm:text-sm">
+      <h3 className="relative mt-3 text-sm font-semibold leading-snug text-white xl:mt-4 xl:text-base">
         {item.title}
       </h3>
 
-      <p className="mb-4 flex-1 text-sm leading-relaxed text-white/90">
+      <p className="relative mt-2 flex-1 text-xs leading-relaxed text-white/85 xl:text-sm">
         {item.description}
       </p>
 
       <Button
         asChild
         size="sm"
-        className="h-auto min-h-9 w-full shrink-0 whitespace-normal border border-[oklch(0.82_0.11_68/0.4)] bg-[oklch(0.82_0.11_68/0.18)] px-3 py-2.5 text-center text-xs font-medium leading-snug text-white shadow-none hover:border-[oklch(0.82_0.11_68/0.6)] hover:bg-[oklch(0.82_0.11_68/0.28)] sm:text-sm"
+        className="relative mt-4 h-auto min-h-9 w-full shrink-0 whitespace-normal border border-c2r-gold-soft bg-c2r-gold-soft px-2.5 py-2 text-center text-[0.6875rem] font-medium leading-snug text-white shadow-none hover:border-c2r-gold hover:bg-c2r-gold-soft xl:mt-5 xl:min-h-10 xl:px-3 xl:py-2.5 xl:text-xs"
       >
-        <Link to={item.to}>{item.cta}</Link>
+        <Link to={item.to} className="inline-flex items-center justify-center gap-1.5">
+          {item.cta}
+          <ArrowUpRight className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </Link>
       </Button>
     </motion.article>
   );
 }
 
 export function FindYourPlace() {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <div className="mb-12">
+    <div className="mb-14 md:mb-16">
       <motion.div
-        className="mb-8 text-center"
+        className="mb-8 text-center md:mb-10"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.55 }}
+        transition={{ duration: 0.55, ease }}
       >
         <h2 className="c2r-heading-dark mb-3 text-2xl md:text-3xl">
           Find your place at Connect2Roots
@@ -135,11 +156,22 @@ export function FindYourPlace() {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5">
+      <motion.div
+        className="-mx-4 flex w-max gap-3 overflow-x-auto px-4 pb-2 scrollbar-hide md:-mx-6 md:px-6 xl:mx-0 xl:grid xl:w-full xl:grid-cols-5 xl:gap-4 xl:overflow-visible xl:px-0"
+        variants={gridVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-40px" }}
+      >
         {audiences.map((item, index) => (
-          <AudienceCard key={item.title} item={item} index={index} />
+          <AudienceCardItem
+            key={item.title}
+            item={item}
+            index={index}
+            reducedMotion={!!reducedMotion}
+          />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -14,17 +14,35 @@ export function ParallaxSection({
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reducedMotion) return;
+
+    let frameId = 0;
+
     const handleScroll = () => {
-      if (!ref.current) return;
-      const scrolled = window.scrollY;
-      const rect = ref.current.getBoundingClientRect();
-      const elementTop = rect.top + scrolled;
-      const offset = (scrolled - elementTop) * speed;
-      ref.current.style.transform = `translateY(${offset}px)`;
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(() => {
+        if (!node) return;
+        const scrolled = window.scrollY;
+        const rect = node.getBoundingClientRect();
+        const elementTop = rect.top + scrolled;
+        const offset = (scrolled - elementTop) * speed;
+        node.style.transform = `translate3d(0, ${offset}px, 0)`;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(frameId);
+    };
   }, [speed]);
 
   return (

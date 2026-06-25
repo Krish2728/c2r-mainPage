@@ -10,6 +10,10 @@ interface AnimatedCounterProps {
   locale?: string;
 }
 
+function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
+}
+
 export function AnimatedCounter({
   end,
   duration = 2000,
@@ -22,6 +26,9 @@ export function AnimatedCounter({
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const reducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,16 +39,17 @@ export function AnimatedCounter({
           }
         });
       },
-      { threshold: 0.5 },
+      { threshold: 0.4 },
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const node = ref.current;
+    if (node) {
+      observer.observe(node);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (node) {
+        observer.unobserve(node);
       }
     };
   }, [isVisible]);
@@ -49,10 +57,18 @@ export function AnimatedCounter({
   useEffect(() => {
     if (!isVisible) return;
 
+    if (reducedMotion) {
+      setCount(end);
+      return;
+    }
+
     let startTime: number | null = null;
+    let frameId = 0;
+
     const animate = (currentTime: number) => {
       if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const linearProgress = Math.min((currentTime - startTime) / duration, 1);
+      const progress = easeOutCubic(linearProgress);
 
       if (decimals > 0) {
         setCount(progress * end);
@@ -60,13 +76,14 @@ export function AnimatedCounter({
         setCount(Math.floor(progress * end));
       }
 
-      if (progress < 1) {
-        requestAnimationFrame(animate);
+      if (linearProgress < 1) {
+        frameId = requestAnimationFrame(animate);
       }
     };
 
-    requestAnimationFrame(animate);
-  }, [isVisible, end, duration, decimals]);
+    frameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frameId);
+  }, [isVisible, end, duration, decimals, reducedMotion]);
 
   const displayValue =
     decimals > 0

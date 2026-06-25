@@ -50,34 +50,6 @@ export type ResourceVideo = {
   created_at?: string;
 };
 
-export type CareerGuide = {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  pdf_url: string;
-  sort_order: number;
-  created_at?: string;
-};
-
-export type AnnualReport = {
-  id: number;
-  year: string;
-  title: string;
-  description: string;
-  pdf_url: string;
-  sort_order: number;
-  created_at?: string;
-};
-
-export type MentorResource = {
-  id: number;
-  title: string;
-  description: string;
-  pdf_url: string;
-  sort_order: number;
-  created_at?: string;
-};
 
 export function usePrograms() {
   return useQuery<Program[]>({
@@ -117,54 +89,6 @@ export function useResourceVideos() {
     queryFn: async () => {
       if (API_BASE) {
         const res = await fetch(`${API_BASE}/api/resource-videos`);
-        if (!res.ok) return [];
-        const data = await res.json();
-        return Array.isArray(data) ? data : [];
-      }
-      return [];
-    },
-    enabled: !!API_BASE,
-  });
-}
-
-export function useCareerGuides() {
-  return useQuery<CareerGuide[]>({
-    queryKey: ["careerGuides"],
-    queryFn: async () => {
-      if (API_BASE) {
-        const res = await fetch(`${API_BASE}/api/career-guides`);
-        if (!res.ok) return [];
-        const data = await res.json();
-        return Array.isArray(data) ? data : [];
-      }
-      return [];
-    },
-    enabled: !!API_BASE,
-  });
-}
-
-export function useAnnualReports() {
-  return useQuery<AnnualReport[]>({
-    queryKey: ["annualReports"],
-    queryFn: async () => {
-      if (API_BASE) {
-        const res = await fetch(`${API_BASE}/api/annual-reports`);
-        if (!res.ok) return [];
-        const data = await res.json();
-        return Array.isArray(data) ? data : [];
-      }
-      return [];
-    },
-    enabled: !!API_BASE,
-  });
-}
-
-export function useMentorResources() {
-  return useQuery<MentorResource[]>({
-    queryKey: ["mentorResources"],
-    queryFn: async () => {
-      if (API_BASE) {
-        const res = await fetch(`${API_BASE}/api/mentor-resources`);
         if (!res.ok) return [];
         const data = await res.json();
         return Array.isArray(data) ? data : [];

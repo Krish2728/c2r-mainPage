@@ -132,7 +132,7 @@ export default function FreeCoursesAuthPage() {
           </div>
           <div>
             <h2 className="text-2xl font-bold mb-2">
-              Free courses & resources
+              Courses & resources
             </h2>
             <p className="text-white/90 text-sm max-w-sm">
               Sign up or sign in to access our learning videos and career
@@ -163,7 +163,7 @@ export default function FreeCoursesAuthPage() {
             Welcome
           </h1>
           <p className="text-muted-foreground text-sm mb-8">
-            Sign up or log in to access free courses
+            Sign up or log in to access courses
           </p>
 
           <div className="flex rounded-xl bg-background border border-border p-1.5 shadow-sm mb-8">

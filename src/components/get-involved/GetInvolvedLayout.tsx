@@ -1,6 +1,7 @@
 import type { IconType } from "react-icons";
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -48,14 +49,17 @@ export function PhotoPageHero({
         <div className="absolute inset-0 c2r-hero-photo-overlay" />
       </ParallaxSection>
       <div className="container relative z-10 flex min-h-[min(85vh,820px)] flex-col justify-center py-16 md:py-20">
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           className={cn(
             "max-w-2xl text-left text-white lg:max-w-3xl",
             contentClassName,
           )}
         >
           {children}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -103,7 +107,7 @@ type ContentWithImageProps = {
   className?: string;
 };
 
-/** Content first on small screens; image beside content on lg+ only */
+/** Content first on small screens; image stacked on mobile, beside content on lg+ */
 export function ContentWithImage({
   children,
   imageSrc,
@@ -111,6 +115,26 @@ export function ContentWithImage({
   imagePosition = "right",
   className,
 }: ContentWithImageProps) {
+  const image = (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.97 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className={cn(
+        "overflow-hidden rounded-2xl border border-border/60 shadow-md",
+        imagePosition === "left" && "lg:order-1",
+      )}
+    >
+      <img
+        src={imageSrc}
+        alt={imageAlt}
+        className="aspect-[4/3] w-full object-cover lg:max-h-80"
+        loading="lazy"
+      />
+    </motion.div>
+  );
+
   return (
     <div
       className={cn(
@@ -121,14 +145,7 @@ export function ContentWithImage({
       <div className={cn(imagePosition === "left" && "lg:order-2")}>
         {children}
       </div>
-      <div
-        className={cn(
-          "hidden lg:block",
-          imagePosition === "left" && "lg:order-1",
-        )}
-      >
-        <img src={imageSrc} alt={imageAlt} className={GI_SECTION_IMAGE} />
-      </div>
+      {image}
     </div>
   );
 }
@@ -210,10 +227,12 @@ export function GetInvolvedBenefitGrid({
         {items.map((item) => (
           <Card
             key={item.title}
-            className="h-full border border-border/60 shadow-sm transition-shadow duration-300 hover:shadow-md"
+            className="card-hover-lift h-full border border-border/60 shadow-sm"
           >
             <CardContent className="p-4">
-              <item.icon className="mb-3 h-8 w-8 text-c2r-primary" />
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-c2r-primary/10 text-c2r-primary">
+                <item.icon className="h-5 w-5" />
+              </div>
               <h3 className="mb-2 text-sm font-semibold leading-snug text-foreground">
                 {item.title}
               </h3>

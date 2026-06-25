@@ -184,6 +184,58 @@
     transform: translateY(0) translateX(0) scale(1);
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-visible {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .reveal-visible .stagger-children > * {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .card-hover-lift:hover {
+      transform: none;
+    }
+  }
+
+  /* Brand gold accent tokens */
+  .text-c2r-gold {
+    color: oklch(0.88 0.1 68);
+  }
+
+  .text-c2r-gold-muted {
+    color: oklch(0.82 0.08 68);
+  }
+
+  .bg-c2r-gold-soft {
+    background-color: oklch(0.82 0.11 68 / 0.18);
+  }
+
+  .border-c2r-gold-soft {
+    border-color: oklch(0.82 0.11 68 / 0.4);
+  }
+
+  .hover\:border-c2r-gold:hover {
+    border-color: oklch(0.82 0.11 68 / 0.55);
+  }
+
+  .hover\:bg-c2r-gold-soft:hover {
+    background-color: oklch(0.82 0.11 68 / 0.28);
+  }
+
+  /* Sticky header — applied via JS when scrolled */
+  .site-header-scrolled {
+    border-color: oklch(var(--border) / 0.8);
+    background-color: oklch(var(--background) / 0.85);
+    box-shadow: 0 1px 12px rgb(0 0 0 / 0.06);
+    backdrop-filter: blur(12px);
+  }
+
   /* Gradient title: inner span so descenders (g, p, y) are not clipped by bg-clip-text */
   .chapter-title-gradient {
     overflow: visible;

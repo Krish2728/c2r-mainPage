@@ -1,6 +1,6 @@
 import { Outlet, Link, useNavigate, useLocation } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { MobileSidebar } from "@/components/MobileSidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,14 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
-  Menu,
   ChevronDown,
-  ChevronRight,
   Users,
   BookOpen,
   UserCircle,
@@ -26,6 +19,10 @@ import {
   Calendar,
   Linkedin,
   Heart,
+  Info,
+  HandHelping,
+  Mail,
+  Globe,
 } from "lucide-react";
 import { SiFacebook, SiX, SiInstagram, SiYoutube } from "react-icons/si";
 import {
@@ -101,6 +98,7 @@ export function Layout() {
   const [contactDropdownOpen, setContactDropdownOpen] = useState(false);
   const [donateDropdownOpen, setDonateDropdownOpen] = useState(false);
   const [getInvolvedDropdownOpen, setGetInvolvedDropdownOpen] = useState(false);
+  const [headerScrolled, setHeaderScrolled] = useState(false);
   const aboutOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
     null,
   );
@@ -296,6 +294,13 @@ export function Layout() {
     }
   }, [location.pathname, location.hash]);
 
+  useEffect(() => {
+    const onScroll = () => setHeaderScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   if (isFreeCoursesAuthPage) {
     return (
       <>
@@ -386,20 +391,6 @@ export function Layout() {
 
   const resourcesDropdownItems = [
     {
-      label: "For Students",
-      description: "Career guides and resources",
-      path: "/resources",
-      hash: "guides",
-      icon: BookOpen,
-    },
-    {
-      label: "For Mentors",
-      description: "Training and toolkits",
-      path: "/resources",
-      hash: "mentors",
-      icon: Users,
-    },
-    {
       label: "Gallery",
       description: "Photos and moments",
       path: "/resources",
@@ -407,18 +398,11 @@ export function Layout() {
       icon: LayoutGrid,
     },
     {
-      label: "Free Courses",
+      label: "Courses",
       description: "Educational videos",
       path: "/resources",
       hash: "videos",
       icon: Video,
-    },
-    {
-      label: "Annual Reports",
-      description: "Impact and achievements",
-      path: "/resources",
-      hash: "reports",
-      icon: FileText,
     },
     {
       label: "Events",
@@ -476,7 +460,7 @@ export function Layout() {
       path: "/resources/free-courses-auth",
       hash: undefined,
       icon: BookOpen,
-      description: "Sign up to access free courses",
+      description: "Sign up to access courses",
     },
     {
       label: "Login as Mentor",
@@ -581,9 +565,49 @@ export function Layout() {
     setIsOpen(false);
   };
 
+  const mobileNavSections = [
+    { id: "about", label: "About Us", icon: Info, items: aboutDropdownItems },
+    {
+      id: "programs",
+      label: "Programs",
+      icon: BookOpen,
+      items: programsDropdownItems,
+    },
+    {
+      id: "mentorship",
+      label: "Mentorship",
+      icon: Users,
+      items: mentorshipDropdownItems,
+    },
+    { id: "sepf", label: "SEPF", icon: Globe, items: sepfDropdownItems },
+    {
+      id: "getInvolved",
+      label: "Get Involved",
+      icon: HandHelping,
+      items: getInvolvedDropdownItems,
+    },
+    {
+      id: "resources",
+      label: "Resources",
+      icon: LayoutGrid,
+      items: resourcesDropdownItems,
+    },
+    {
+      id: "contact",
+      label: "Contact Us",
+      icon: Mail,
+      items: contactDropdownItems,
+    },
+    { id: "donate", label: "Donate", icon: Heart, items: donateDropdownItems },
+  ];
+
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
+      <header
+        className={`sticky top-0 z-50 w-full border-b border-border bg-background transition-[background-color,box-shadow,border-color,backdrop-filter] duration-300 ${
+          headerScrolled ? "site-header-scrolled" : ""
+        }`}
+      >
         <div className="container flex h-16 items-center justify-between">
           {(() => {
             const isHome =
@@ -980,7 +1004,7 @@ export function Layout() {
                       Resources access
                     </p>
                     <p className="text-xs mt-0.5">
-                      You are signed in for free courses
+                      You are signed in for courses
                     </p>
                   </div>
                   <DropdownMenuItem asChild>
@@ -1074,416 +1098,20 @@ export function Layout() {
             )}
           </nav>
 
-          <Sheet
+          <MobileSidebar
             open={isOpen}
             onOpenChange={(open) => {
               setIsOpen(open);
               if (!open) setOpenMobileSection(null);
             }}
-          >
-            <SheetTrigger asChild className="min-[1180px]:hidden">
-              <Button variant="ghost" size="icon" aria-label="Open menu">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] overflow-y-auto">
-              <nav className="flex flex-col gap-6 pt-8">
-                <Collapsible
-                  open={openMobileSection === "about"}
-                  onOpenChange={(open) =>
-                    setOpenMobileSection(open ? "about" : null)
-                  }
-                >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground">
-                    About Us
-                    {openMobileSection === "about" ? (
-                      <ChevronDown className="h-4 w-4 shrink-0" />
-                    ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0" />
-                    )}
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <div className="flex flex-col gap-1 pl-1 pt-1">
-                      {aboutDropdownItems.map((item) => (
-                        <Link
-                          key={item.path}
-                          to={item.path}
-                          className="flex items-start gap-3 rounded-md p-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                          activeProps={{ className: "bg-accent text-primary" }}
-                          onClick={() => setIsOpen(false)}
-                        >
-                          <item.icon className="h-4 w-4 mt-0.5 shrink-0" />
-                          <div className="flex flex-col gap-0.5">
-                            <span>{item.label}</span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
-                <Collapsible
-                  open={openMobileSection === "programs"}
-                  onOpenChange={(open) =>
-                    setOpenMobileSection(open ? "programs" : null)
-                  }
-                >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
-                    Programs
-                    {openMobileSection === "programs" ? (
-                      <ChevronDown className="h-4 w-4 shrink-0" />
-                    ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0" />
-                    )}
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <div className="flex flex-col gap-1 pl-1 pt-1">
-                      {programsDropdownItems.map((item) => (
-                        <button
-                          key={item.hash}
-                          type="button"
-                          className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                          onClick={() => {
-                            setIsOpen(false);
-                            handleNavigation(item.path, item.hash);
-                          }}
-                        >
-                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
-                          <div className="flex flex-col gap-0.5">
-                            <span className="font-medium text-foreground">
-                              {item.label}
-                            </span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
-                <Collapsible
-                  open={openMobileSection === "mentorship"}
-                  onOpenChange={(open) =>
-                    setOpenMobileSection(open ? "mentorship" : null)
-                  }
-                >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
-                    Mentorship
-                    {openMobileSection === "mentorship" ? (
-                      <ChevronDown className="h-4 w-4 shrink-0" />
-                    ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0" />
-                    )}
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <div className="flex flex-col gap-1 pl-1 pt-1">
-                      {mentorshipDropdownItems.map((item) => (
-                        <button
-                          key={item.hash}
-                          type="button"
-                          className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                          onClick={() => {
-                            setIsOpen(false);
-                            handleNavigation(item.path, item.hash!);
-                          }}
-                        >
-                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
-                          <div className="flex flex-col gap-0.5">
-                            <span className="font-medium text-foreground">
-                              {item.label}
-                            </span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
-                <Collapsible
-                  open={openMobileSection === "sepf"}
-                  onOpenChange={(open) =>
-                    setOpenMobileSection(open ? "sepf" : null)
-                  }
-                >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
-                    SEPF
-                    {openMobileSection === "sepf" ? (
-                      <ChevronDown className="h-4 w-4 shrink-0" />
-                    ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0" />
-                    )}
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <div className="flex flex-col gap-1 pl-1 pt-1">
-                      {sepfDropdownItems.map((item) => (
-                        <button
-                          key={item.hash}
-                          type="button"
-                          className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                          onClick={() => {
-                            setIsOpen(false);
-                            handleNavigation(item.path, item.hash);
-                          }}
-                        >
-                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
-                          <div className="flex flex-col gap-0.5">
-                            <span className="font-medium text-foreground">
-                              {item.label}
-                            </span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
-                <Collapsible
-                  open={openMobileSection === "getInvolved"}
-                  onOpenChange={(open) =>
-                    setOpenMobileSection(open ? "getInvolved" : null)
-                  }
-                >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
-                    Get Involved
-                    {openMobileSection === "getInvolved" ? (
-                      <ChevronDown className="h-4 w-4 shrink-0" />
-                    ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0" />
-                    )}
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <div className="flex flex-col gap-1 pl-1 pt-1">
-                      {getInvolvedDropdownItems.map((item) => (
-                        <Link
-                          key={item.path}
-                          to={item.path}
-                          className="flex items-start gap-3 rounded-md p-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                          activeProps={{ className: "bg-accent text-primary" }}
-                          onClick={() => setIsOpen(false)}
-                        >
-                          <item.icon className="h-4 w-4 mt-0.5 shrink-0" />
-                          <div className="flex flex-col gap-0.5">
-                            <span>{item.label}</span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
-                <Collapsible
-                  open={openMobileSection === "resources"}
-                  onOpenChange={(open) =>
-                    setOpenMobileSection(open ? "resources" : null)
-                  }
-                >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
-                    Resources
-                    {openMobileSection === "resources" ? (
-                      <ChevronDown className="h-4 w-4 shrink-0" />
-                    ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0" />
-                    )}
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <div className="flex flex-col gap-1 pl-1 pt-1">
-                      {resourcesDropdownItems.map((item) => (
-                        <button
-                          key={item.hash}
-                          type="button"
-                          className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                          onClick={() => {
-                            setIsOpen(false);
-                            handleNavigation(item.path, item.hash);
-                          }}
-                        >
-                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
-                          <div className="flex flex-col gap-0.5">
-                            <span className="font-medium text-foreground">
-                              {item.label}
-                            </span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
-                <Collapsible
-                  open={openMobileSection === "contact"}
-                  onOpenChange={(open) =>
-                    setOpenMobileSection(open ? "contact" : null)
-                  }
-                >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
-                    Contact Us
-                    {openMobileSection === "contact" ? (
-                      <ChevronDown className="h-4 w-4 shrink-0" />
-                    ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0" />
-                    )}
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <div className="flex flex-col gap-1 pl-1 pt-1">
-                      {contactDropdownItems.map((item) => (
-                        <button
-                          key={item.label}
-                          type="button"
-                          className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                          onClick={() => {
-                            setIsOpen(false);
-                            handleNavigation(item.path, item.hash);
-                          }}
-                        >
-                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
-                          <div className="flex flex-col gap-0.5">
-                            <span className="font-medium text-foreground">
-                              {item.label}
-                            </span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
-                <Collapsible
-                  open={openMobileSection === "donate"}
-                  onOpenChange={(open) =>
-                    setOpenMobileSection(open ? "donate" : null)
-                  }
-                >
-                  <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base c2r-card-title hover:bg-accent hover:text-accent-foreground border-t pt-4">
-                    Donate
-                    {openMobileSection === "donate" ? (
-                      <ChevronDown className="h-4 w-4 shrink-0" />
-                    ) : (
-                      <ChevronRight className="h-4 w-4 shrink-0" />
-                    )}
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <div className="flex flex-col gap-1 pl-1 pt-1">
-                      {donateDropdownItems.map((item) => (
-                        <button
-                          key={item.label}
-                          type="button"
-                          className="flex items-start gap-3 rounded-md p-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                          onClick={() => {
-                            setIsOpen(false);
-                            handleNavigation(item.path, item.hash);
-                          }}
-                        >
-                          <item.icon className="h-4 w-4 mt-0.5 shrink-0 text-c2r-accent" />
-                          <div className="flex flex-col gap-0.5">
-                            <span className="font-medium text-foreground">
-                              {item.label}
-                            </span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
-                {hasCourseAccess ? (
-                  <div className="border-t pt-4 flex flex-col gap-1">
-                    <span className="text-base c2r-card-title px-2">
-                      Profile
-                    </span>
-                    <div className="px-3 py-2 text-sm text-muted-foreground">
-                      <p className="font-medium text-foreground">
-                        Resources access
-                      </p>
-                      <p className="text-xs mt-0.5">
-                        Signed in for free courses
-                      </p>
-                    </div>
-                    <Link
-                      to="/resources"
-                      className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <BookOpen className="h-4 w-4 shrink-0" />
-                      Go to Resources
-                    </Link>
-                    <button
-                      type="button"
-                      className="flex items-center gap-3 rounded-md px-3 py-2.5 text-left text-sm font-medium text-destructive transition-colors hover:bg-destructive/10"
-                      onClick={handleCourseLogout}
-                    >
-                      <LogOut className="h-4 w-4 shrink-0" />
-                      Log out
-                    </button>
-                  </div>
-                ) : (
-                  <div className="border-t pt-4 flex flex-col gap-1">
-                    <span className="text-base c2r-card-title px-2">
-                      Login / Sign Up
-                    </span>
-                    {loginDropdownItems.map((item) =>
-                      item.hash ? (
-                        <button
-                          key={item.label}
-                          type="button"
-                          className="flex items-start gap-3 rounded-md px-3 py-2.5 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                          onClick={() => {
-                            setIsOpen(false);
-                            handleNavigation(item.path, item.hash);
-                          }}
-                        >
-                          <item.icon className="h-4 w-4 mt-0.5 shrink-0" />
-                          <div className="flex flex-col gap-0.5">
-                            <span>{item.label}</span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                        </button>
-                      ) : (
-                        <Link
-                          key={item.label}
-                          to={item.path}
-                          className="flex items-start gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          <item.icon className="h-4 w-4 mt-0.5 shrink-0" />
-                          <div className="flex flex-col gap-0.5">
-                            <span>{item.label}</span>
-                            <span className="text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </div>
-                        </Link>
-                      ),
-                    )}
-                  </div>
-                )}
-              </nav>
-            </SheetContent>
-          </Sheet>
+            openSection={openMobileSection}
+            onOpenSectionChange={setOpenMobileSection}
+            sections={mobileNavSections}
+            loginItems={loginDropdownItems}
+            hasCourseAccess={hasCourseAccess}
+            onNavigate={handleNavigation}
+            onCourseLogout={handleCourseLogout}
+          />
         </div>
       </header>
 
@@ -1642,7 +1270,7 @@ export function Layout() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-background text-muted-foreground transition-colors hover:border-c2r-primary/40 hover:text-primary sm:h-10 sm:w-10"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/60 bg-background text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-c2r-primary/40 hover:text-primary hover:shadow-md sm:h-10 sm:w-10"
                   >
                     <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </a>
